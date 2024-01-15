@@ -10,7 +10,7 @@ function Documents() {
 
     const [userDocuments, setUserDocuments] = useState(null); // State to store user documents data
 
-/*     // Function to fetch user documents data
+    // Function to fetch user documents data
     const fetchUserDocuments = async (accessToken) => {
         try {
         const response = await axios.get('http://your-backend-url/get_user_documents', {
@@ -34,7 +34,7 @@ function Documents() {
     useEffect(() => {
         const accessToken = 'yourAccessTokenHere'; // Replace with the actual access token
         fetchUserDocuments(accessToken);
-    }, []); // Run only once on component mount */
+    }, []); // Run only once on component mount
 
 
     const docNotify = () => toast.success('Dosya Başarıyla Yüklendi!', {

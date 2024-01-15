@@ -16,7 +16,7 @@ function Dashboard() {
     const [userPortfolio, setUserPortfolio] = useState(null); // State to store user portfolio data
      const [userPlan, setUserPlan] = useState(null); // State to store user plan data
     
-/*   // Function to fetch user plan data
+  // Function to fetch user plan data
     const fetchUserPlan = async (accessToken) => {
     try {
         const response = await axios.get('http://your-backend-url/get_user_plan', {
@@ -63,10 +63,10 @@ function Dashboard() {
         const accessToken = localStorage.getItem("token"); // Replace with the actual access token
         fetchUserPortfolio(accessToken);
         fetchUserPlan(accessToken);
-    }, []); // Run only once on component mount */
+    }, []); // Run only once on component mount
     
     
-  /*   const [graphData, setGraphData] = useState(null);
+    /* const [graphData, setGraphData] = useState(null);
     
     const reportGraph = [];
 

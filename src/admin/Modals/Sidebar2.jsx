@@ -17,8 +17,13 @@ const Sidebar2 = () => {
             <div className="col-12 mt-0 ms-2 ps-2 text-center">
                              <img className='small-logo' src={logo} alt="" />
                 <ul className='sidebar-ul2'>
+                <li className={splitLocation[1] === "admin/Müşteri-Seç" || !splitLocation[1] ? "side-active sidebar-li2" : "sidebar-li2"}>
+                         <NavLink exact to={"/admin/Müşteri-Seç"} className='sidebar-link' activeClassName="side-active" >
+                              <i class="fa-solid fa-user-tie"></i>
+                         </NavLink>
+                    </li>
                     <li className={splitLocation[1] === "admin/Panel" || !splitLocation[1] ? "side-active sidebar-li2" : "sidebar-li2"}>
-                         <NavLink exact to={"/admin/Panel"} className='sidebar-link' activeClassName="side-active" >
+                         <NavLink exact to={"/admin/Panel"} className='sidebar-link' activeClassName="side" >
                              <i className="fa-solid fa-chart-line"></i>
                          </NavLink>
                     </li>

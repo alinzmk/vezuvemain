@@ -19,6 +19,7 @@ import Task from './Pages/Tasks.jsx';
 import Tutorials from './Pages/Tutorials.jsx';
 
 import AdminLogin from './admin/Pages/Login.jsx';
+import AdminSelect from './admin/Pages/SelectCustomer.jsx';
 import AdminDashboard from './admin/Pages/Dashboard.jsx';
 import AdminProfile from './admin/Pages/Profile.jsx';
 import AdminDocuments from './admin/Pages/Documents.jsx';
@@ -27,6 +28,7 @@ import AdminServices from './admin/Pages/Services.jsx';
 import AdminMarketFinder from './admin/Pages/MarketFinder.jsx';
 import AdminTask from './admin/Pages/Tasks.jsx';
 import AdminTutorials from './admin/Pages/Tutorials.jsx';
+
 
 import Payment from './Payment.jsx';
 import { ToastContainer, toast } from 'react-toastify';
@@ -89,6 +91,10 @@ const router = createHashRouter([
     path: "/admin/",
     element: <AdminLogin/>,
     errorElement: <ErrorPage />
+  },
+  {
+    path: "/admin/Müşteri-Seç",
+    element: <AdminSelect />,
   },
   {
     path: "/admin/Panel",
