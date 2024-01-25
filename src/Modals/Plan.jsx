@@ -1,9 +1,30 @@
 import {React, useRef, useState} from 'react';
 import '../App.css';
 import { Link, NavLink, useHistory, useNavigate} from 'react-router-dom';
+import axios from 'axios';
+import { createPaymentLink } from '../ApiService';
 
 const Plan1 = ({isOpen,onClose,selectedItem, serviceItems }) => {
 
+    const [accessToken, setAccessToken] = useState('your-access-token'); // Replace with actual access token
+    const [productId, setProductId] = useState('your-product-id'); // Replace with actual product ID
+  
+    const handleCreatePaymentLink = async () => {
+      try {
+        const result = await createPaymentLink(accessToken, productId);
+  
+        if (result.status === 200) {
+          console.log('Payment link created successfully:', result.link);
+          // Handle success if needed
+        } else {
+          console.error('Failed to create payment link:', result.message);
+          // Handle failure if needed
+        }
+      } catch (error) {
+        console.error('Error creating payment link:', error);
+        // Handle error
+      }
+    };
 
     if (!selectedItem) return null;
     console.log(selectedItem.img);
@@ -11,9 +32,11 @@ const Plan1 = ({isOpen,onClose,selectedItem, serviceItems }) => {
         if (e.target.classList.contains('overlay')) {
             onClose();
         }
-    };
+    }; if (!isOpen) return null;
 
-    if (!isOpen) return null;
+    const purchaseService = () =>{
+        handleCreatePaymentLink();
+    }
 
     return (
         <div onClick={handleOverlayClick} className="overlay ">
@@ -62,7 +85,7 @@ const Plan1 = ({isOpen,onClose,selectedItem, serviceItems }) => {
                             )}
                         </ul>
 
-                        <button className='satin-al mt-4 d-flex' type="">Satın Al</button>
+                        <button onClick={purchaseService} className='satin-al mt-4 d-flex' type="">Satın Al</button>
 
                         
                         

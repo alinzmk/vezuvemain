@@ -7,6 +7,7 @@ import Sidebar2 from '../Modals/Sidebar2';
 import 'react-whatsapp-widget/dist/index.css';
 import axios from 'axios';
 import Whatsapp from '../Modals/Whatsapp';
+import { getUserData, getUserPlan } from '../ApiService';
 
 
 function Profile() {
@@ -15,98 +16,87 @@ function Profile() {
     const [openModal, setModalOpen] = useState(false);
     const [userData, setUserData] = useState(null);
     const [editable, setEditable] = useState("");
-
-    //------------------------------------------------------------------------------
-
+    const [userPlan, setUserPlan] = useState(null);
     
     //------------------------------------------------------------------------------
     
-    const [column, setColumn] = useState(''); // State to store column value
-    const [newValue, setNewValue] = useState(''); // State to store newValue value
-    const [responseStatus, setResponseStatus] = useState(null); // State to store response status
+    const [column, setColumn] = useState(''); 
+    const [newValue, setNewValue] = useState(''); 
+    const [responseStatus, setResponseStatus] = useState(null); 
   
+    const accessToken = localStorage.getItem("token"); // USER JWT TOKEN
+
     console.log(newValue);
 
-    // Function to send user data to the backend
-    const postUserdata = async () => {
+    // SET PROFILE DATA
+    const handleSetUserData = async () => {
       try {
-        const accessToken = localStorage.getItem("token"); // Replace with the actual access token
-        const response = await axios.post('https://localhost:6161/set_user_data', {
-          column: column,
-          newValue: newValue,
-        }, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`, // Include the JWT token in the header
-          },
-        });
+        const result = await setUserData(accessToken, column, newValue);
   
-        // Assuming the response contains status
-        const status = response.data.status;
-        
-        if(status===200){
-            alert("CALL NOTIFY HERE");
+        if (result.status === 200) {
+          console.log('User data set successfully!');
+        } else {
+          console.error('Failed to set user data.');
         }
-        // Set the response status in the component state
-        setResponseStatus(status);
       } catch (error) {
-        // Handle error here
         console.error('Error setting user data:', error);
-        // Handle error state or notify the user about the error
       }
     };
 
     const updateUserData = (state) =>{
         setColumn(state);
-        postUserdata();
+        handleSetUserData();
         setEditable(null);
     }
     
     //---------------------------------------------------
 
-    // Function to fetch user data
-    const fetchUserData = async (accessToken) => {
-    try {
-        const response = await axios.get('https://localhost:6161/get_user_data', {
-        headers: {
-            Authorization: `Bearer ${accessToken}`, // Include the JWT token in the header
-        },
-        });
+    useEffect(() => {
 
-        // Assuming the response contains userData
-        const userDataResponse = response.data.userData;
-        setUserData(userDataResponse);
+        // GET DATA FROM
+        const getData = async () => {
+            try {
+              const result = await getUserData(accessToken);
+              setUserData(result.userData);
+            } catch (error) {
+            }
+          };
 
-        // Use the userData object or perform further actions
-        console.log('User Data:', userData);
+        getData(accessToken)
+            .then((userData) => {
+                console.log('Fetched user data:', userData);
+            })
+            .catch((error) => {
+                console.error('Error fetching user data:', error);
+            });
 
-        return userData;
-    } 
-    catch (error) {
-        // Handle error here
-        console.error('Error fetching user data:', error);
-        throw error;
-    }
-    };
+        getUserPlan(accessToken)
+            .then((userPlan) => {
+                console.log('Fetched user data:', userPlan);
+            })
+            .catch((error) => {
+                console.error('Error fetching user data:', error);
+            });
 
-    // Usage: Assuming you have the access token stored after successful login
-    const accessToken = localStorage.getItem("token"); // Replace this with the actual access token
-
-    fetchUserData(accessToken)
-    .then((userData) => {
-        // Use the user data or perform further actions
-        console.log('Fetched user data:', userData);
-    })
-    .catch((error) => {
-        // Handle any errors that occurred during data fetching
-        console.error('Error fetching user data:', error);
-    });
+    }, []); // The empty dependency array ensures that it runs only once when the component mounts.
 
 
+    // GET USER PLAN
+    useEffect(() => {
+        const getUserPlan1 = async () => {
+          try {
+            const result = await getUserPlan(accessToken);
+            setUserPlan(result.userPlan);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+    
+        getUserPlan1();
+      }, [accessToken]);
     
   return (
     <>
-
-
 
         {/* <div>
       <input
@@ -124,8 +114,6 @@ function Profile() {
       <button onClick={setUserdata}>Set User Data</button>
       {responseStatus && <p>Status: {responseStatus}</p>}
     </div> */}
-
-
 
 
         <div className="dashboard m-0">

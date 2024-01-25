@@ -1,11 +1,12 @@
 import '../App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import logo from "../Assets/logo-renkli.png"
 import kare from "../Assets/kare-logo.jpg"
 import Sidebar2 from '../Modals/Sidebar2';
 import * as XLSX from "xlsx";
 import Modal from "../Modals/Product-Modal";
-import info from "../Assets/ürün.jpg"
+import info from "../Assets/ürün.jpg";
+import { getUserProducts, addProductToUser, deleteProduct } from '../AdminApiService';
 
 
 function Products() {
@@ -15,12 +16,67 @@ function Products() {
     const [file, setFile] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
 
+    const [accessToken, setAccessToken] = useState('your-access-token'); // Replace with actual access token
+    const [userId, setUserId] = useState(123); // Replace with actual user ID
+    const [customerId, setCustomerId] = useState(456); // Replace with actual customer ID
+    const [productToAdd, setProductToAdd] = useState(['product1', 'product2']); // Replace with actual product array
+    
+    const [productId, setProductId] = useState(789); // Replace with actual product ID
+
+    // ADD PRODUCT
+    const handleAddProductToUser = async () => {
+      try {
+        const result = await addProductToUser(accessToken, userId, productToAdd, customerId);
+
+        if (result.status === 200) {
+          console.log('Product added to user successfully!');
+        } else {
+          console.error('Failed to add product to user.');
+        }
+      } catch (error) {
+        console.error('Error adding product to user:', error);
+      }
+    };
+
+    // DELETE PRODUCT
+    const handleDeleteProduct = async () => {
+      try {
+        const result = await deleteProduct(accessToken, userId, productId, customerId);
+  
+        if (result.status === 200) {
+          console.log('Product deleted successfully!');
+        } else {
+          console.error('Failed to delete product.');
+        }
+      } catch (error) {
+        console.error('Error deleting product:', error);
+      }
+    };
+
+    useEffect(() => {
+        //GET PRODUCTS
+        const fetchData = async () => {
+            try {
+            const result = await getUserProducts(accessToken, userId, customerId);
+            setProducts(result.userProducts);
+            } catch (error) {
+            }
+      };
+
+      fetchData();
+    }, [accessToken, userId, customerId]); 
+
+    const filteredProducts = products.filter((product) =>
+      product.productName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  
+/*     ESKİ FILE YUKLEME
     const handleFileUpload = (event) => {
         const uploadedFile = event.target.files[0];
         setFile(uploadedFile);
-      
+        
         const reader = new FileReader();
-      
+        
         reader.onload = (e) => {
           const data = new Uint8Array(e.target.result);
           const workbook = XLSX.read(data, { type: 'array' });
@@ -46,10 +102,8 @@ function Products() {
         reader.readAsArrayBuffer(uploadedFile);
       };
       
-      const filteredProducts = products.filter((product) =>
-      product.productName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
+      
+ */
   return (
     <>
         <div className="dashboard m-0">
@@ -85,7 +139,7 @@ function Products() {
                                                     <div className="row product-dropdown">
                                                         <div className="col-12 dropdown-item m-0">
                                                             <label  for="file-upload" class=" add-product"><i class="fa-solid fa-plus"></i> Dosya Yüklemek İçin Tıklayınız </label>
-                                                            <input  accept=".xls, .xlsx" id="file-upload" className='d-none' type="file" onChange={handleFileUpload}/>
+                                                            <input  accept=".xls, .xlsx" id="file-upload" className='d-none' type="file" onChange={handleAddProductToUser}/>
                                                         </div>
 
                                                         <hr className='dropdown-divider' />

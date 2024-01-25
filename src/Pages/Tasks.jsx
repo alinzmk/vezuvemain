@@ -25,27 +25,18 @@ const tasksData = [
 
 function Products() {
 
-    
-    const boxShadowColors = [
-        ['#FA58B6'],
-        ['yellow', '#33FF6B', '#336BFF', '#FF6B33', '#6B33FF'],
-        ['#270082', '#33FF6B', '#336BFF', '#FF6B33', '#6B33FF'], 
-    ];
-
     const [userTasks, setUserTasks] = useState(null); // State to store user tasks data
     
-   /*  // Function to fetch user tasks data
+    // Function to fetch user tasks data
     const fetchUserTasks = async (accessToken) => {
         try {
             const response = await axios.get('https://localhost:6161/get_user_tasks', {
             headers: {
                 Authorization: `Bearer ${accessToken}`, // Include the JWT token in the header
             },
-        });
-                                
+        });          
             // Assuming the response contains tasks
             const tasksResponse = response.data.tasks;
-            
             // Set the tasks in the component state
             setUserTasks(tasksResponse);
         } 
@@ -59,14 +50,14 @@ function Products() {
     useEffect(() => {
         const accessToken = localStorage.getItem("token"); // Replace with the actual access token
         fetchUserTasks(accessToken);
-    }, []); // Run only once on component mount */
+    }, []); // Run only once on component mount
 
 
 
 
-    const planTasks = tasksData.filter(task => task.status === 'plan');
-    const processTasks = tasksData.filter(task => task.status === 'process');
-    const finishedTasks = tasksData.filter(task => task.status === 'finished');
+    const planTasks = userTasks.filter(task => task.status === 'plan');
+    const processTasks = userTasks.filter(task => task.status === 'process');
+    const finishedTasks = userTasks.filter(task => task.status === 'finished');
     
   return (
     <>

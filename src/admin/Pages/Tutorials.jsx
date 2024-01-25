@@ -10,10 +10,6 @@ import 'swiper/css/navigation';
 import { Pagination, Navigation } from 'swiper/modules';
 import { EffectCreative } from 'swiper/modules';
 
-import api from '../ApiService.js';
-api();
-
-
 function Tutorials() {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);

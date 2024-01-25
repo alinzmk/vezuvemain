@@ -5,13 +5,20 @@ import '../App.css';
 import logo from "../Assets/logo-renkli.png";
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { getAdminToken } from '../AdminApiService';
+
+
 
 function Login() {
+
+
   localStorage.setItem('id', null);
+
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [accessToken, setAccessToken] = useState(null);
 
   const handleUsername = (event) => {
     setUsername(event.target.value);
@@ -37,38 +44,26 @@ function Login() {
         theme: "colored",
   });
 
-
-/* // Function to handle login and get access token
-const loginUser = async (username, password) => {
   
-  try {
-    const response = await axios.post('https://localhost:6161/user_token', {
-      username: username,
-      password: password
-    });
-    
-    // Assuming the response contains access_token and token_type
-    const { access_token, token_type } = response.data;
-    
-    // You can do something with the token here (e.g., store it in localStorage)
-    console.log('Access Token:', access_token);
-    console.log('Token Type:', token_type);
-    
-    localStorage.setItem("token", access_token);
-    
-    return { access_token, token_type };
-  } catch (error) {
 
-    // Handle error here
-    console.error('Login failed:', error);
-    throw error;
-  }
-}; */
+  
+  // CALL LOGIN FUNCTION
+  const handleLogin = async (username, password) => {
+    try {
+      const result = await getAdminToken(username, password); 
+      setAccessToken(result.access_token);
+      localStorage.setItem(accessToken);
+    } catch (error) {
+      // Handle error
+    }
+  };
 
+  // SUBMIT THE LOGIN FORM
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // CONSTRAINTS
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
     if (!emailRegex.test(username)) {
       alert('Please enter a valid email address');
       return;
@@ -78,23 +73,18 @@ const loginUser = async (username, password) => {
       return;
     }
 
-    /* loginUser(username, password)
+    handleLogin()
       .then((response) => {
-        // Use the access token or perform further actions
         console.log('Login successful!', response);
         notify();
-        navigate("/Panel");
+        navigate("/admin/Panel");
 
       })
       .catch((error) => {
-        // Handle any errors that occurred during the login process
         console.error('Login error:', error);
+        console.log(username+" "+password);
         alert('Invalid email or password');
-      }); */
-
-      notify();
-      navigate("/Panel");
-    
+      });
   };
   
 

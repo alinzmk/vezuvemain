@@ -5,8 +5,10 @@ import '../App.css';
 import logo from "../Assets/logo-renkli.png";
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { loginUser } from '../ApiService';
 
 function Login() {
+
   localStorage.setItem('id', null);
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -38,37 +40,26 @@ function Login() {
   });
 
 
-/* // Function to handle login and get access token
-const loginUser = async (username, password) => {
-  
-  try {
-    const response = await axios.post('https://localhost:6161/user_token', {
-      username: username,
-      password: password
-    });
-    
-    // Assuming the response contains access_token and token_type
-    const { access_token, token_type } = response.data;
-    
-    // You can do something with the token here (e.g., store it in localStorage)
-    console.log('Access Token:', access_token);
-    console.log('Token Type:', token_type);
-    
-    localStorage.setItem("token", access_token);
-    
-    return { access_token, token_type };
-  } catch (error) {
+  const handleLogin = async () => {
+    try {
+      const result = await loginUser(username, password);
 
-    // Handle error here
-    console.error('Login failed:', error);
-    throw error;
-  }
-}; */
+      if (result.access_token) {
+        console.log('Login successful!', result);
+      } else {
+        console.error('Login failed:', result);
+      }
+    } catch (error) {
+      console.error('Error logging in user:', error);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
 
+    //GEREKLİ USERNAME PASSWORD CONSTRAINTS
     if (!emailRegex.test(username)) {
       alert('Please enter a valid email address');
       return;
@@ -77,8 +68,9 @@ const loginUser = async (username, password) => {
       alert('Password should be at least 8 characters long');
       return;
     }
+    
 
-    /* loginUser(username, password)
+    handleLogin(username, password)
       .then((response) => {
         // Use the access token or perform further actions
         console.log('Login successful!', response);
@@ -90,11 +82,8 @@ const loginUser = async (username, password) => {
         // Handle any errors that occurred during the login process
         console.error('Login error:', error);
         alert('Invalid email or password');
-      }); */
-
-      notify();
-      navigate("/Panel");
-    
+        console.log(username+" "+password);
+      });
   };
   
 

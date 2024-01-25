@@ -93,7 +93,7 @@ const router = createHashRouter([
     errorElement: <ErrorPage />
   },
   {
-    path: "/admin/Müşteri-Seç",
+    path: "/admin/MusteriSec",
     element: <AdminSelect />,
   },
   {

@@ -9,61 +9,40 @@ import { useState } from 'react';
 import { UserData } from '../Assets/Mockdata';
 import Sidebar2 from '../Modals/Sidebar2';
 import axios from 'axios';
+import { getUserPortfolio, getUserPlan } from '../ApiService';
 
 
 function Dashboard() {
 
-    const [userPortfolio, setUserPortfolio] = useState(null); // State to store user portfolio data
-     const [userPlan, setUserPlan] = useState(null); // State to store user plan data
-    
-  // Function to fetch user plan data
-    const fetchUserPlan = async (accessToken) => {
-    try {
-        const response = await axios.get('http://your-backend-url/get_user_plan', {
-            headers: {
-                Authorization: `Bearer ${accessToken}`, // Include the JWT token in the header
-        },
-    });
-    
-    // Assuming the response contains userPlan
-    const userPlanResponse = response.data.userPlan;
-    
-    // Set the userPlan in the component state
-    setUserPlan(userPlanResponse);
-} catch (error) {
-      // Handle error here
-      console.error('Error fetching user plan:', error);
-      // Handle error state or notify the user about the error
-    }
-  };
-  
-  // Function to fetch user portfolio data
-  const fetchUserPortfolio = async (accessToken) => {
-      try {
-            const response = await axios.get('https://localhost:6161/get_user_portfolio', {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`, // Include the JWT token in the header
-                },
-            });
+    const [accessToken, setAccessToken] = useState('your-access-token'); // Replace with actual access token
+    const [userPortfolio, setUserPortfolio] = useState(null);
+    const [userPlan, setUserPlan] = useState(null);
 
-            // Assuming the response contains userPortfolio
-            const userPortfolioResponse = response.data.userPortfolio;
-
-            // Set the userPortfolio in the component state
-            setUserPortfolio(userPortfolioResponse);
-        } 
-        catch (error) {
-            // Handle error here
-            console.error('Error fetching user portfolio:', error);
-            // Handle error state or notify the user about the error
-        }
-    };
-    
     useEffect(() => {
-        const accessToken = localStorage.getItem("token"); // Replace with the actual access token
-        fetchUserPortfolio(accessToken);
-        fetchUserPlan(accessToken);
-    }, []); // Run only once on component mount
+        const fetchData = async () => {
+        try {
+            const result = await getUserPortfolio(accessToken);
+            setUserPortfolio(result.userPortfolio);
+        } catch (error) {
+            // Handle error
+        }
+        };
+
+        fetchData();
+    }, [accessToken]); // Add accessToken to dependencies if you want to refetch data when it changes
+
+    useEffect(() => {
+        const getUserPlan1 = async () => {
+        try {
+            const result = await getUserPlan(accessToken);
+            setUserPlan(result.userPlan);
+        } catch (error) {
+            console.log(error);
+        }
+        };
+
+        getUserPlan1();
+    }, [accessToken]);
     
     
     /* const [graphData, setGraphData] = useState(null);

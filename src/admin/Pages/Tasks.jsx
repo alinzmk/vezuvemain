@@ -4,69 +4,76 @@ import logo from "../Assets/logo-renkli.png"
 import Sidebar2 from '../Modals/Sidebar2';
 import { useEffect } from 'react';
 import axios from 'axios';
-
-const tasksData = [
-    { status: "process", taskName: "Fba depolarına gönderim", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus debitis "},
-    { status: "process", taskName: "Lojistik Firmasını belirlemek", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus debitis "},
-    { status: "process", taskName: "Giveaway çalışması", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus debitis "},
-    { status: "process", taskName: "Kupon ve indirimler", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus debitis "},
-    { status: "plan", taskName: "Amazon PPC Reklamları", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus debitis "},
-    { status: "plan", taskName: "Amazon Marka Kaydı", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus debitis "},
-    { status: "plan", taskName: "A+ Content ", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus debitis "},
-    { status: "plan", taskName: "Amazon Store Tasarımı", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus debitis "},
-    { status: "plan", taskName: "Request Review", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus debitis "},
-    { status: "plan", taskName: "Stok Yenileme", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus debitis "},
-    { status: "plan", taskName: "Ürün Listeleme", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus debitis "},
-    { status: "plan", taskName: "Gümrük Kaydı ve Gümrük Müşaviri", description: ""},
-    { status: "plan", taskName: "Gs1 Barkodlarının Alınması", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus debitis "},
-    { status: "finished", taskName: "Amazon Mağaza Açılışı", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus debitis "},
-    { status: "finished", taskName: "Amazon Pazar Araştırması", description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto repellendus debitis "},
-  ]; 
+import { getUserTasks, setUserTasks, createUserTask } from '../AdminApiService';
 
 function Products() {
 
-    
-    const boxShadowColors = [
-        ['#FA58B6'],
-        ['yellow', '#33FF6B', '#336BFF', '#FF6B33', '#6B33FF'],
-        ['#270082', '#33FF6B', '#336BFF', '#FF6B33', '#6B33FF'], 
-    ];
+    const [userTasks, setTasks] = useState(null); // State to store user tasks data
+    const [newTaskValue, setNewTaskValue] = useState('');
+    const accessToken = localStorage.getItem("token"); // Replace with the actual access token
+    const [userId, setUserId] = useState(123); // Replace with actual user ID
+    const [customerId, setCustomerId] = useState(456); // Replace with actual customer ID
+    const [column, setColumn] = useState('your-column'); // Replace with actual column
+    const [newValue, setNewValue] = useState('your-new-value'); // Replace with actual new value
+    const [taskName, setTaskName] = useState('your-task-name'); // Replace with actual task name
 
-    const [userTasks, setUserTasks] = useState(null); // State to store user tasks data
     
-   /*  // Function to fetch user tasks data
-    const fetchUserTasks = async (accessToken) => {
-        try {
-            const response = await axios.get('https://localhost:6161/get_user_tasks', {
-            headers: {
-                Authorization: `Bearer ${accessToken}`, // Include the JWT token in the header
-            },
-        });
-                                
-            // Assuming the response contains tasks
-            const tasksResponse = response.data.tasks;
-            
-            // Set the tasks in the component state
-            setUserTasks(tasksResponse);
-        } 
-        catch (error) {
-            // Handle error here
-            console.error('Error fetching user tasks:', error);
-            // Handle error state or notify the user about the error
+    // ADD TASK
+    const handleCreateUserTask = async () => {
+      try {
+        const result = await createUserTask(accessToken, customerId, taskName);
+  
+        if (result.status === 200) {
+          console.log('User task created successfully!');
+        } else {
+          console.error('Failed to create user task.');
         }
+      } catch (error) {
+        console.error('Error creating user task:', error);
+        throw error;
+      }
     };
 
+    const handleInputChange = (event) => {
+        setNewTaskValue(event.target.value);
+    };
+
+
+   // SET TASK
+   const handleSetUserTasks = async () => {
+     try {
+       const result = await setUserTasks(accessToken, userId, column, newValue, customerId);
+ 
+       if (result.status === 200) {
+         console.log('User tasks set successfully!');
+       } else {
+         console.error('Failed to set user tasks.');
+       }
+     } catch (error) {
+         console.error('Error setting user tasks:', error);
+        throw error;
+
+     }
+   };
+
     useEffect(() => {
-        const accessToken = localStorage.getItem("token"); // Replace with the actual access token
-        fetchUserTasks(accessToken);
-    }, []); // Run only once on component mount */
+       //GET TASKS
+        const getUserTask = async () => {
+            try {
+            const result = await getUserTasks(accessToken, userId, customerId);
+            setUserTasks(result.tasks);
+            } catch (error) {
+                throw error;
+            }
+        };
 
+        getUserTask();
+    }, [accessToken, userId, customerId]); // Add accessToken, userId, and customerId to dependencies if you want to refetch data when they change
+  
 
-
-
-    const planTasks = tasksData.filter(task => task.status === 'plan');
+/*     const planTasks = tasksData.filter(task => task.status === 'plan');
     const processTasks = tasksData.filter(task => task.status === 'process');
-    const finishedTasks = tasksData.filter(task => task.status === 'finished');
+    const finishedTasks = tasksData.filter(task => task.status === 'finished'); */
     
   return (
     <>
@@ -83,23 +90,36 @@ function Products() {
                                 <img src={logo} className='sidebar-logo' alt="" />
                             </div>
                             <div className="row slideleft task-wrapper">
+                                <div className="task-add">
+                                <form onSubmit={handleCreateUserTask}>
+                                    <div className="col-8 p-0">
+                                        <label>
+                                                <p className='me-3'>
+                                                    Eklemek İstediğiniz Taskı Giriniz:
+                                                </p>
+                                                <input type="text" className='product-input me-3' value={newTaskValue} onChange={handleInputChange} placeholder='Taskı Giriniz'></input>
+                                        </label>
+                                        <button type="submit" className='buton2'>Submit</button>
+                                    </div>
+                                </form>
+                                </div>
                                 <div className="col-4 pe-3 ps-0 ms-0">
                                     <div className="task-seperator pbg ps-3 pe-3">
                                         <h5 className='task-status'><i class="fa-solid fa-list-check ms-2 my-auto"></i> Planlandı</h5>
                                         <ul id="plan" className="task-ul">
-                                            {planTasks.map((task, index) => (
+                                            {userTasks.planTasks.map((task, index) => (
                                                 <li className="task-li" key={index} style={{ boxShadow: `0px 0px 5px 1px #FA58B6`}}>
                                                     <p className='task-title' >{task.taskName}</p>
-                                                        <div className='task-icon-admin dropdown'>                
-                                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="fa-solid fa-list-check my-auto"></i>
-                                                                </button>
-                                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                                    <li><a class="dropdown-item" href="#">Plan</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Process</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Finished</a></li>
-                                                                </ul>
-                                                        </div>
+                                                    <div className='task-icon-admin dropdown'>                
+                                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa-solid fa-list-check my-auto"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                                <li><a class="dropdown-item" href="#">Plan</a></li>
+                                                                <li><a class="dropdown-item" href="#">Process</a></li>
+                                                                <li><a class="dropdown-item" href="#">Finished</a></li>
+                                                            </ul>
+                                                    </div>
                                                 </li>
                                             ))}
                                         </ul>
@@ -109,7 +129,7 @@ function Products() {
                                     <div className="task-seperator pbg ps-3 pe-3">
                                         <h5 className='task-status'><i class="fa-regular fa-clock ms-2 my-auto"></i> Süreç İşliyor</h5>
                                         <ul id="process" className="task-ul">
-                                            {processTasks.map((task, index) => (
+                                            {userTasks.processTasks.map((task, index) => (
                                                 <li className="task-li" key={index} style={{ boxShadow: `0 0 5px 1px yellow`}}>
                                                     <p className='task-title' >{task.taskName}</p>
                                                         <div className='task-icon-admin dropdown'>                
@@ -131,7 +151,7 @@ function Products() {
                                     <div className="task-seperator pbg ps-3 pe-3">
                                         <h5 className='task-status'><i class="fa-solid fa-check-double ms-2 my-auto"></i> Tamamlandı</h5>
                                         <ul id="finished" className="task-ul">
-                                            {finishedTasks.map((task, index) => (
+                                            {userTasks.finishedTasks.map((task, index) => (
                                                 <li className="task-li" key={index } style={{ boxShadow: `0 0 5px 1px #270082`}}>
                                                     <p className='task-title' >{task.taskName}</p>
                                                         <div className='task-icon-admin dropdown'>                

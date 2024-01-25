@@ -4,103 +4,96 @@ import logo from "../Assets/logo-renkli.png"
 import { useNavigate } from 'react-router-dom';
 import Plan from '../Modals/Plan';
 import Sidebar2 from '../Modals/Sidebar2';
-import { WhatsAppWidget } from 'react-whatsapp-widget';
-import 'react-whatsapp-widget/dist/index.css';
 import axios from 'axios';
+import { getAllUserData, setUserData, getUserPlan } from '../AdminApiService';
 
 function Profile() {
 
     const navigate = useNavigate();
     const [openModal, setModalOpen] = useState(false);
-    const [userData, setUserData] = useState(null);
+    const [userData, setUserData1] = useState(null);
     const [editable, setEditable] = useState("");
-
-    //------------------------------------------------------------------------------
-
-    
-    //------------------------------------------------------------------------------
     
     const [column, setColumn] = useState(''); // State to store column value
     const [newValue, setNewValue] = useState(''); // State to store newValue value
     const [responseStatus, setResponseStatus] = useState(null); // State to store response status
-  
-    console.log(newValue);
+    const accessToken = localStorage.getItem("token");
 
-    // Function to send user data to the backend
-    const postUserdata = async () => {
-      try {
-        const accessToken = localStorage.getItem("token"); // Replace with the actual access token
-        const response = await axios.post('https://localhost:6161/set_user_data', {
-          column: column,
-          newValue: newValue,
-        }, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`, // Include the JWT token in the header
-          },
-        });
-  
-        // Assuming the response contains status
-        const status = response.data.status;
-        
-        if(status===200){
-            alert("CALL NOTIFY HERE");
-        }
-        // Set the response status in the component state
-        setResponseStatus(status);
-      } catch (error) {
-        // Handle error here
-        console.error('Error setting user data:', error);
-        // Handle error state or notify the user about the error
-      }
-    };
 
-    const updateUserData = (state) =>{
-        setColumn(state);
-        postUserdata();
-        setEditable(null);
-    }
+    const [userId, setUserId] = useState(123); // Replace with actual user ID
+    const [customerId, setCustomerId] = useState(456); // Replace with actual customer ID
+    const [userPlan, setUserPlan] = useState(null);
+    //------------------------------------------------------------------------------
+
+
+    //------------------------------------------------------------------------------
+
+
+    // SET PROFILE DATA
+    const handleSetUserData = async (column, newValue, userId, customerId) => {
+        try {
+          const result = await setUserData(accessToken, column, newValue, userId, customerId);
     
+          if (result.status === 200) {
+            console.log('User data set successfully!');
+            // Handle success if needed
+          } else {
+            console.error('Failed to set user data.');
+            // Handle failure if needed
+          }
+        } catch (error) {
+          console.error('Error setting user data:', error);
+          // Handle error
+        }
+      };
+
+ 
     //---------------------------------------------------
 
-    // Function to fetch user data
-    const fetchUserData = async (accessToken) => {
-    try {
-        const response = await axios.get('https://localhost:6161/get_user_data', {
-        headers: {
-            Authorization: `Bearer ${accessToken}`, // Include the JWT token in the header
-        },
+    // GET USER DATA
+    const fetchUserData = async () => {
+        try {
+          const result = await getAllUserData(accessToken);
+          console.log(result)
+        } catch (error) {
+            throw error;
+        }
+      };
+
+    // GET USER PLAN
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const result = await getUserPlan(accessToken, userId, customerId);
+          setUserPlan(result.userPlan);
+        } catch (error) {
+            throw error;
+        }
+      };
+  
+      fetchData();
+    }, [accessToken, userId, customerId]); // Add accessToken, userId, and customerId to dependencies if you want to refetch data when they change
+  
+
+    useEffect(() => {
+        
+        fetchUserData(accessToken)
+        .then((userData) => {
+            // Use the user data or perform further actions
+            console.log('Fetched user data:', userData);
+        })
+        .catch((error) => {
+            // Handle any errors that occurred during data fetching
+            console.error('Error fetching user data:', error);
         });
 
-        // Assuming the response contains userData
-        const userDataResponse = response.data.userData;
-        setUserData(userDataResponse);
+      }, []); 
 
-        // Use the userData object or perform further actions
-        console.log('User Data:', userData);
-
-        return userData;
-    } 
-    catch (error) {
-        // Handle error here
-        console.error('Error fetching user data:', error);
-        throw error;
+    const handleUpdateUserData = (state) =>{
+        setColumn(state);
+        handleSetUserData();
+        setEditable(null);
     }
-    };
-
-    // Usage: Assuming you have the access token stored after successful login
-    const accessToken = localStorage.getItem("token"); // Replace this with the actual access token
-
-    fetchUserData(accessToken)
-    .then((userData) => {
-        // Use the user data or perform further actions
-        console.log('Fetched user data:', userData);
-    })
-    .catch((error) => {
-        // Handle any errors that occurred during data fetching
-        console.error('Error fetching user data:', error);
-    });
-
-
     
   return (
     <>
@@ -160,22 +153,26 @@ function Profile() {
                         </div>
                         <form>
                         <div className="col-12 slideleft">
-                        <WhatsAppWidget 
-                                        companyName="Vezüve Destek Hattı"
-                                        phoneNumber="+905377638075"
-                                        message="Merhabalar, yardım almak istiyorum."
-                                        textReplyTime=""
-                                        inputPlaceHolder="Mesajınızı giriniz."
-
-                                    />
                             <div className="row mb-3">
                                 <div className="col-4 ps-0 pe-3">
                                     <div className="pbg">
                                         <p className='profile-title'>Hesap Adı</p>
-                                        {userData ? (
-                                            <h6 className='profile-info'>{userData.accountName}</h6>
+                                        {editable === "accountName" ? (
+                                            <div className="d-flex align-items-center">
+                                                <input type='text' className='profile-input' placeholder="Hesap Adınız" onChange={(e) => setNewValue(e.target.value)}></input>
+                                                <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleUpdateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
+                                            </div>
+                                        ):(
+                                            userData ? (
+                                                <h6 className='profile-info'>{userData.accountName}</h6>
                                             ) : (
-                                            <h6 className='profile-info'>No data</h6>
+                                                <div className="d-flex align-items-center">
+                                                        <h6 className='profile-info'>No data</h6>
+                                                        <button className="profile-button ms-auto trans me-3 my-2" onClick={() => setEditable("accountName")}>
+                                                            <i className="fa-solid fa-pen-to-square"></i>
+                                                        </button>
+                                                    </div>
+                                            )
                                         )}
 
                                     </div>
@@ -183,11 +180,24 @@ function Profile() {
                                 <div className="col-4 ps-0 pe-3">
                                     <div className="pbg">
                                         <p className='profile-title'>E-mail</p>
-                                        {userData ? (
-                                            <h6 className='profile-info'>{userData.mail}</h6>
+                                        {editable === "mail" ? (
+                                            <div className="d-flex align-items-center">
+                                                <input type='text' className='profile-input' placeholder="Mailiniz" onChange={(e) => setNewValue(e.target.value)}></input>
+                                                <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleUpdateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
+                                            </div>
+                                        ):(
+                                            userData ? (
+                                                <h6 className='profile-info'>{userData.mail}</h6>
                                             ) : (
-                                            <h6 className='profile-info'>No data </h6>
+                                                <div className="d-flex align-items-center">
+                                                        <h6 className='profile-info'>No data</h6>
+                                                        <button className="profile-button ms-auto trans me-3 my-2" onClick={() => setEditable("mail")}>
+                                                            <i className="fa-solid fa-pen-to-square"></i>
+                                                        </button>
+                                                    </div>
+                                            )
                                         )}
+                                        
 
                                     </div>
                                 </div>
@@ -197,14 +207,22 @@ function Profile() {
                                         <p className='profile-title'>Telefon</p>
                                         {editable==="phone" ? (
                                                 // Content to display when editable is true (empty in this case)
-                                                <input type='text' className='profile-input' placeholder="Telefonunuz" ></input>
+                                                <div className="d-flex align-items-center">
+                                                    <input type='text' className='profile-input' placeholder="Telefonunuz" onChange={(e) => setNewValue(e.target.value)}></input>
+                                                    <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleUpdateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
+                                                </div>
                                             ) : (
                                                 userData ? (
                                                     // Display user address if userData exists
                                                     <h6 className='profile-info'>{userData.phoneNumber}</h6>
                                                 ) : (
                                                     // Display an empty h6 element if userData doesn't exist
-                                                    <h6 className='profile-info'>No data </h6>
+                                                    <div className="d-flex align-items-center">
+                                                        <h6 className='profile-info'>No data</h6>
+                                                        <button className="profile-button ms-auto trans me-3 my-2" onClick={() => setEditable("phone")}>
+                                                            <i className="fa-solid fa-pen-to-square"></i>
+                                                        </button>
+                                                    </div>
                                                 )
                                         )}
                                         
@@ -219,7 +237,7 @@ function Profile() {
                                                 // Content to display when editable is true (empty in this case)
                                                 <div className="d-flex align-items-center">
                                                     <input type='text' className='profile-input' placeholder="Şirket Ünvanınız" onChange={(e) => setNewValue(e.target.value)}></input>
-                                                    <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>updateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
+                                                    <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleUpdateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
                                                 </div>
                                             ) : (
                                                 userData ? (
@@ -245,7 +263,7 @@ function Profile() {
                                                 // Content to display when editable is true (empty in this case)
                                                 <div className="d-flex align-items-center">
                                                     <input type='text' className='profile-input' placeholder="Vergi Daireniz" onChange={(e) => setNewValue(e.target.value)}></input>
-                                                    <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>updateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
+                                                    <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleUpdateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
                                                 </div>
                                             ) : (
                                                 userData ? (
@@ -283,7 +301,7 @@ function Profile() {
                                                 // Content to display when editable is true (empty in this case)
                                                 <div className="d-flex align-items-center">
                                                     <input type='text' className='profile-input' placeholder="Şehriniz" onChange={(e) => setNewValue(e.target.value)}></input>
-                                                    <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>updateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
+                                                    <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleUpdateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
                                                 </div>
                                             ) : (
                                                 userData ? (
@@ -309,14 +327,14 @@ function Profile() {
                                                 // Content to display when editable is true (empty in this case)
                                                 <div className="d-flex align-items-center">
                                                     <input type='text' className='profile-input' placeholder="Adresiniz" onChange={(e) => setNewValue(e.target.value)} ></input>
-                                                    <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>updateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
+                                                    <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleUpdateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
                                                 </div>
                                             ) : (
                                                 userData ? (
                                                     // Display user address if userData exists
                                                     <>
                                                         <h6 className='profile-info'>{userData.address}</h6>
-                                                        <button class="buton2 ms-2 mt-2 trans" onClick={()=>updateUserData(true)} ><i class="fa-solid fa-pen-to-square"></i> </button>
+                                                        <button class="buton2 ms-2 mt-2 trans" onClick={()=>handleUpdateUserData(true)} ><i class="fa-solid fa-pen-to-square"></i> </button>
                                                     </>
                                                 ) : (
                                                     // Display an empty h6 element if userData doesn't exist

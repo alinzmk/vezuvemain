@@ -1,40 +1,67 @@
 import '../App.css';
 import logo from "../Assets/logo-renkli.png"
 import { useState, useRef, useEffect } from 'react';
-import { updateUserData, UserData } from '../Assets/Mockdata';
 import { toast } from 'react-toastify';
 import Sidebar2 from '../Modals/Sidebar2';
 import axios from 'axios';
+import { getUserDocuments, uploadDocument, downloadDocument } from '../ApiService';
 
 function Documents() {
 
-    const [userDocuments, setUserDocuments] = useState(null); // State to store user documents data
+    const [userDocuments, setUserDocuments] = useState(null);
+    const accessToken = localStorage.getItem("token");
+    const [fileName, setFileName] = useState('your-file-name'); // Replace with actual file name
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [userId, setUserId] = useState(null);
 
-    // Function to fetch user documents data
-    const fetchUserDocuments = async (accessToken) => {
+    
+    // DOWNLOAD DOCUMENT
+    const handleDownloadDocument = async () => {
         try {
-        const response = await axios.get('http://your-backend-url/get_user_documents', {
-            headers: {
-            Authorization: `Bearer ${accessToken}`, // Include the JWT token in the header
-            },
-        });
-
-        // Assuming the response contains userDocuments
-        const userDocumentsResponse = response.data.userDocuments;
-
-        // Set the userDocuments in the component state
-        setUserDocuments(userDocumentsResponse);
+          const result = await downloadDocument(accessToken, fileName, userId);
+    
+          if (result.status === 200) {
+            console.log('Document download successful!');
+            // Handle success if needed
+          } else {
+            console.error('Failed to download document.');
+            // Handle failure if needed
+          }
         } catch (error) {
-        // Handle error here
-        console.error('Error fetching user documents:', error);
-        // Handle error state or notify the user about the error
+          console.error('Error downloading document:', error);
+          // Handle error
         }
+      };
+
+    // UPLOAD DOCUMENT
+    const handleUploadDocument = async () => {
+      try {
+        const result = await uploadDocument(accessToken, fileName, selectedFile);
+  
+        if (result.status === 200) {
+          console.log('Document uploaded successfully!');
+        } else {
+          console.error('Failed to upload document.');
+        }
+      } catch (error) {
+        console.error('Error uploading document:', error);
+      }
     };
 
     useEffect(() => {
-        const accessToken = 'yourAccessTokenHere'; // Replace with the actual access token
-        fetchUserDocuments(accessToken);
-    }, []); // Run only once on component mount
+
+        // GET DOCUMENT DATA
+        const getDocumentData = async () => {
+            try {
+                const result = await getUserDocuments(accessToken);
+                setUserDocuments(result.userDocuments);
+            } catch (error) {
+            }
+        };
+
+      getDocumentData();
+    }, [accessToken]); // Add accessToken to dependencies if you want to refetch data when it changes
+  
 
 
     const docNotify = () => toast.success('Dosya Başarıyla Yüklendi!', {
@@ -48,16 +75,8 @@ function Documents() {
         theme: "colored",
         });
 
+
     //ALT TARAF ESKİ KODDAN KALMADIR DENENECEKTİR
-        
-    var bankInfo = localStorage.getItem("bankInfo");
-    var identityDocument = localStorage.getItem("identityDocument");
-    var activityDocument = localStorage.getItem("activityDocument");
-    var englandCertificate = localStorage.getItem("englandCertificate");
-    var taxPlate = localStorage.getItem("taxPlate");
-    var billInfo = localStorage.getItem("billInfo");
-
-
     const fileInputRef = useRef(null);
     const [file, setFile] = useState(null);
     const [docInfo, setDocInfo] = useState(null);
@@ -76,7 +95,8 @@ function Documents() {
   const handleFileChange = (infoClass) => (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
-    setDocInfo(infoClass)
+    setDocInfo(infoClass);
+    handleUploadDocument();
   };
 
   const handleSubmit = (e) => {
@@ -128,7 +148,7 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {bankInfo === "false" ? (
+                                        {userDocuments.bankInfo === "false" ? (
                                             <form onSubmit={(e) => handleSubmit(e, "bankInfo")}>
                                                 <label htmlFor="bankInfo-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
                                                 <input  id="bankInfo-file-upload" className='d-none' type="file" onChange={handleFileChange("bankInfo")} ref={fileInputRef} />
@@ -162,7 +182,7 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                         {identityDocument === "false" ? (
+                                         {userDocuments.identityDocument === "false" ? (
                                                  <form onSubmit={(e) => handleSubmit(e, "identityDocument")}>
                                                 <label htmlFor="identityDocument-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
                                                 <input  id="identityDocument-file-upload" className='d-none' type="file" onChange={handleFileChange("identityDocument")} ref={fileInputRef} />
@@ -196,7 +216,7 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {activityDocument === "false" ? (
+                                        {userDocuments.activityDocument === "false" ? (
                                                 <form onSubmit={(e) => handleSubmit(e, "activityDocument")}>
                                                 <label for="activityDocument-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
                                                 <input  id="activityDocument-file-upload" className='d-none' type="file" onChange={handleFileChange("activityDocument")} ref={fileInputRef} />
@@ -230,7 +250,7 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {englandCertificate === "false" ? (
+                                        {userDocuments.englandCertificate === "false" ? (
                                                 <form onSubmit={(e) => handleSubmit(e, "englandCertificate")}>
                                                 <label for="englandCertificate-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
                                                 <input  id="englandCertificate-file-upload" className='d-none' type="file" onChange={handleFileChange("englandCertificate")} ref={fileInputRef} />
@@ -264,7 +284,7 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {taxPlate === "false" ? (
+                                        {userDocuments.taxPlate === "false" ? (
                                                 <form onSubmit={(e) => handleSubmit(e, "taxPlate")}>
                                                 <label for="taxPlate-file-upload" class="buton4">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
                                                 <input  id="taxPlate-file-upload" className='d-none' type="file" onChange={handleFileChange("taxPlate")} ref={fileInputRef} />
@@ -299,7 +319,7 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {billInfo === "false" ? (
+                                        {userDocuments.billInfo === "false" ? (
                                                 <form onSubmit={(e) => handleSubmit(e, "billInfo")}>
                                                 <label for="billInfo-file-upload" class="buton4">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
                                                 <input  id="billInfo-file-upload" className='d-none' type="file" onChange={handleFileChange("billInfo")} ref={fileInputRef} />

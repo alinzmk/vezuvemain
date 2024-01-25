@@ -1,21 +1,60 @@
 import '../App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import logo from "../Assets/logo-renkli.png"
 import kare from "../Assets/kare-logo.jpg"
 import Sidebar2 from '../Modals/Sidebar2';
 import * as XLSX from "xlsx";
 import Modal from "../Modals/Product-Modal";
-import info from "../Assets/ürün.jpg"
+import info from "../Assets/ürün.jpg";
+import { getUserProducts, addProductToUser } from '../ApiService';
 
 
 function Products() {
 
     const [products, setProducts] = useState([]);
+    const [productsToAdd, setProductsToAdd] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [file, setFile] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
 
-    const handleFileUpload = (event) => {
+    const accessToken = localStorage.getItem("token");
+
+    const handleAddProductToUser = async () => {
+        try {
+          const result = await addProductToUser(accessToken, productsToAdd);
+    
+          if (result.status === 200) {
+            console.log('Product added to user successfully!');
+            // Handle success if needed
+          } else {
+            console.error('Failed to add product to user.');
+            // Handle failure if needed
+          }
+        } catch (error) {
+          console.error('Error adding product to user:', error);
+          // Handle error
+        }
+      };
+
+    useEffect(() => {
+        //GET PRODUCTS
+        const getProducts1 = async () => {
+        try {
+          const result = await getUserProducts(accessToken);
+          setProducts(result.userProducts);
+        } catch (error) {
+        }
+      };
+  
+      getProducts1();
+
+    }, [accessToken]); // Add accessToken to dependencies if you want to refetch data when it changes
+  
+    const filteredProducts = products.filter((product) =>
+    product.productName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+   /*  const handleFileUpload = (event) => {
         const uploadedFile = event.target.files[0];
         setFile(uploadedFile);
       
@@ -44,11 +83,9 @@ function Products() {
         };
       
         reader.readAsArrayBuffer(uploadedFile);
-      };
+      }; */
       
-      const filteredProducts = products.filter((product) =>
-      product.productName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+      
 
   return (
     <>
@@ -85,7 +122,7 @@ function Products() {
                                                     <div className="row product-dropdown">
                                                         <div className="col-12 dropdown-item m-0">
                                                             <label  for="file-upload" class=" add-product"><i class="fa-solid fa-plus"></i> Dosya Yüklemek İçin Tıklayınız </label>
-                                                            <input  accept=".xls, .xlsx" id="file-upload" className='d-none' type="file" onChange={handleFileUpload}/>
+                                                            <input  accept=".xls, .xlsx" id="file-upload" className='d-none' type="file" onChange={handleAddProductToUser}/>
                                                         </div>
 
                                                         <hr className='dropdown-divider' />

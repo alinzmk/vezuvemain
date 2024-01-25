@@ -5,37 +5,24 @@ import { updateUserData, UserData } from '../Assets/Mockdata';
 import { toast } from 'react-toastify';
 import Sidebar2 from '../Modals/Sidebar2';
 import axios from 'axios';
+import { getUserDocuments, uploadUserDocument, setUserDocuments, downloadDocument } from '../AdminApiService';
 
 function Documents() {
 
-    const [userDocuments, setUserDocuments] = useState(null); // State to store user documents data
+    const [userDocuments, setDocument] = useState(null); // State to store user documents data
+    const [accessToken, setAccessToken] = useState('your-access-token'); // Replace with actual access token
+    const [userId, setUserId] = useState(123); // Replace with actual user ID
+    const [customerId, setCustomerId] = useState(456); // Replace with actual customer ID
+    const fileInputRef = useRef(null);
+    const [file, setFile] = useState(null);
+    const [docInfo, setDocInfo] = useState(null);
+    const [fileName, setFileName] = useState('your-file-name'); // Replace with actual file name
 
-/*     // Function to fetch user documents data
-    const fetchUserDocuments = async (accessToken) => {
-        try {
-        const response = await axios.get('http://your-backend-url/get_user_documents', {
-            headers: {
-            Authorization: `Bearer ${accessToken}`, // Include the JWT token in the header
-            },
-        });
 
-        // Assuming the response contains userDocuments
-        const userDocumentsResponse = response.data.userDocuments;
-
-        // Set the userDocuments in the component state
-        setUserDocuments(userDocumentsResponse);
-        } catch (error) {
-        // Handle error here
-        console.error('Error fetching user documents:', error);
-        // Handle error state or notify the user about the error
+    const [seed, setSeed] = useState(1);
+       const reset = () => {
+            setSeed(Math.random());
         }
-    };
-
-    useEffect(() => {
-        const accessToken = 'yourAccessTokenHere'; // Replace with the actual access token
-        fetchUserDocuments(accessToken);
-    }, []); // Run only once on component mount */
-
 
     const docNotify = () => toast.success('Dosya Başarıyla Yüklendi!', {
         position: "bottom-center",
@@ -48,24 +35,70 @@ function Documents() {
         theme: "colored",
         });
 
-    //ALT TARAF ESKİ KODDAN KALMADIR DENENECEKTİR
-        
-    var bankInfo = localStorage.getItem("bankInfo");
-    var identityDocument = localStorage.getItem("identityDocument");
-    var activityDocument = localStorage.getItem("activityDocument");
-    var englandCertificate = localStorage.getItem("englandCertificate");
-    var taxPlate = localStorage.getItem("taxPlate");
-    var billInfo = localStorage.getItem("billInfo");
-
-
-    const fileInputRef = useRef(null);
-    const [file, setFile] = useState(null);
-    const [docInfo, setDocInfo] = useState(null);
-    
-    const [seed, setSeed] = useState(1);
-       const reset = () => {
-            setSeed(Math.random());
+    // GET DOCUMENT FUNCTION
+    const fetchDocumentData = async () => {
+        try {
+            const result = await getUserDocuments(accessToken, userId, customerId);
+            setDocument(result.userDocuments);
+        } catch (error) {
         }
+        };
+    
+
+    
+    // SET DOCUMENT FUNCTION
+    const handleSetUserDocuments = async (column, newValue) => {
+        try {
+        const result = await setUserDocuments(accessToken, column, newValue, userId, customerId);
+
+        if (result.status === 200) {
+            console.log('User documents set successfully!');
+        } else {
+            console.error('Failed to set user documents.');
+        }
+        } catch (error) {
+        console.error('Error setting user documents:', error);
+        }
+    };
+
+    // UPLOAD
+  
+    const handleUploadUserDocument = async () => {
+      try {
+        const result = await uploadUserDocument(accessToken, fileName, file, customerId);
+  
+        if (result.status === 200) {
+          console.log('User document uploaded successfully!');
+          // Handle success if needed
+        } else {
+          console.error('Failed to upload user document.');
+          // Handle failure if needed
+        }
+      } catch (error) {
+        console.error('Error uploading user document:', error);
+        // Handle error
+      }
+    };
+
+    // DOWNLOAD
+
+    const handleDownloadDocument = async () => {
+        try {
+          const result = await downloadDocument(accessToken, fileName, customerId);
+    
+          if (result.status === 200) {
+            console.log('Document download successful!');
+            // Handle success if needed
+          } else {
+            console.error('Failed to download document.');
+            // Handle failure if needed
+          }
+        } catch (error) {
+          console.error('Error downloading document:', error);
+          // Handle error
+        }
+      };
+
     
   useEffect(() => {
     if (file) {
@@ -73,12 +106,16 @@ function Documents() {
     }
   }, [file]);
 
-  const handleFileChange = (infoClass) => (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-    setDocInfo(infoClass)
-  };
-
+  useEffect(() => {
+    fetchDocumentData(accessToken)
+    .then((userData) => {
+        console.log('Fetched user data:', userData);
+    })
+    .catch((error) => {
+        console.error('Error fetching user data:', error);
+    });
+}, []);
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (file) {
@@ -128,14 +165,14 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {bankInfo === "false" ? (
+                                        {document.bankInfo === "false" ? (
                                             <form onSubmit={(e) => handleSubmit(e, "bankInfo")}>
-                                                <label htmlFor="bankInfo-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                <input  id="bankInfo-file-upload" className='d-none' type="file" onChange={handleFileChange("bankInfo")} ref={fileInputRef} />
+                                                <label htmlFor="bankInfo-file-upload" class="buton4 slideup">Belge Yüklü Değil <i class="fa-regular fa-circle-xmark"></i></label>
+                                                <input  id="bankInfo-file-upload" className='d-none' type="file" ref={fileInputRef} />
                                                 <button type="submit" style={{ display: 'none' }} class="bankInfo"></button>
                                             </form>
                                             ) : (
-                                            <button className='buton3 m-0' style={{cursor:"default"}}>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                            <button className='buton3 m-0' style={{cursor:"default"}}>Belgeyi İndirin <i class="fa-solid fa-file-arrow-down"></i></button>
                                         )}
                                     </div>
                                 </div>
@@ -162,14 +199,14 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                         {identityDocument === "false" ? (
+                                         {document.identityDocument === "false" ? (
                                                  <form onSubmit={(e) => handleSubmit(e, "identityDocument")}>
-                                                <label htmlFor="identityDocument-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                <input  id="identityDocument-file-upload" className='d-none' type="file" onChange={handleFileChange("identityDocument")} ref={fileInputRef} />
+                                                <label htmlFor="identityDocument-file-upload" class="buton4 slideup">Belge Yüklü Değil <i class="fa-regular fa-circle-xmark"></i></label>
+                                                <input  id="identityDocument-file-upload" className='d-none' type="file" ref={fileInputRef} />
                                                 <button type="submit" style={{ display: 'none' }} class="identityDocument"></button>
                                             </form>
                                              ) : (
-                                                 <button className='buton3 m-0' style={{cursor:"default"}}>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                 <button className='buton3 m-0' style={{cursor:"default"}}>Belgeyi İndirin <i class="fa-solid fa-file-arrow-down"></i></button>
                                         )}
                                     </div>
                                 </div>
@@ -196,14 +233,14 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {activityDocument === "false" ? (
+                                        {document.activityDocument === "false" ? (
                                                 <form onSubmit={(e) => handleSubmit(e, "activityDocument")}>
-                                                <label for="activityDocument-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                <input  id="activityDocument-file-upload" className='d-none' type="file" onChange={handleFileChange("activityDocument")} ref={fileInputRef} />
+                                                <label for="activityDocument-file-upload" class="buton4 slideup">Belge Yüklü Değil <i class="fa-regular fa-circle-xmark"></i></label>
+                                                <input  id="activityDocument-file-upload" className='d-none' type="file" ref={fileInputRef} />
                                                 <button type="submit" style={{ display: 'none' }} class="activityDocument"></button>
                                             </form>
                                             ) : (
-                                                <button className='buton3 m-0 slideup' style={{cursor:"default"}}>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                <button className='buton3 m-0 slideup' style={{cursor:"default"}}>Belgeyi İndirin <i class="fa-solid fa-file-arrow-down"></i></button>
                                         )}
                                     </div>
                                 </div>
@@ -230,14 +267,14 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {englandCertificate === "false" ? (
+                                        {document.englandCertificate === "false" ? (
                                                 <form onSubmit={(e) => handleSubmit(e, "englandCertificate")}>
-                                                <label for="englandCertificate-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                <input  id="englandCertificate-file-upload" className='d-none' type="file" onChange={handleFileChange("englandCertificate")} ref={fileInputRef} />
+                                                <label for="englandCertificate-file-upload" class="buton4 slideup">Belge Yüklü Değil <i class="fa-regular fa-circle-xmark"></i></label>
+                                                <input  id="englandCertificate-file-upload" className='d-none' type="file" ref={fileInputRef} />
                                                 <button type="submit" style={{ display: 'none' }} class="englandCertificate"></button>
                                             </form>
                                             ) : (
-                                                <button className='buton3 m-0 slideup' style={{cursor:"default"}}>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                <button className='buton3 m-0 slideup' style={{cursor:"default"}}>Belgeyi İndirin <i class="fa-solid fa-file-arrow-down"></i></button>
                                         )}
                                     </div>
                                 </div>
@@ -264,14 +301,14 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {taxPlate === "false" ? (
+                                        {document.taxPlate === "false" ? (
                                                 <form onSubmit={(e) => handleSubmit(e, "taxPlate")}>
-                                                <label for="taxPlate-file-upload" class="buton4">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                <input  id="taxPlate-file-upload" className='d-none' type="file" onChange={handleFileChange("taxPlate")} ref={fileInputRef} />
+                                                <label for="taxPlate-file-upload" class="buton4">Belge Yüklü Değil <i class="fa-regular fa-circle-xmark"></i></label>
+                                                <input  id="taxPlate-file-upload" className='d-none' type="file" ref={fileInputRef} />
                                                 <button type="submit" style={{ display: 'none' }} class="taxPlate"></button>
                                             </form>
                                             ) : (
-                                                <button className='buton3 m-0' style={{cursor:"default"}}>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                <button className='buton3 m-0' style={{cursor:"default"}}>Belgeyi İndirin <i class="fa-solid fa-file-arrow-down"></i></button>
                                         )}
                                     </div>
                                 </div>
@@ -299,14 +336,14 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {billInfo === "false" ? (
+                                        {document.billInfo === "false" ? (
                                                 <form onSubmit={(e) => handleSubmit(e, "billInfo")}>
-                                                <label for="billInfo-file-upload" class="buton4">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                <input  id="billInfo-file-upload" className='d-none' type="file" onChange={handleFileChange("billInfo")} ref={fileInputRef} />
+                                                <label for="billInfo-file-upload" class="buton4">Belge Yüklü Değil <i class="fa-regular fa-circle-xmark"></i></label>
+                                                <input  id="billInfo-file-upload" className='d-none' type="file" ref={fileInputRef} />
                                                 <button type="submit" style={{ display: 'none' }} class="billInfo"></button>
                                             </form>
                                             ) : (
-                                                <button className='buton3 m-0' style={{cursor:"default"}}>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                <button className='buton3 m-0' style={{cursor:"default"}}>Belgeyi İndirin <i class="fa-solid fa-file-arrow-down"></i></button>
                                         )}
                                     </div>
                                 </div>
