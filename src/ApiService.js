@@ -1,5 +1,7 @@
 import axios from 'axios';
-const BASE_URL = 'https://localhost:6161'; 
+import { warningNotification } from './Modals/Notification';
+const BASE_URL = 'http://userapi.vezuport.com';
+
 
 export const loginUser = async (username, password) => {
   try {
@@ -8,11 +10,16 @@ export const loginUser = async (username, password) => {
       {
         username,
         password,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
       }
     );
-
     return response.data;
   } catch (error) {
+    warningNotification("GİRİŞ BAŞARISIZ")
     console.error('Error logging in user:', error);
     throw error;
   }
@@ -25,14 +32,13 @@ export const getUserData = async (accessToken) => {
         'Authorization': `Bearer ${accessToken}`,
       },
     });
-
+    
     return response.data;
   } catch (error) {
     console.error('Error getting user data:', error);
     throw error;
   }
 };
-
 
 export const setUserData = async (accessToken, column, newValue) => {
   try {
@@ -57,7 +63,6 @@ export const setUserData = async (accessToken, column, newValue) => {
   }
 };
 
-
 export const getUserPlan = async (accessToken) => {
   try {
     const response = await axios.get(`${BASE_URL}/get_user_plan`, {
@@ -65,7 +70,6 @@ export const getUserPlan = async (accessToken) => {
         'Authorization': `Bearer ${accessToken}`,
       },
     });
-
     return response.data;
   } catch (error) {
     console.error('Error getting user plan:', error);
@@ -104,9 +108,11 @@ export const getUserDocuments = async (accessToken) => {
 };
 
 export const uploadDocument = async (accessToken, fileName, file) => {
+  console.log("APİ İÇİNDEKİ DATA",fileName, accessToken, file)
   try {
     // Check file type
     if (file.type !== 'application/pdf') {
+      warningNotification("LÜTFEN PDF YÜKLEYİNİZ")
       throw new Error('Invalid file type. Only PDF files are allowed.');
     }
 
@@ -114,7 +120,6 @@ export const uploadDocument = async (accessToken, fileName, file) => {
     if (file.size > 20 * 1024 * 1024) {
       throw new Error('File size exceeds the maximum limit of 20 MB.');
     }
-
     const formData = new FormData();
     formData.append('file_name', fileName);
     formData.append('file', file);
@@ -133,38 +138,26 @@ export const uploadDocument = async (accessToken, fileName, file) => {
   }
 };
 
-export const downloadDocument = async (accessToken, fileName, userId) => {
+// DOKUNMA ZOR AYAKTA DURUYOR
+export const downloadDocument = async (accessToken, fileName) => {
+  console.log(fileName, accessToken)
   try {
-    const response = await axios.get(`${BASE_URL}/download_document`, {
-      params: {
-        user_id: userId,
-        file_name: fileName,
-      },
+    const response = await axios.get(`http://userapi.vezuport.com/download_document?file_name=${fileName}`, {
+      responseType: 'blob',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
       },
-      responseType: 'blob', // Important for handling binary data
     });
-
-    // Create a blob URL from the response data
-    const blob = new Blob([response.data], { type: 'application/pdf' });
-    const url = window.URL.createObjectURL(blob);
-
-    // Create a temporary link and trigger a click to start the download
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-
-    // Cleanup: remove the temporary link and revoke the blob URL
-    document.body.removeChild(a);
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `${fileName}.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode.removeChild(link);
     window.URL.revokeObjectURL(url);
-
-    return { status: response.status, message: 'Download successful' };
   } catch (error) {
     console.error('Error downloading document:', error);
-    throw error;
   }
 };
 
@@ -183,24 +176,75 @@ export const getUserProducts = async (accessToken) => {
   }
 };
 
-export const addProductToUser = async (accessToken, products) => {
+
+export const addProductToUser = async (accessToken, file) => {
+  
+  console.log("token", accessToken)
+  console.log("api file",file)
   try {
-    const response = await axios.post(`${BASE_URL}/add_product_to_user`, {
-      product: products,
-    }, {
+    const formData = new FormData();
+    formData.append('file', file);
+    const response = await axios.post(`${BASE_URL}/add_product_to_user`, formData, {
       headers: {
-        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteProduct = async (accessToken, productId) => {
+  try {
+    const response = await axios.delete(`${BASE_URL}/delete_product/${productId}`, {
+      headers: {
         'Authorization': `Bearer ${accessToken}`,
       },
     });
 
     return response.data;
   } catch (error) {
-    console.error('Error adding product to user:', error);
+    console.error('Error deleting product:', error);
+    throw error;
+  }
+};
+export const getUserTasks = async (accessToken) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/get_user_tasks`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error getting user tasks:', error);
     throw error;
   }
 };
 
+export const getMarketFinder = async (accessToken, requestData) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/get_market_finder`, 
+    {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      },
+      params: requestData,
+    });
+
+    console.log(response.data);
+    return response.data;
+
+  } catch (error) {
+    console.log("wow");
+    console.error('Error fetching market finder data in API:', error);
+    throw error;
+  }
+};
 
 export const createPaymentLink = async (accessToken, productId) => {
   try {

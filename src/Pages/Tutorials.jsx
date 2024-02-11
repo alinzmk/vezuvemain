@@ -7,14 +7,20 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Pagination, Navigation } from 'swiper/modules';
-import { EffectCreative } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
+import { useNavigate } from 'react-router-dom';
 
 function Tutorials() {
 
+    const accessToken = sessionStorage.getItem("token");
+        const navigate = useNavigate();
+        if(!accessToken) {
+            navigate("/");
+        }
+    //------------------------------------------------------------------------------   
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedVideoId, setSelectedVideoId] = useState("");
-    
+    //------------------------------------------------------------------------------   
     
     const videos = [
         { id: 1, name: "Amazon", url: ['jRg9e428tNo', "jRg9e428tNo", "jRg9e428tNo", 'jRg9e428tNo', "jRg9e428tNo", "jRg9e428tNo"] },

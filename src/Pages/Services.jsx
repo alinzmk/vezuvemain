@@ -12,14 +12,19 @@ import emag from "../Assets/emag.png"
 import ozon from "../Assets/ozon.png"
 import trendyol from "../Assets/trendyol.png"
 import Service1 from '../Modals/Plan';
-import axios from 'axios';
 
 function Services() {
-    
+
+        const accessToken = sessionStorage.getItem("token");
+        const navigate = useNavigate();
+        if(!accessToken) {
+            navigate("/");
+        }
+       //------------------------------------------------------------------------------   
         const [isModalOpen, setIsModalOpen] = useState(false);
         const [selectedItem, setSelectedItem] = useState(null);
         const [activeTab, setActiveTab] = useState('amazon'); // Initialize with the default active tab
-        
+        //------------------------------------------------------------------------------   
 
         const openModal = (item) => {
             setIsModalOpen(true);
@@ -95,8 +100,6 @@ function Services() {
             {name: "GÜMRÜK" ,  price:"deneme", description:"İhracat süreçlerinizi tamamlamak, beyannamelerinizi hazırlamak için partner gümrük şirketlerinden teklif alın.",},
             {name: "SERTİFİKASYON BELGELENDİRME" ,  price:"deneme", description:"Ürünlerinizin yurtdışına çıkabilmesi için bazı sertifikalara ihtiyacı olabilir. FDA, MSDS gibi belgelendirme süreçlerini hızla tamamlayın.",},
         ];
-
-       
         
 
         useEffect(() => {

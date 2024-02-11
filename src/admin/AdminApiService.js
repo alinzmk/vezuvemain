@@ -1,5 +1,6 @@
 import axios from "axios";
-const BASE_URL = 'https://localhost:6161'; 
+import { warningNotification } from "../Modals/Notification";
+const BASE_URL = 'http://adminapi.vezuport.com'; 
 
 export const getAdminToken = async (username, password) => {
   try {
@@ -8,25 +9,25 @@ export const getAdminToken = async (username, password) => {
       {
         username,
         password,
-        grant_type: 'password',
-        scope: 'admin', // Adjust the scope if needed
       },
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+      }
     );
 
     return response.data;
   } catch (error) {
+    warningNotification("GİRİŞ BAŞARISIZ")
     console.error('Error getting admin token:', error);
     throw error;
   }
 };
 
-export const getAllUserData = async (accessToken) => {
+export const getAllUserData = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/get_all_user_data`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`,
-      },
     });
 
     return response.data;

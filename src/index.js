@@ -6,7 +6,7 @@ import {
   createHashRouter,
   RouterProvider,
 } from "react-router-dom";
-import ErrorPage from "./Pages/Error-page.jsx";
+import ErrorPage from "./Pages/ErrorPage.jsx";
 import Login from './Pages/Login.jsx';
 import Register from './Pages/Register.jsx';
 import Dashboard from './Pages/Dashboard.jsx';
@@ -29,14 +29,13 @@ import AdminMarketFinder from './admin/Pages/MarketFinder.jsx';
 import AdminTask from './admin/Pages/Tasks.jsx';
 import AdminTutorials from './admin/Pages/Tutorials.jsx';
 
-
-import Payment from './Payment.jsx';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { Provider } from 'react-redux';
+import { store } from "./redux/app/store.js";
 
-
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <Login/>,
@@ -122,7 +121,7 @@ const router = createHashRouter([
   },
   {
     path: "/admin/Hizmetler",
-    element: <AdminServices />, 
+    element: <AdminServices />,
   },
   {
     path: "/admin/MarketFinder",
@@ -136,16 +135,14 @@ const router = createHashRouter([
     path: "/admin/Dersler",
     element: <AdminTutorials />, 
   },
-  {
-    path: "/api",
-    element: <Payment/>, 
-  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-      <RouterProvider router={router} />
-      <ToastContainer />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+        <ToastContainer />
+    </Provider>
   </React.StrictMode>
 );
 

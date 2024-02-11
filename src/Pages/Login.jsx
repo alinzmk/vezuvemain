@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { UserData } from '../Assets/Mockdata';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import logo from "../Assets/logo-renkli.png";
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import { loginUser } from '../ApiService';
+import { useDispatch } from 'react-redux';
+import fetchAllRedux from '../redux/fetchAllRedux';
+import { successNotification } from '../Modals/Notification';
 
 function Login() {
 
-  localStorage.setItem('id', null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -26,33 +27,32 @@ function Login() {
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
-  
 
-  const notify = () => toast.success("Başarıyla Giriş Yapıldı",{
-    position: "bottom-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-  });
+
 
 
   const handleLogin = async () => {
     try {
       const result = await loginUser(username, password);
-
-      if (result.access_token) {
+      
+      if (result && result.access_token) {
         console.log('Login successful!', result);
+        sessionStorage.setItem("token", result.access_token);
+        dispatch(fetchAllRedux())
+        successNotification("BAŞARIYLA GİRİŞ YAPILDI!")
+        setTimeout(() => {
+          navigate("/Panel");
+        }, 400);
       } else {
         console.error('Login failed:', result);
       }
     } catch (error) {
       console.error('Error logging in user:', error);
     }
+    
   };
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -69,25 +69,12 @@ function Login() {
       return;
     }
     
-
-    handleLogin(username, password)
-      .then((response) => {
-        // Use the access token or perform further actions
-        console.log('Login successful!', response);
-        notify();
-        navigate("/Panel");
-
-      })
-      .catch((error) => {
-        // Handle any errors that occurred during the login process
-        console.error('Login error:', error);
-        alert('Invalid email or password');
-        console.log(username+" "+password);
-      });
+    handleLogin();
   };
-  
 
+  
   return (
+    
     
     <div className="App row m-0">
       <div className="col-5">

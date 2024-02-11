@@ -2,98 +2,68 @@ import '../App.css';
 import { useState, useEffect } from 'react';
 import logo from "../Assets/logo-renkli.png"
 import { useNavigate } from 'react-router-dom';
-import Plan from '../Modals/Plan';
 import Sidebar2 from '../Modals/Sidebar2';
 import axios from 'axios';
 import { getAllUserData, setUserData, getUserPlan } from '../AdminApiService';
+import { useDispatch, useSelector } from 'react-redux';
+import { successNotification } from '../../Modals/Notification';
 
 function Profile() {
 
+    const accessToken = sessionStorage.getItem("token")
     const navigate = useNavigate();
-    const [openModal, setModalOpen] = useState(false);
-    const [userData, setUserData1] = useState(null);
+    if(!accessToken) {
+        navigate("/");
+    }
+    //------------------------------------------------------------------------------    
     const [editable, setEditable] = useState("");
-    
-    const [column, setColumn] = useState(''); // State to store column value
-    const [newValue, setNewValue] = useState(''); // State to store newValue value
-    const [responseStatus, setResponseStatus] = useState(null); // State to store response status
-    const accessToken = localStorage.getItem("token");
-
-
-    const [userId, setUserId] = useState(123); // Replace with actual user ID
-    const [customerId, setCustomerId] = useState(456); // Replace with actual customer ID
-    const [userPlan, setUserPlan] = useState(null);
-    //------------------------------------------------------------------------------
-
-
-    //------------------------------------------------------------------------------
-
+    const [newValue, setNewValue] = useState('');
+    const {profile} = useSelector((state) => state.profile);
+    const {plan} = useSelector((state) => state.plan);
+    const dispatch = useDispatch();
+   //------------------------------------------------------------------------------   
+   
+   //------------------------------------------------------------------------------   
 
     // SET PROFILE DATA
-    const handleSetUserData = async (column, newValue, userId, customerId) => {
-        try {
-          const result = await setUserData(accessToken, column, newValue, userId, customerId);
-    
-          if (result.status === 200) {
-            console.log('User data set successfully!');
-            // Handle success if needed
-          } else {
-            console.error('Failed to set user data.');
-            // Handle failure if needed
-          }
-        } catch (error) {
-          console.error('Error setting user data:', error);
-          // Handle error
+    const handleSetUserData = async (column) => {
+      try {
+        const result = await setUserData(accessToken, column, newValue);
+        if (result.status === 200) {
+          console.log('User data set successfully!');
+          successNotification('BAŞARIYLA DEĞİŞTİRİLDİ');
+        } else {
+          console.error('Failed to set user data.');
         }
-      };
-
- 
-    //---------------------------------------------------
-
-    // GET USER DATA
-    const fetchUserData = async () => {
-        try {
-          const result = await getAllUserData(accessToken);
-          console.log(result)
-        } catch (error) {
-            throw error;
-        }
-      };
-
-    // GET USER PLAN
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const result = await getUserPlan(accessToken, userId, customerId);
-          setUserPlan(result.userPlan);
-        } catch (error) {
-            throw error;
-        }
-      };
-  
-      fetchData();
-    }, [accessToken, userId, customerId]); // Add accessToken, userId, and customerId to dependencies if you want to refetch data when they change
-  
-
-    useEffect(() => {
-        
-        fetchUserData(accessToken)
-        .then((userData) => {
-            // Use the user data or perform further actions
-            console.log('Fetched user data:', userData);
-        })
-        .catch((error) => {
-            // Handle any errors that occurred during data fetching
-            console.error('Error fetching user data:', error);
-        });
-
-      }, []); 
+      } catch (error) {
+        console.error('Error setting user data:', error);
+      }
+    };
 
     const handleUpdateUserData = (state) =>{
-        setColumn(state);
-        handleSetUserData();
+        handleSetUserData(state);
         setEditable(null);
     }
+
+
+    const [userProfile, setUserProfile] = useState(null)
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const result = await getAllUserData(accessToken);
+            setUserProfile(result.userData);
+          } catch (error) {
+            // Handle error
+          }
+        };
+    
+        fetchData();
+      }, [accessToken]); // Add accessToken to dependencies if you want to refetch data when it changes
+
+      useEffect(()=>{
+        console.log(userProfile);
+    },[]);
+      
     
   return (
     <>
@@ -122,7 +92,6 @@ function Profile() {
 
         <div className="dashboard m-0">
         <div className='slideup'>
-            <Plan open={openModal} onClose={()=>setModalOpen(false)}/>
         </div> 
             <div className="row">
                 <div className="p-0">
@@ -141,8 +110,8 @@ function Profile() {
                            <div className="row ps-0 my-3 slideup ">
                                 <div className="col-9 my-auto">
                                     <div className="col-12 ms-4 purple ">
-                                        <h6 className=''>"İsim Soyisim" adlı müşterinizin aktif planı: {userData ?(
-                                            <>{userData.Plan}</>
+                                        <h6 className=''>"İsim Soyisim" adlı müşterinizin aktif planı: {userProfile ?(
+                                            <>{userProfile.Plan}</>
                                         ) : (
                                             <>Aktif Planınız yok</>
                                         )}  
@@ -163,8 +132,8 @@ function Profile() {
                                                 <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleUpdateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
                                             </div>
                                         ):(
-                                            userData ? (
-                                                <h6 className='profile-info'>{userData.accountName}</h6>
+                                            userProfile ? (
+                                                <h6 className='profile-info'>{userProfile.accountName}</h6>
                                             ) : (
                                                 <div className="d-flex align-items-center">
                                                         <h6 className='profile-info'>No data</h6>
@@ -186,8 +155,8 @@ function Profile() {
                                                 <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleUpdateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
                                             </div>
                                         ):(
-                                            userData ? (
-                                                <h6 className='profile-info'>{userData.mail}</h6>
+                                            userProfile ? (
+                                                <h6 className='profile-info'>{userProfile.mail}</h6>
                                             ) : (
                                                 <div className="d-flex align-items-center">
                                                         <h6 className='profile-info'>No data</h6>
@@ -212,9 +181,9 @@ function Profile() {
                                                     <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleUpdateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
                                                 </div>
                                             ) : (
-                                                userData ? (
+                                                userProfile ? (
                                                     // Display user address if userData exists
-                                                    <h6 className='profile-info'>{userData.phoneNumber}</h6>
+                                                    <h6 className='profile-info'>{userProfile.phoneNumber}</h6>
                                                 ) : (
                                                     // Display an empty h6 element if userData doesn't exist
                                                     <div className="d-flex align-items-center">
@@ -240,9 +209,9 @@ function Profile() {
                                                     <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleUpdateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
                                                 </div>
                                             ) : (
-                                                userData ? (
+                                                userProfile ? (
                                                     // Display user address if userData exists
-                                                    <h6 className='profile-info'>{userData.companyTitle}</h6>
+                                                    <h6 className='profile-info'>{userProfile.companyTitle}</h6>
                                                 ) : (
                                                     // Display an empty h6 element if userData doesn't exist
                                                     <div className="d-flex align-items-center">
@@ -266,9 +235,9 @@ function Profile() {
                                                     <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleUpdateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
                                                 </div>
                                             ) : (
-                                                userData ? (
+                                                userProfile ? (
                                                     // Display user address if userData exists
-                                                    <h6 className='profile-info'>{userData.taxAdmin}</h6>
+                                                    <h6 className='profile-info'>{userProfile.taxAdmin}</h6>
                                                 ) : (
                                                     // Display an empty h6 element if userData doesn't exist
                                                     <div className="d-flex align-items-center">
@@ -284,8 +253,8 @@ function Profile() {
                                 <div className="col-4 ps-0 pe-3">
                                     <div className="pbg">
                                         <p className='profile-title'>Vergi Numarası</p>
-                                        {userData ? (
-                                            <h6 className='profile-info'>{userData.taxNumber}</h6>
+                                        {userProfile ? (
+                                            <h6 className='profile-info'>{userProfile.taxNumber}</h6>
                                             ) : (
                                             <h6 className='profile-info'>No data</h6>
                                         )}
@@ -304,9 +273,9 @@ function Profile() {
                                                     <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleUpdateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
                                                 </div>
                                             ) : (
-                                                userData ? (
+                                                userProfile ? (
                                                     // Display user address if userData exists
-                                                    <h6 className='profile-info'>{userData.city}</h6>
+                                                    <h6 className='profile-info'>{userProfile.city}</h6>
                                                 ) : (
                                                     // Display an empty h6 element if userData doesn't exist
                                                     <div className="d-flex align-items-center">
@@ -330,10 +299,10 @@ function Profile() {
                                                     <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleUpdateUserData(editable)} ><i class="fa-solid fa-floppy-disk"></i></button>
                                                 </div>
                                             ) : (
-                                                userData ? (
+                                                userProfile ? (
                                                     // Display user address if userData exists
                                                     <>
-                                                        <h6 className='profile-info'>{userData.address}</h6>
+                                                        <h6 className='profile-info'>{userProfile.address}</h6>
                                                         <button class="buton2 ms-2 mt-2 trans" onClick={()=>handleUpdateUserData(true)} ><i class="fa-solid fa-pen-to-square"></i> </button>
                                                     </>
                                                 ) : (

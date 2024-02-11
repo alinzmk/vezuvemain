@@ -1,24 +1,19 @@
 import React, { useState } from 'react';
-import { UserData } from '../Assets/Mockdata';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import logo from "../Assets/logo-renkli.png";
-import { toast } from 'react-toastify';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { getAdminToken } from '../AdminApiService';
-
-
+import { successNotification } from '../../Modals/Notification';
+import { getUserAdmin } from '../../redux/features/useradmin/userAdminSlice';
 
 function Login() {
 
-
-  localStorage.setItem('id', null);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [accessToken, setAccessToken] = useState(null);
 
   const handleUsername = (event) => {
     setUsername(event.target.value);
@@ -33,37 +28,33 @@ function Login() {
   };
   
 
-  const notify = () => toast.success("Başarıyla Giriş Yapıldı",{
-    position: "bottom-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-  });
-
-  
-
-  
-  // CALL LOGIN FUNCTION
-  const handleLogin = async (username, password) => {
+  const handleLogin = async () => {
     try {
-      const result = await getAdminToken(username, password); 
-      setAccessToken(result.access_token);
-      localStorage.setItem(accessToken);
+      const result = await getAdminToken(username, password);
+      
+      if (result && result.access_token) {
+        console.log('Login successful!', result);
+        sessionStorage.setItem("token", result.access_token);
+        successNotification("Başarıyla Giriş Yapıldı")
+        dispatch(getUserAdmin())
+        setTimeout(() => {
+          navigate("/admin/MusteriSec");
+        }, 400);
+      } else {
+        console.error('Login failed:', result);
+      }
     } catch (error) {
-      // Handle error
+      console.error('Error logging in user:', error);
     }
+    
   };
 
-  // SUBMIT THE LOGIN FORM
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // CONSTRAINTS
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+
+    //GEREKLİ USERNAME PASSWORD CONSTRAINTS
     if (!emailRegex.test(username)) {
       alert('Please enter a valid email address');
       return;
@@ -72,23 +63,13 @@ function Login() {
       alert('Password should be at least 8 characters long');
       return;
     }
-
-    handleLogin()
-      .then((response) => {
-        console.log('Login successful!', response);
-        notify();
-        navigate("/admin/Panel");
-
-      })
-      .catch((error) => {
-        console.error('Login error:', error);
-        console.log(username+" "+password);
-        alert('Invalid email or password');
-      });
+    
+    handleLogin();
   };
-  
 
+  
   return (
+    
     
     <div className="App row m-0">
       <div className="col-5">
@@ -131,3 +112,5 @@ function Login() {
 }
 
 export default Login;
+
+

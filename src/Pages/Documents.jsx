@@ -1,114 +1,62 @@
 import '../App.css';
 import logo from "../Assets/logo-renkli.png"
-import { useState, useRef, useEffect } from 'react';
-import { toast } from 'react-toastify';
 import Sidebar2 from '../Modals/Sidebar2';
-import axios from 'axios';
-import { getUserDocuments, uploadDocument, downloadDocument } from '../ApiService';
+import { uploadDocument, downloadDocument } from '../ApiService';
+import { getDocData } from '../redux/features/docdata/docSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import fetchAllRedux from '../redux/fetchAllRedux';
+import { useNavigate } from 'react-router-dom';
 
 function Documents() {
 
-    const [userDocuments, setUserDocuments] = useState(null);
-    const accessToken = localStorage.getItem("token");
-    const [fileName, setFileName] = useState('your-file-name'); // Replace with actual file name
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [userId, setUserId] = useState(null);
-
+    const accessToken = sessionStorage.getItem("token");
+    const navigate = useNavigate();
+    if(!accessToken) {
+        navigate("/");
+    }
+       //------------------------------------------------------------------------------   
+    const {doc} = useSelector((state) => state.doc);
+    const dispatch = useDispatch();
+   //------------------------------------------------------------------------------   
+    if(doc.length === 0){
+        dispatch(fetchAllRedux())
+    }
+   //------------------------------------------------------------------------------   
+    // UPLOAD DOCUMENT
+    const handleUploadDocument = async (fileName, selectedFile) => {
+      try {
+        const result = await uploadDocument(accessToken, fileName, selectedFile);
+        if (result.status === 200) {    
+            dispatch(getDocData());
+        } else {
+            console.error('Failed to upload document.');
+        }
+      } catch (error) {
+            console.error('Error uploading document:', error);
+      }
+    };
     
     // DOWNLOAD DOCUMENT
-    const handleDownloadDocument = async () => {
+    const handleDownloadDocument = async (fileName) => {
         try {
-          const result = await downloadDocument(accessToken, fileName, userId);
+          const result = await downloadDocument(accessToken, fileName);
     
           if (result.status === 200) {
             console.log('Document download successful!');
-            // Handle success if needed
           } else {
             console.error('Failed to download document.');
-            // Handle failure if needed
           }
         } catch (error) {
           console.error('Error downloading document:', error);
-          // Handle error
         }
       };
-
-    // UPLOAD DOCUMENT
-    const handleUploadDocument = async () => {
-      try {
-        const result = await uploadDocument(accessToken, fileName, selectedFile);
-  
-        if (result.status === 200) {
-          console.log('Document uploaded successfully!');
-        } else {
-          console.error('Failed to upload document.');
-        }
-      } catch (error) {
-        console.error('Error uploading document:', error);
-      }
+    
+    const handleFileChange = async (infoClass) => (e) => {
+        const selectedFile = e.target.files[0];
+        console.log(infoClass, selectedFile)
+        handleUploadDocument(infoClass, selectedFile);
     };
-
-    useEffect(() => {
-
-        // GET DOCUMENT DATA
-        const getDocumentData = async () => {
-            try {
-                const result = await getUserDocuments(accessToken);
-                setUserDocuments(result.userDocuments);
-            } catch (error) {
-            }
-        };
-
-      getDocumentData();
-    }, [accessToken]); // Add accessToken to dependencies if you want to refetch data when it changes
-  
-
-
-    const docNotify = () => toast.success('Dosya Başarıyla Yüklendi!', {
-        position: "bottom-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        });
-
-
-    //ALT TARAF ESKİ KODDAN KALMADIR DENENECEKTİR
-    const fileInputRef = useRef(null);
-    const [file, setFile] = useState(null);
-    const [docInfo, setDocInfo] = useState(null);
-    
-    const [seed, setSeed] = useState(1);
-       const reset = () => {
-            setSeed(Math.random());
-        }
-    
-  useEffect(() => {
-    if (file) {
-      document.querySelector("."+docInfo).click();
-    }
-  }, [file]);
-
-  const handleFileChange = (infoClass) => (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-    setDocInfo(infoClass);
-    handleUploadDocument();
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (file) {
-        reset();
-        localStorage.setItem(docInfo, "true");
-        docNotify();
-    }
-  };
-
-
     
   return (
     <>
@@ -118,47 +66,44 @@ function Documents() {
                    <Sidebar2/>
                 </div>
                 <div className="container mt-4 slideleft right">
-                    <div className="row">
+                    <div className="row">                                      
                         <div className="col-12 mb-0">                           
                             <div className="row mb-4 me-5 d-flex justify-content-between">
                                 <h2 className='purple w-auto mt-3'>Belgeler</h2>
-                                <img src={logo} className='sidebar-logo' alt="" />
+                                <img src={logo} className='sidebar-logo' alt=""/>
                             </div>
                         </div>
-                        <div className="col-10 p-0" key={seed}>
+                        <div className="col-10 p-0">
                             <div className="col-12 w-auto pb-3">
                                 <div className="pbg">
-
-                                <div className="row p-3">
-                                    <div className="col-1 ms-5 my-auto">
-                                        <h2 className='my-auto mx-0 slideup'><i class="fa-regular fa-file"></i></h2>
-                                    </div>
-                                    <div className="col-7 my-auto text-left">
-                                        <h5 className='m-0 slideup d-flex align-items-center'>Banka Hesap Özeti 
-                                        
-                                        <div class="dropdown2 ms-3">
-                                            <button class="d-flex info-btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa-solid fa-circle-info"></i>
-                                            </button>
-                                            <div class="dropdown-menu info" aria-labelledby="dropdownMenuButton2">
-                                            Türkiye bankaları için Banka hesap özetinizi Mobil bankacılık üzerinden veya Banka şubenizden alabilirsiniz. Wise, Paypal gibi hesaplar 
-                                            için mobil bankacılık veya internet bankacılığı kullanılabilir.</div>
+                                    <div className="row p-3">
+                                        <div className="col-1 ms-5 my-auto">
+                                            <h2 className='my-auto mx-0 slideup'><i class="fa-regular fa-file"></i></h2>
                                         </div>
-                                        
-                                        </h5>
+                                        <div className="col-7 my-auto text-left">
+                                            <h5 className='m-0 slideup d-flex align-items-center'>Banka Hesap Özeti 
+                                                <div class="dropdown2 ms-3">
+                                                    <button class="d-flex info-btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa-solid fa-circle-info"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu info" aria-labelledby="dropdownMenuButton2">
+                                                    Türkiye bankaları için Banka hesap özetinizi Mobil bankacılık üzerinden veya Banka şubenizden alabilirsiniz. Wise, Paypal gibi hesaplar
+                                                    için mobil bankacılık veya internet bankacılığı kullanılabilir.</div>
+                                                </div>
+                                            </h5>
+                                        </div>
+                                        <div className="col-3 my-auto p-0 justify-content-center d-flex">
+                                            {doc.bankInfo === false ? (
+                                                <form>
+                                                    <label htmlFor="bankInfo-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
+                                                    <input  id="bankInfo-file-upload" className='d-none' type="file" onChange={handleFileChange("bankInfo")}  />
+                                                    <button type="submit" style={{ display: 'none' }} class="bankInfo"></button>
+                                                </form>
+                                                ) : (
+                                                <button onClick={()=>handleDownloadDocument("bankInfo")} className='buton3 m-0'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                            )}
+                                        </div>
                                     </div>
-                                    <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {userDocuments.bankInfo === "false" ? (
-                                            <form onSubmit={(e) => handleSubmit(e, "bankInfo")}>
-                                                <label htmlFor="bankInfo-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                <input  id="bankInfo-file-upload" className='d-none' type="file" onChange={handleFileChange("bankInfo")} ref={fileInputRef} />
-                                                <button type="submit" style={{ display: 'none' }} class="bankInfo"></button>
-                                            </form>
-                                            ) : (
-                                            <button className='buton3 m-0' style={{cursor:"default"}}>Yüklendi <i class="fa-solid fa-check-double"></i></button>
-                                        )}
-                                    </div>
-                                </div>
                                 </div>
                             </div>
                         </div>
@@ -182,14 +127,14 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                         {userDocuments.identityDocument === "false" ? (
-                                                 <form onSubmit={(e) => handleSubmit(e, "identityDocument")}>
-                                                <label htmlFor="identityDocument-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                <input  id="identityDocument-file-upload" className='d-none' type="file" onChange={handleFileChange("identityDocument")} ref={fileInputRef} />
-                                                <button type="submit" style={{ display: 'none' }} class="identityDocument"></button>
-                                            </form>
+                                         {doc.identityDocument === false ? (
+                                                 <form>
+                                                    <label htmlFor="identityDocument-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
+                                                    <input  id="identityDocument-file-upload" className='d-none' type="file" onChange={handleFileChange("identityDocument")}  />
+                                                    <button type="submit" style={{ display: 'none' }} class="identityDocument"></button>
+                                                </form>
                                              ) : (
-                                                 <button className='buton3 m-0' style={{cursor:"default"}}>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                 <button onClick={()=>handleDownloadDocument("identityDocument")} className='buton3 m-0'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
                                         )}
                                     </div>
                                 </div>
@@ -216,14 +161,14 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {userDocuments.activityDocument === "false" ? (
-                                                <form onSubmit={(e) => handleSubmit(e, "activityDocument")}>
-                                                <label for="activityDocument-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                <input  id="activityDocument-file-upload" className='d-none' type="file" onChange={handleFileChange("activityDocument")} ref={fileInputRef} />
-                                                <button type="submit" style={{ display: 'none' }} class="activityDocument"></button>
-                                            </form>
+                                        {doc.activityDocument === false ? (
+                                                <form>
+                                                    <label for="activityDocument-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
+                                                    <input  id="activityDocument-file-upload" className='d-none' type="file" onChange={handleFileChange("activityDocument")}  />
+                                                    <button type="submit" style={{ display: 'none' }} class="activityDocument"></button>
+                                                </form>
                                             ) : (
-                                                <button className='buton3 m-0 slideup' style={{cursor:"default"}}>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                <button onClick={()=>handleDownloadDocument("activityDocument")}  className='buton3 m-0 slideup'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
                                         )}
                                     </div>
                                 </div>
@@ -250,14 +195,14 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {userDocuments.englandCertificate === "false" ? (
-                                                <form onSubmit={(e) => handleSubmit(e, "englandCertificate")}>
+                                        {doc.englandCertificate === false ? (
+                                                <form>
                                                 <label for="englandCertificate-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                <input  id="englandCertificate-file-upload" className='d-none' type="file" onChange={handleFileChange("englandCertificate")} ref={fileInputRef} />
+                                                <input  id="englandCertificate-file-upload" className='d-none' type="file" onChange={handleFileChange("englandCertificate")}  />
                                                 <button type="submit" style={{ display: 'none' }} class="englandCertificate"></button>
                                             </form>
                                             ) : (
-                                                <button className='buton3 m-0 slideup' style={{cursor:"default"}}>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                <button onClick={()=>handleDownloadDocument("englandCertificate")}  className='buton3 m-0 slideup'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
                                         )}
                                     </div>
                                 </div>
@@ -284,14 +229,14 @@ function Documents() {
                                         </h5>
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {userDocuments.taxPlate === "false" ? (
-                                                <form onSubmit={(e) => handleSubmit(e, "taxPlate")}>
+                                        {doc.taxPlate === false ? (
+                                                <form>
                                                 <label for="taxPlate-file-upload" class="buton4">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                <input  id="taxPlate-file-upload" className='d-none' type="file" onChange={handleFileChange("taxPlate")} ref={fileInputRef} />
+                                                <input  id="taxPlate-file-upload" className='d-none' type="file" onChange={handleFileChange("taxPlate")}  />
                                                 <button type="submit" style={{ display: 'none' }} class="taxPlate"></button>
                                             </form>
                                             ) : (
-                                                <button className='buton3 m-0' style={{cursor:"default"}}>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                <button onClick={()=>handleDownloadDocument("taxPlate")}  className='buton3 m-0'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
                                         )}
                                     </div>
                                 </div>
@@ -301,35 +246,34 @@ function Documents() {
                         <div className="col-10 p-0 slideup">
                             <div className="col-12 w-auto pb-3">
                                 <div className="pbg">
-
-                                <div className="row p-3">
-                                    <div className="col-1 ms-5 my-auto">
-                                        <h2 className='my-auto mx-0'><i class="fa-regular fa-file"></i></h2>
-                                    </div>
-                                    <div className="col-7 my-auto text-left">
-                                        <h5 className='m-0 d-flex align-items-center'>Fatura (Elektrik, Gaz, İnternet)
-                                        <div class="dropdown2 ms-3">
-                                            <button class="d-flex info-btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa-solid fa-circle-info"></i>
-                                            </button>
-                                            <div class="dropdown-menu info" aria-labelledby="dropdownMenuButton2">
-                                                Şirketin en büyük hissedarına ait, doğrudan kendi adına kayıtlı Elektirik, doğalgaz, cep telefonu, internet faturasını 
-                                                PDF Formatında yükleyin.</div>
+                                    <div className="row p-3">
+                                        <div className="col-1 ms-5 my-auto">
+                                            <h2 className='my-auto mx-0'><i class="fa-regular fa-file"></i></h2>
                                         </div>
-                                        </h5>
+                                        <div className="col-7 my-auto text-left">
+                                            <h5 className='m-0 d-flex align-items-center'>Fatura (Elektrik, Gaz, İnternet)
+                                            <div class="dropdown2 ms-3">
+                                                <button class="d-flex info-btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa-solid fa-circle-info"></i>
+                                                </button>
+                                                <div class="dropdown-menu info" aria-labelledby="dropdownMenuButton2">
+                                                    Şirketin en büyük hissedarına ait, doğrudan kendi adına kayıtlı Elektirik, doğalgaz, cep telefonu, internet faturasını 
+                                                    PDF Formatında yükleyin.</div>
+                                            </div>
+                                            </h5>
+                                        </div>
+                                        <div className="col-3 my-auto p-0 justify-content-center d-flex">
+                                            {doc.billInfo === false ? (
+                                                    <form>
+                                                    <label for="billInfo-file-upload" class="buton4">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
+                                                    <input  id="billInfo-file-upload" className='d-none' type="file" onChange={handleFileChange("billInfo")}  />
+                                                    <button type="submit" style={{ display: 'none' }} class="billInfo"></button>
+                                                </form>
+                                                ) : (
+                                                    <button onClick={()=>handleDownloadDocument("billInfo")}  className='buton3 m-0'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                            )}
+                                        </div>
                                     </div>
-                                    <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {userDocuments.billInfo === "false" ? (
-                                                <form onSubmit={(e) => handleSubmit(e, "billInfo")}>
-                                                <label for="billInfo-file-upload" class="buton4">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                <input  id="billInfo-file-upload" className='d-none' type="file" onChange={handleFileChange("billInfo")} ref={fileInputRef} />
-                                                <button type="submit" style={{ display: 'none' }} class="billInfo"></button>
-                                            </form>
-                                            ) : (
-                                                <button className='buton3 m-0' style={{cursor:"default"}}>Yüklendi <i class="fa-solid fa-check-double"></i></button>
-                                        )}
-                                    </div>
-                                </div>
                                 </div>
                             </div>
                         </div>
@@ -342,3 +286,7 @@ function Documents() {
 }
 
 export default Documents;
+
+
+
+

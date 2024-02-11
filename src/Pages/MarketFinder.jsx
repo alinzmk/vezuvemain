@@ -1,5 +1,4 @@
 import '../App.css';
-
 import logo from "../Assets/logo-renkli.png"
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -10,12 +9,17 @@ import Requirements from '../Modals/Requirements';
 
 function MarketFinder() {
 
-
+    const accessToken = sessionStorage.getItem("token");
+    const navigate = useNavigate();
+    if(!accessToken) {
+        navigate("/");
+    }
+    //------------------------------------------------------------------------------   
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedVideoId, setSelectedVideoId] = useState("");
-
     const [selectedData, setSelectedData] = useState(null);
     const [selectedData2, setSelectedData2] = useState(null);
+    //------------------------------------------------------------------------------   
 
     const openModal = (x) => {
         setSelectedVideoId(x);
@@ -27,7 +31,6 @@ function MarketFinder() {
         setModalIsOpen(false);
     };
     
-
     const handleSelectData = (data, data2) => {
         setSelectedData(data);
         setSelectedData2(data2);
