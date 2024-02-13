@@ -51,12 +51,13 @@ function Documents() {
           console.error('Error downloading document:', error);
         }
       };
-    
-    const handleFileChange = async (infoClass) => (e) => {
-        const selectedFile = e.target.files[0];
-        console.log(infoClass, selectedFile)
-        handleUploadDocument(infoClass, selectedFile);
-    };
+
+
+    const handleFileUpload = (event, additionalString) => {
+        const file = event.target.files[0];
+        console.log(additionalString ,file)
+        handleUploadDocument(additionalString, file);
+      };
     
   return (
     <>
@@ -96,8 +97,7 @@ function Documents() {
                                             {doc.bankInfo === false ? (
                                                 <form>
                                                     <label htmlFor="bankInfo-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                    <input  id="bankInfo-file-upload" className='d-none' type="file" onChange={handleFileChange("bankInfo")}  />
-                                                    <button type="submit" style={{ display: 'none' }} class="bankInfo"></button>
+                                                    <input id="bankInfo-file-upload" className="d-none" type="file" onChange={(e) => handleFileUpload(e, "bankInfo")} />
                                                 </form>
                                                 ) : (
                                                 <button onClick={()=>handleDownloadDocument("bankInfo")} className='buton3 m-0'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
@@ -128,9 +128,9 @@ function Documents() {
                                     </div>
                                     <div className="col-3 my-auto p-0 justify-content-center d-flex">
                                          {doc.identityDocument === false ? (
-                                                 <form>
+                                                <form>
                                                     <label htmlFor="identityDocument-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                    <input  id="identityDocument-file-upload" className='d-none' type="file" onChange={handleFileChange("identityDocument")}  />
+                                                    <input  id="identityDocument-file-upload" className='d-none' type="file" onChange={(e) => handleFileUpload(e, "identityDocument")}  />
                                                     <button type="submit" style={{ display: 'none' }} class="identityDocument"></button>
                                                 </form>
                                              ) : (
@@ -164,7 +164,7 @@ function Documents() {
                                         {doc.activityDocument === false ? (
                                                 <form>
                                                     <label for="activityDocument-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                    <input  id="activityDocument-file-upload" className='d-none' type="file" onChange={handleFileChange("activityDocument")}  />
+                                                    <input  id="activityDocument-file-upload" className='d-none' type="file" onChange={(e) => handleFileUpload(e, "activityDocument")}  />
                                                     <button type="submit" style={{ display: 'none' }} class="activityDocument"></button>
                                                 </form>
                                             ) : (
@@ -198,7 +198,7 @@ function Documents() {
                                         {doc.englandCertificate === false ? (
                                                 <form>
                                                 <label for="englandCertificate-file-upload" class="buton4 slideup">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                <input  id="englandCertificate-file-upload" className='d-none' type="file" onChange={handleFileChange("englandCertificate")}  />
+                                                <input  id="englandCertificate-file-upload" className='d-none' type="file" onChange={(e) => handleFileUpload(e, "englandCertificate")}  />
                                                 <button type="submit" style={{ display: 'none' }} class="englandCertificate"></button>
                                             </form>
                                             ) : (
@@ -212,34 +212,33 @@ function Documents() {
                         <div className="col-10 p-0 slideup">
                             <div className="col-12 w-auto pb-3">
                                 <div className="pbg">
-
-                                <div className="row p-3">
-                                    <div className="col-1 ms-5 my-auto">
-                                        <h2 className='my-auto mx-0'><i class="fa-regular fa-file"></i></h2>
-                                    </div>
-                                    <div className="col-7 my-auto text-left">
-                                        <h5 className='m-0 d-flex align-items-center'>Vergi Levhası
-                                        <div class="dropdown2 ms-3">
-                                            <button class="d-flex info-btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa-solid fa-circle-info"></i>
-                                            </button>
-                                            <div class="dropdown-menu info" aria-labelledby="dropdownMenuButton2">
-                                                Şirketirketinize ait vergi levhanızı PDF olarak yükleyiniz.</div>
+                                    <div className="row p-3">
+                                        <div className="col-1 ms-5 my-auto">
+                                            <h2 className='my-auto mx-0'><i class="fa-regular fa-file"></i></h2>
                                         </div>
-                                        </h5>
+                                        <div className="col-7 my-auto text-left">
+                                            <h5 className='m-0 d-flex align-items-center'>Vergi Levhası
+                                            <div class="dropdown2 ms-3">
+                                                <button class="d-flex info-btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa-solid fa-circle-info"></i>
+                                                </button>
+                                                <div class="dropdown-menu info" aria-labelledby="dropdownMenuButton2">
+                                                    Şirketirketinize ait vergi levhanızı PDF olarak yükleyiniz.</div>
+                                            </div>
+                                            </h5>
+                                        </div>
+                                        <div className="col-3 my-auto p-0 justify-content-center d-flex">
+                                            {doc.taxPlate === false ? (
+                                                    <form>
+                                                    <label for="taxPlate-file-upload" class="buton4">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
+                                                    <input  id="taxPlate-file-upload" className='d-none' type="file" onChange={(e) => handleFileUpload(e, "taxPlate")}/>
+                                                    <button type="submit" style={{ display: 'none' }} class="taxPlate"></button>
+                                                </form>
+                                                ) : (
+                                                    <button onClick={()=>handleDownloadDocument("taxPlate")}  className='buton3 m-0'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                            )}
+                                        </div>
                                     </div>
-                                    <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                        {doc.taxPlate === false ? (
-                                                <form>
-                                                <label for="taxPlate-file-upload" class="buton4">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                <input  id="taxPlate-file-upload" className='d-none' type="file" onChange={handleFileChange("taxPlate")}  />
-                                                <button type="submit" style={{ display: 'none' }} class="taxPlate"></button>
-                                            </form>
-                                            ) : (
-                                                <button onClick={()=>handleDownloadDocument("taxPlate")}  className='buton3 m-0'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
-                                        )}
-                                    </div>
-                                </div>
                                 </div>
                             </div>
                         </div>
@@ -257,20 +256,20 @@ function Documents() {
                                                     <i class="fa-solid fa-circle-info"></i>
                                                 </button>
                                                 <div class="dropdown-menu info" aria-labelledby="dropdownMenuButton2">
-                                                    Şirketin en büyük hissedarına ait, doğrudan kendi adına kayıtlı Elektirik, doğalgaz, cep telefonu, internet faturasını 
+                                                    Şirketin en büyük hissedarına ait, doğrudan kendi adına kayıtlı Elektirik, doğalgaz, cep telefonu, internet faturasını
                                                     PDF Formatında yükleyin.</div>
                                             </div>
                                             </h5>
                                         </div>
                                         <div className="col-3 my-auto p-0 justify-content-center d-flex">
-                                            {doc.billInfo === false ? (
-                                                    <form>
+                                            {doc.bill === false ? (
+                                                <form>
                                                     <label for="billInfo-file-upload" class="buton4">Yükle <i class="fa-solid fa-cloud-arrow-up"></i></label>
-                                                    <input  id="billInfo-file-upload" className='d-none' type="file" onChange={handleFileChange("billInfo")}  />
-                                                    <button type="submit" style={{ display: 'none' }} class="billInfo"></button>
+                                                    <input  id="billInfo-file-upload" className='d-none' type="file" onChange={(e) => handleFileUpload(e, "bill")}   />
+                                                    <button type="submit" style={{ display: 'none' }} class="bill"></button>
                                                 </form>
                                                 ) : (
-                                                    <button onClick={()=>handleDownloadDocument("billInfo")}  className='buton3 m-0'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                    <button onClick={()=>handleDownloadDocument("bill")}  className='buton3 m-0'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
                                             )}
                                         </div>
                                     </div>

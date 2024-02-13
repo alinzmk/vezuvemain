@@ -17,9 +17,9 @@ function Profile() {
     if(!accessToken) {
         navigate("/");
     }
-    //------------------------------------------------------------------------------    
     const [editable, setEditable] = useState("");
     const [newValue, setNewValue] = useState('');
+    //------------------------------------------------------------------------------    
     const {profile} = useSelector((state) => state.profile);
     
     const {plan} = useSelector((state) => state.plan);
@@ -51,6 +51,8 @@ function Profile() {
         setEditable(null);
     }
     
+
+    
     
   return (
 
@@ -70,6 +72,10 @@ function Profile() {
                                 <img src={logo} className='sidebar-logo ' alt="" />
                             </div>
                         </div>
+
+
+
+
                         <div className="col-9 mb-4">
                            <div className="row ps-0 my-3 slideup ">
                                 <div className="col-9 my-auto">
@@ -150,20 +156,23 @@ function Profile() {
                                             ) : (
                                                 profile ? (
                                                     // Display user address if userData exists
-                                                    <div className="d-flex align-items-center">
-                                                        <h6 className='profile-info'>{profile.companyTitle}</h6>
-                                                        <button className="profile-button ms-auto trans me-3 my-2" onClick={() => setEditable("companyTitle")}>
-                                                            <i className="fa-solid fa-pen-to-square"></i>
-                                                        </button>
-                                                    </div>
+                                                    <form onSubmit={(e) => e.preventDefault()}>
+                                                        <div className="d-flex align-items-center">
+                                                            <h6 className='profile-info'>{profile.companyTitle}</h6>
+                                                            <button type='button' className="profile-button ms-auto trans me-3 my-2" onClick={()=>setEditable("companyTitle")}>
+                                                                <i className="fa-solid fa-pen-to-square"></i>
+                                                            </button>
+                                                        </div>
+                                                    </form>
                                                 ) : (
-                                                    // Display an empty h6 element if userData doesn't exist
-                                                    <div className="d-flex align-items-center">
-                                                        <h6 className='profile-info'>No data</h6>
-                                                        <button className="profile-button ms-auto trans me-3 my-2" onClick={() => setEditable("companyTitle")}>
-                                                            <i className="fa-solid fa-pen-to-square"></i>
-                                                        </button>
-                                                    </div>
+                                                    <form onSubmit={(e) => e.preventDefault()}>
+                                                        <div className="d-flex align-items-center">
+                                                            <h6 className='profile-info'>No data</h6>
+                                                            <button className="profile-button ms-auto trans me-3 my-2" onClick={() => setEditable("companyTitle")}>
+                                                                <i className="fa-solid fa-pen-to-square"></i>
+                                                            </button>
+                                                        </div>
+                                                    </form>// Display an empty h6 element if userData doesn't exist
                                                 )
                                         )}
 
@@ -180,21 +189,23 @@ function Profile() {
                                                 </div>
                                             ) : (
                                                 profile.taxAdmin ? (
-                                                    // Display user address if userData exists
+                                                    <form onSubmit={(e) => e.preventDefault()}>
                                                     <div className="d-flex align-items-center">
                                                         <h6 className='profile-info'>{profile.taxAdmin}</h6>
                                                         <button className="profile-button ms-auto trans me-3 my-2" onClick={() => setEditable("taxAdmin")}>
                                                             <i className="fa-solid fa-pen-to-square"></i>
                                                         </button>
                                                     </div>
+                                                    </form>// Display user address if userData exists
                                                 ) : (
-                                                    // Display an empty h6 element if userData doesn't exist
+                                                    <form onSubmit={(e) => e.preventDefault()}>
                                                     <div className="d-flex align-items-center">
                                                         <h6 className='profile-info'>No data</h6>
                                                         <button className="profile-button ms-auto trans me-3 my-2" onClick={() => setEditable("taxAdmin")}>
                                                             <i className="fa-solid fa-pen-to-square"></i>
                                                         </button>
                                                     </div>
+                                                    </form>// Display an empty h6 element if userData doesn't exist
                                                 )
                                         )}
                                     </div>
@@ -223,21 +234,23 @@ function Profile() {
                                                 </div>
                                             ) : (
                                                 profile ? (
-                                                    // Display user address if userData exists
+                                                    <form onSubmit={(e) => e.preventDefault()}>
                                                     <div className="d-flex align-items-center">
                                                         <h6 className='profile-info'>{profile.city}</h6>
                                                         <button className="profile-button ms-auto trans me-3 my-2" onClick={() => setEditable("city")}>
                                                             <i className="fa-solid fa-pen-to-square"></i>
                                                         </button>
                                                     </div>
+                                                    </form>// Display user address if userData exists
                                                 ) : (
-                                                    // Display an empty h6 element if userData doesn't exist
+                                                    <form onSubmit={(e) => e.preventDefault()}>
                                                     <div className="d-flex align-items-center">
                                                         <h6 className='profile-info'>No data</h6>
                                                         <button className="profile-button ms-auto trans me-3 my-2" onClick={() => setEditable("city")}>
                                                             <i className="fa-solid fa-pen-to-square"></i>
                                                         </button>
                                                     </div>
+                                                    </form>// Display an empty h6 element if userData doesn't exist
                                                 )
                                         )}
 
@@ -254,23 +267,25 @@ function Profile() {
                                                 </div>
                                             ) : (
                                                 profile ? (
-                                                    // Display user address if userData exists
-                                                    <>
+                                                    <form onSubmit={(e) => e.preventDefault()}>
+                                                    
                                                         <div className="d-flex align-items-center">
                                                             <h6 className='profile-info'>{profile.address}</h6>
                                                             <button className="profile-button ms-auto trans me-3 my-2" onClick={() => setEditable("address")}>
                                                                 <i className="fa-solid fa-pen-to-square"></i>
                                                             </button>
                                                         </div>
-                                                    </>
+                                                  
+                                                    </form>
                                                 ) : (
-                                                    // Display an empty h6 element if userData doesn't exist
+                                                    <form onSubmit={(e) => e.preventDefault()}>
                                                     <div className="d-flex align-items-center">
                                                         <h6 className='profile-info'>No data</h6>
                                                         <button className="profile-button ms-auto trans me-3 my-2" onClick={() => setEditable("address")}>
                                                             <i className="fa-solid fa-pen-to-square"></i>
                                                         </button>
                                                     </div>
+                                                    </form>// Display an empty h6 element if userData doesn't exist
                                                 )
                                             )}
                                     </div>

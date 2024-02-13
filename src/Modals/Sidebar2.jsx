@@ -60,7 +60,7 @@ const Sidebar2 = () => {
                          </NavLink>
                     </li>
                     <li className="sidebar-li2">
-                         <NavLink to={"/"} className='sidebar-link' activeClassName="side-active">
+                         <NavLink to={"/"} className='sidebar-link' activeClassName="side-active" onClick={()=> sessionStorage.removeItem("token")}>
                          <i class="fa-solid fa-right-from-bracket"></i>
                          </NavLink>
                     </li>

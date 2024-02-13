@@ -40,6 +40,15 @@ export default function App(props) {
         const result = await getMarketFinder(accessToken, requestData);
         if (result.status === 200) {
           onSelectData(data.find(item => item.name ===result.marketPlaces[0]), data.find(item => item.name ===result.marketPlaces[1]));
+          setEmployeeCount("Belirtilmedi")
+          setProductCategory("Belirtilmedi")
+          setTurkeySalesVolume("Belirtilmedi")
+          setHasWebsite(null)
+          setHasTurkeySales(null)
+          setHasInternationalSales(null)
+          setHasStore(null)
+          setDesiInfo(null)
+
         } else {
           console.log(result.status)
         }
