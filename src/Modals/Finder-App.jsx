@@ -24,7 +24,8 @@ export default function App(props) {
     const [desiInfo, setDesiInfo] = useState(null);
     const sliderRef = useRef(null);
     const [error, setError] = useState(null);
-    
+    const defaultOption = "Lütfen bir seçenek işaretleyiniz"
+
     const requestData = {
       category: productCategory,
       webPage: hasWebsite,
@@ -48,7 +49,6 @@ export default function App(props) {
           setHasInternationalSales(null)
           setHasStore(null)
           setDesiInfo(null)
-
         } else {
           console.log(result.status)
         }
@@ -102,6 +102,7 @@ export default function App(props) {
       
 
   };
+
 
   const { onSelectData } = props;
 
@@ -223,7 +224,7 @@ export default function App(props) {
                       Türkiye pazarında online veya geleneksel ticaret ile firmanızın toplam satış geliri ortalaması hangi aralıktadır?
                   </h5>
                     <select className='custom-select text-center mt-3' value={TurkeySalesVolume} onChange={(e) => setTurkeySalesVolume(parseInt(e.target.value))}>
-                        <option value="">Please select an option</option>
+                        <option value="">{defaultOption}</option>
                         <option className="" value="250000">100.000₺-250.000₺</option>
                         <option className="" value="500000">250.000₺-500.000₺</option>
                         <option className="" value="1000000">500.000₺-1.000.000₺</option>
@@ -272,7 +273,7 @@ export default function App(props) {
                     Satışını yaptığınız ürün grubunun ana kategorisisi nedir ?
                   </h5>
                     <select className='custom-select text-center mt-3' defaultValue="Lütfen Seçiniz" value={productCategory} onChange={(e) => setProductCategory(e.target.value)}>
-                      <option value="">Please select an option</option>
+                      <option value="">{defaultOption}</option>
                       <option value="mobilya">Mobilya</option>
                       <option value="kozmetik">Kozmetik</option>
                       <option value="takı">Takı</option>
@@ -304,7 +305,7 @@ export default function App(props) {
                     Ürünleriniz ortalama hangi desi aralığındadır ?
                   </h5>
                     <select className='custom-select text-center mt-3' value={desiInfo} onChange={(e) => setDesiInfo(parseInt(e.target.value))}>
-                      <option value="">Please select an option</option>
+                      <option value="">{defaultOption}</option>
                       <option value="1">0-1 desi</option>
                       <option value="5">1-5 desi</option>
                       <option value="10">5-10 desi</option>
@@ -323,7 +324,7 @@ export default function App(props) {
                     Türkiyede ki işletmenizde tüm birimler dahil kaç tam zamanlı çalışana sahipsiniz? 
                   </h5>
                     <select className='custom-select text-center mt-3'value={employeeCount} onChange={(e) => setEmployeeCount(parseInt(e.target.value))}>
-                    <option value="">Please select an option</option>
+                    <option value="">{defaultOption}</option>
                         <option value="10">1-10</option>
                         <option value="50">11-50</option>
                         <option value="100">51-100</option>

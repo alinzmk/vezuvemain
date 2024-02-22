@@ -1,92 +1,56 @@
 import '../App.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import logo from "../Assets/logo-renkli.png"
-import { Link } from 'react-router-dom';
-import Sidebar from "../Modals/Sidebar";
-import { ResponsiveLine } from '@nivo/line';
 import LineChart from '../Modals/Linechart';
-import { useState } from 'react';
 import Sidebar2 from '../Modals/Sidebar2';
-import axios from 'axios';
-import { WhatsAppWidget } from 'react-whatsapp-widget';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPlanAdmin } from '../../redux/features/adminplan/planAdminSlice';
+import { getDashAdmin } from '../../redux/features/admindash/dashAdminSlice';
 
 
 function Dashboard() {
-
-    const [userPortfolio, setUserPortfolio] = useState(null); // State to store user portfolio data
-     const [userPlan, setUserPlan] = useState(null); // State to store user plan data
     
-/*   // Function to fetch user plan data
-    const fetchUserPlan = async (accessToken) => {
-    try {
-        const response = await axios.get('http://your-backend-url/get_user_plan', {
-            headers: {
-                Authorization: `Bearer ${accessToken}`, // Include the JWT token in the header
-        },
-    });
-    
-    // Assuming the response contains userPlan
-    const userPlanResponse = response.data.userPlan;
-    
-    // Set the userPlan in the component state
-    setUserPlan(userPlanResponse);
-} catch (error) {
-      // Handle error here
-      console.error('Error fetching user plan:', error);
-      // Handle error state or notify the user about the error
+    const accessToken = (sessionStorage.getItem("token"));
+    const navigate = useNavigate();
+    if(!accessToken) {
+        navigate("/");  
     }
-  };
-  
-  // Function to fetch user portfolio data
-  const fetchUserPortfolio = async (accessToken) => {
-      try {
-            const response = await axios.get('https://localhost:6161/get_user_portfolio', {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`, // Include the JWT token in the header
-                },
-            });
+   //------------------------------------------------------------------------------   
+    const currentDate = new Date();
+    const month = currentDate.getMonth();
+    const {planadmin} = useSelector((state) => state.planadmin);
+    const {dashadmin} = useSelector((state) => state.dashadmin);
+    const dispatch = useDispatch()
+    //------------------------------------------------------------------------------
 
-            // Assuming the response contains userPortfolio
-            const userPortfolioResponse = response.data.userPortfolio;
+    //------------------------------------------------------------------------------  
+    const [graphData, setGraphData] = useState(null);
 
-            // Set the userPortfolio in the component state
-            setUserPortfolio(userPortfolioResponse);
-        } 
-        catch (error) {
-            // Handle error here
-            console.error('Error fetching user portfolio:', error);
-            // Handle error state or notify the user about the error
+    const totalGrowth = () => {
+        if(month !== 0){
+            var prevMonth = month- 1
         }
-    };
-    
-    useEffect(() => {
-        const accessToken = localStorage.getItem("token"); // Replace with the actual access token
-        fetchUserPortfolio(accessToken);
-        fetchUserPlan(accessToken);
-    }, []); // Run only once on component mount */
-    
-    
-  /*   const [graphData, setGraphData] = useState(null);
-    
-    const reportGraph = [];
+        else if(month === 0){
+            var prevMonth = 11
+        }
+        var currentSale = dashadmin.sales[0][month].value
+        var previousSale = dashadmin.sales[0][prevMonth].value
+        var total = currentSale - previousSale;
+        return total
+      } 
 
-    
-    setGraphData({
-        labels: (reportGraph.map((data) => data.month)),
-        datasets: [
-          {
-            data: reportGraph.map((data) => data.value),
-            backgroundColor: "rgba(28, 29, 34, 1)",
-            borderColor: "rgba(28, 29, 34, 1)",
-            borderWidth: 1,
-          },
-        ],
-      });  */
+      const calculateRemainingDays = () => {
+        const start = new Date(planadmin.userPlan.startDate);
+        const end = new Date(planadmin.userPlan.finishDate);
+        const timeDifference = end.getTime() - start.getTime();
+        const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+        return(daysDifference);
+      };
 
   return (
       <>
         <div className="dashboard m-0 h-100">
-        
             <div className="row h-100">
                 <div className="p-0 h-100">
         <Sidebar2/>
@@ -95,7 +59,7 @@ function Dashboard() {
                     <div className="row d-flex justify-content-between me-5">
                         <div className="col-12 ">
                             <div className="row mb-4 d-flex justify-content-between">
-                                <h2 className='purple w-auto mt-3'>Ana Panel: Müşteri İsim Soyisim</h2>
+                                <h2 className='purple w-auto mt-3'>Ana Panel</h2>
                                 <img src={logo} className='sidebar-logo' alt=""/>
                             </div>
                         </div>
@@ -105,30 +69,30 @@ function Dashboard() {
                                     <div className='col-lg-4 col-12 trans mainhov' id='total-sales'>
                                         <div className='col-12 slideup position-relative'>
                                             <h6>Toplam Satış</h6>
-                                            {userPortfolio ? (
+                                            {dashadmin.sales.length !== 0 ? (
                                                 <>
-                                                    <h2>{userPortfolio.totalSales}₺<span className='aylık'>/aylık</span></h2>
-                                                    <p className='plus' >+%3</p>
+                                                    <h2>{dashadmin.sales[0][month].value}$<span className='aylık'>/aylık</span></h2>
+                                                    <p className='plus'>+%3</p>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <h2>0000₺<span className='aylık'>/aylık</span></h2>
-                                                    <p className='plus' >+%0</p>
+                                                    <h2>0000$<span className='aylık'>/aylık</span></h2>
+                                                    <p className='plus'>+%0</p>
                                                 </>
                                         )}
                                         </div>
                                     </div>
                                     <div className='col-lg-3 col-12  trans mainhov' id='total-purchases'>
                                         <div className='col-12 slideup'>
-                                            <h6>Toplam Satın Alım</h6>
-                                            {userPortfolio ? (
+                                            <h6>Toplam Reklam Harcaması</h6>
+                                            {dashadmin.ads.length !== 0 ? (
                                                 <>
-                                                    <h2>{userPortfolio.totalPurchase}₺<span className='aylık'>/aylık</span></h2>
+                                                    <h2>{dashadmin.ads[0][month].value}$<span className='aylık'>/günlük</span></h2>
                                                     <p className='plus'>+%3</p>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <h2>0000₺<span className='aylık'>/aylık</span></h2>
+                                                    <h2>0000$<span className='aylık'>/günlük</span></h2>
                                                     <p className='plus'>+%0</p>
                                                 </>
                                             )}
@@ -137,16 +101,16 @@ function Dashboard() {
                                     <div className='col-lg-3 col-12 trans mainhov' id='total-orders'>
                                         <div className='col-12 slideup'>
                                             <h6>Toplam Sipariş</h6>
-                                            {userPortfolio ? (
+                                            {dashadmin.sales_unit.length !== 0 ? (
                                                     <>
-                                                        <h2>{userPortfolio.totalOrder}₺<span className='aylık'>/aylık</span></h2>
-                                                        <p className='plus'>+%3</p>
+                                                        <h2>{dashadmin.sales_unit[0][month].value}<span className='aylık'>/adet</span></h2>
+                                                        <p className='minus'>+%0</p>
                                                         
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <h2>0000₺<span className='aylık'>/aylık</span></h2>
-                                                        <p className='minus'>-%0</p>
+                                                        <h2>0000<span className='aylık'>/adet</span></h2>
+                                                        <p className='plus'>+%0</p>
                                                     </>
                                             )}
                                         </div>
@@ -154,15 +118,15 @@ function Dashboard() {
                                     <div className='col-12 trans mainhov' id='total-growth'>
                                         <div className='col-12 slideup position-relative'>
                                             <h6>Toplam Büyüme</h6>
-                                            {userPortfolio ? (
+                                            {dashadmin.sales.length !== 0 ? (
                                                 <>
-                                                    <h2>{userPortfolio.totalGrowth}₺<span className='aylık'>/aylık</span></h2>
-                                                    <p className='plus2' >+%3</p>
+                                                    <h2>{totalGrowth()}$<span className='aylık'>/aylık</span></h2>
+                                                    <p className='minus2'>+%0</p>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <h2>0000₺<span className='aylık'>/aylık</span></h2>
-                                                    <p className='plus2' >+%0</p>
+                                                    <h2>0000$<span className='aylık'>/aylık</span></h2>
+                                                    <p className='plus2'>+%0</p>
                                                 </>
                                         )}
                                                 
@@ -173,9 +137,9 @@ function Dashboard() {
                             <div className="col-6 mb-3 d-flex justify-content-between" id='customer-info'>                           
                                 <div className="col-12 ps-5 my-auto">
                                     <h5 className='main-info' >Aktif hizmetiniz <i class="fa-solid fa-box-open"></i> : <span className='main-info2' >
-                                        {userPlan ? (
+                                        {planadmin.userPlan ? (
                                                 <>
-                                                    <span className='main-info2'>{userPlan.plan}₺<span className='aylık'>/</span></span>
+                                                    <span className='main-info2'>{planadmin.userPlan.currentPlan}</span>
                                                 </>
                                             ) : (
                                                 <>
@@ -185,10 +149,10 @@ function Dashboard() {
                                         {}</span></h5>
                                     <hr className='info-hr' />
                                     <h5 className='main-info' >E-Ticaret Uzmanınız <i class="fa-regular fa-user"></i> : <span className='main-info2' >
-                                        {userPlan ? (
+                                        {planadmin.userPlan ? (
                                                 <>
-                                                    <span className='main-info2'>{userPlan.expert}₺<span className='aylık'>/aylık</span></span>
-                                                    <p className='plus' >+%3</p>
+                                                    <span className='main-info2'>{planadmin.userPlan.expert}</span>
+                                                    
                                                 </>
                                             ) : (
                                                 <>
@@ -198,10 +162,10 @@ function Dashboard() {
                                         </span></h5>  
                                     <hr  className='info-hr'/>                                  
                                     <h5 className='main-info' >Uzman İletişim Bilgileri <i class="fa-regular fa-user"></i> : <span className='main-info2' >
-                                        {userPlan ? (
+                                        {planadmin.userPlan ? (
                                                 <>
-                                                    <span className='main-info2'>{userPlan.expertmail}₺<span className='aylık'>/aylık</span></span>
-                                                    <p className='plus' >+%3</p>
+                                                    <span className='main-info2'>{planadmin.userPlan.expertmail}</span>
+                                                    
                                                 </>
                                             ) : (
                                                 <>
@@ -211,10 +175,11 @@ function Dashboard() {
                                         </span></h5>  
                                     <hr className='info-hr' />
                                     <h5 className='main-info' >Kalan Abonelik Süreniz <i class="fa-regular fa-clock"></i> : <span className='main-info2' >
-                                        {userPlan ? (
+                                        {planadmin.userPlan ? (
                                                 <>
-                                                    <span className='main-info2'>{userPlan.startDate}{userPlan.finishDate}</span> 
-                                                    <p className='plus' >+%3</p>
+                                                    <span className='main-info2'>{calculateRemainingDays()} gün</span> 
+                                                    
+                                                    
                                                 </>
                                             ) : (
                                                 <>
@@ -322,7 +287,7 @@ function Dashboard() {
                 </div>
             </div>
         </div>
-    </>
+    </> 
   );
 }
 

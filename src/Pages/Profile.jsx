@@ -8,7 +8,7 @@ import ErrorPage from './ErrorPage';
 import { useDispatch, useSelector } from 'react-redux';
 import fetchAllRedux from '../redux/fetchAllRedux';
 import { successNotification } from '../Modals/Notification';
-import { getUserAdmin } from '../redux/features/useradmin/userAdminSlice';
+import { getUserAdmin } from '../redux/features/adminuser/userAdminSlice';
 
 function Profile() {
 
@@ -21,7 +21,6 @@ function Profile() {
     const [newValue, setNewValue] = useState('');
     //------------------------------------------------------------------------------    
     const {profile} = useSelector((state) => state.profile);
-    
     const {plan} = useSelector((state) => state.plan);
     const dispatch = useDispatch();
    //------------------------------------------------------------------------------   
@@ -50,10 +49,7 @@ function Profile() {
         handleSetUserData(state);
         setEditable(null);
     }
-    
 
-    
-    
   return (
 
     <>

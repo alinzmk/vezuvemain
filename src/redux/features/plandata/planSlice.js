@@ -17,8 +17,6 @@ export const getPlanData = createAsyncThunk('getPlanData', async() => {
   } catch (error) {
       console.log(error)
   }
-    
-
 })
 
 export const planSlice = createSlice({

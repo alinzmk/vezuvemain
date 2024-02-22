@@ -4,23 +4,35 @@ import logo from "../Assets/logo-renkli.png"
 import Sidebar2 from '../Modals/Sidebar2';
 import { getAllUserData } from '../AdminApiService';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserAdmin } from '../../redux/features/useradmin/userAdminSlice';
+import { getUserAdmin } from '../../redux/features/adminuser/userAdminSlice';
+import { getPlanAdmin } from '../../redux/features/adminplan/planAdminSlice';
+import { getDashAdmin } from '../../redux/features/admindash/dashAdminSlice';
+import { getProductAdmin } from '../../redux/features/adminproduct/productAdminSlice';
+import { getTaskAdmin } from '../../redux/features/admintask/taskAdminSlice';
 
 function SelectCustomer() {
 
     const [userData, setUserData] = useState(null);
     const accessToken = sessionStorage.getItem("token")
-    const [selectedCustomer, setselectedCustomer] = useState('');
-     
+    const [selectedCustomer, setselectedCustomer] = useState(''); 
     const [searchQuery, setSearchQuery] = useState('');
-    const {useradmin} = useSelector((state) => state.useradmin);
-    const dispatch = useDispatch();
 
+    const {useradmin} = useSelector((state) => state.useradmin);
+
+    const dispatch = useDispatch();
+    
     const selectCustomer = (id) =>{
         sessionStorage.setItem("selectedCustomer", id);
+        dispatch(getPlanAdmin())
+        dispatch(getDashAdmin())
+        dispatch(getProductAdmin())
+        dispatch(getTaskAdmin())
         
-
     };  
+    
+    if(useradmin.length === 0){
+        dispatch(getUserAdmin())
+    }
 
 
   return (

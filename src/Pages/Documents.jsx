@@ -269,7 +269,7 @@ function Documents() {
                                                     <button type="submit" style={{ display: 'none' }} class="bill"></button>
                                                 </form>
                                                 ) : (
-                                                    <button onClick={()=>handleDownloadDocument("bill")}  className='buton3 m-0'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                    <button onClick={()=>handleDownloadDocument("bill")}  className='buton3 m-0'>Yüklendi<i class="fa-solid fa-check-double"></i></button>
                                             )}
                                         </div>
                                     </div>

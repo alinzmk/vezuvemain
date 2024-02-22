@@ -5,7 +5,7 @@ import logo from "../Assets/logo-renkli.png";
 import { useDispatch } from 'react-redux';
 import { getAdminToken } from '../AdminApiService';
 import { successNotification } from '../../Modals/Notification';
-import { getUserAdmin } from '../../redux/features/useradmin/userAdminSlice';
+import { getUserAdmin } from '../../redux/features/adminuser/userAdminSlice';
 
 function Login() {
 
@@ -25,26 +25,25 @@ function Login() {
   
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
-  };
-  
+  }
 
-  const handleLogin = async () => {
+  const handleLogin = async () => { 
     try {
       const result = await getAdminToken(username, password);
       
       if (result && result.access_token) {
-        console.log('Login successful!', result);
-        sessionStorage.setItem("token", result.access_token);
+        console.log('Login successful!', result)
+        sessionStorage.setItem("token", result.access_token)
         successNotification("Başarıyla Giriş Yapıldı")
         dispatch(getUserAdmin())
         setTimeout(() => {
-          navigate("/admin/MusteriSec");
-        }, 400);
+          navigate("/admin/MusteriSec")
+        }, 400)
       } else {
-        console.error('Login failed:', result);
+        console.error('Login failed:', result)
       }
     } catch (error) {
-      console.error('Error logging in user:', error);
+      console.error('Error logging in user:', error)
     }
     
   };

@@ -1,109 +1,89 @@
 import '../App.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import logo from "../Assets/logo-renkli.png"
-import kare from "../Assets/kare-logo.jpg"
 import Sidebar2 from '../Modals/Sidebar2';
-import * as XLSX from "xlsx";
 import Modal from "../Modals/Product-Modal";
 import info from "../Assets/ürün.jpg";
-import { getUserProducts, addProductToUser, deleteProduct } from '../AdminApiService';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { addProductToUser, deleteProduct } from '../AdminApiService';
+import { successNotification, warningNotification } from '../../Modals/Notification';
+import { getProductAdmin } from '../../redux/features/adminproduct/productAdminSlice';
 
 function Products() {
 
-    const [products, setProducts] = useState([]);
+    const accessToken = sessionStorage.getItem("token");
+    const customerID = sessionStorage.getItem("selectedCustomer")
+    const navigate = useNavigate();
+    if(!accessToken) {
+        navigate("/");
+    }
+    //------------------------------------------------------------------------------   
     const [selectedProduct, setSelectedProduct] = useState(null);
-    const [file, setFile] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
+    const dispatch = useDispatch();
+    const {productadmin} = useSelector((state) => state.productadmin);
+    console.log(productadmin)
+    //------------------------------------------------------------------------------   
+    if(productadmin.userProducts.length === 0){
 
-    const [accessToken, setAccessToken] = useState('your-access-token'); // Replace with actual access token
-    const [userId, setUserId] = useState(123); // Replace with actual user ID
-    const [customerId, setCustomerId] = useState(456); // Replace with actual customer ID
-    const [productToAdd, setProductToAdd] = useState(['product1', 'product2']); // Replace with actual product array
-    
-    const [productId, setProductId] = useState(789); // Replace with actual product ID
+    }
+    //------------------------------------------------------------------------------   
 
-    // ADD PRODUCT
-    const handleAddProductToUser = async () => {
-      try {
-        const result = await addProductToUser(accessToken, userId, productToAdd, customerId);
-
-        if (result.status === 200) {
-          console.log('Product added to user successfully!');
-        } else {
-          console.error('Failed to add product to user.');
-        }
-      } catch (error) {
-        console.error('Error adding product to user:', error);
-      }
-    };
-
-    // DELETE PRODUCT
-    const handleDeleteProduct = async () => {
-      try {
-        const result = await deleteProduct(accessToken, userId, productId, customerId);
-  
-        if (result.status === 200) {
-          console.log('Product deleted successfully!');
-        } else {
-          console.error('Failed to delete product.');
-        }
-      } catch (error) {
-        console.error('Error deleting product:', error);
-      }
-    };
-
-    useEffect(() => {
-        //GET PRODUCTS
-        const fetchData = async () => {
+        const handleAddProductToUser = async (productsToAdd) => {
+            console.log("handleAddProductToUser",productsToAdd)
             try {
-            const result = await getUserProducts(accessToken, userId, customerId);
-            setProducts(result.userProducts);
-            } catch (error) {
+            const result = await addProductToUser(productsToAdd, customerID, accessToken );
+            if (result.status === 200) {
+                console.log('Product added to user successfully!');
+                successNotification("ÜRÜNLERİNİZ BAŞARIYLA EKLENDİ")
+                dispatch(getProductAdmin());
+            } else {
+                warningNotification("LÜTFEN EXCEL DOSYASI YÜKLEYİNİZ")
+                console.error('Failed to add product to user.');
             }
-      };
-
-      fetchData();
-    }, [accessToken, userId, customerId]); 
-
-    const filteredProducts = products.filter((product) =>
-      product.productName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  
-/*     ESKİ FILE YUKLEME
-    const handleFileUpload = (event) => {
-        const uploadedFile = event.target.files[0];
-        setFile(uploadedFile);
-        
-        const reader = new FileReader();
-        
-        reader.onload = (e) => {
-          const data = new Uint8Array(e.target.result);
-          const workbook = XLSX.read(data, { type: 'array' });
-          const sheetName = workbook.SheetNames[0];
-          const sheet = workbook.Sheets[sheetName];
-          const jsonData = XLSX.utils.sheet_to_json(sheet);
-      
-          const productsArray = jsonData.map((row, index) => ({
-            id: index, // Add a unique identifier for each product
-            productName: row['Ürün Adı'],
-            price: row['Fiyat'],
-            description: row['Açıklama'],
-            productID: row['Firma Stok Kodu'],
-            image: row['Fotoğraf'],
-          }));
-      
-          setProducts(productsArray);
-      
-          // Check if productsArray is not empty before setting selectedProduct
-
+            } catch (error) {
+            console.error('Error adding product to user:', error);
+            }
         };
-      
-        reader.readAsArrayBuffer(uploadedFile);
-      };
-      
-      
- */
+
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+        if (
+            file.size <= 30 * 1024 * 1024
+        ) {
+            handleAddProductToUser(file)
+        } else {
+            console.error('Invalid file. Please select a valid Excel file (xls, xlsx) and make sure it is 30MB or less.');
+        }
+        }
+    };
+
+    
+    const handleProductDelete = async (productId) => {
+        try {
+        const result = await deleteProduct(productId, customerID, accessToken);
+        if (result.status === 200) {
+            console.log('Product deleted successfully!');
+            successNotification("ÜRÜN BAŞARIYLA SİLİNDİ")
+            dispatch(getProductAdmin());
+        } else {
+            console.error('Failed to delete product.');
+        }
+        } catch (error) {
+        console.error('Error deleting product:', error);
+        }
+    };
+
+        const filteredProducts = productadmin.userProducts.filter(product =>
+            product[5]?.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+    
+
+
+
   return (
     <>
         <div className="dashboard m-0">
@@ -138,8 +118,12 @@ function Products() {
                                                 <div class="dropdown-menu upload" aria-labelledby="dropdownMenuButton">
                                                     <div className="row product-dropdown">
                                                         <div className="col-12 dropdown-item m-0">
-                                                            <label  for="file-upload" class=" add-product"><i class="fa-solid fa-plus"></i> Dosya Yüklemek İçin Tıklayınız </label>
-                                                            <input  accept=".xls, .xlsx" id="file-upload" className='d-none' type="file" onChange={handleAddProductToUser}/>
+                                                            <form>
+                                                                <label htmlFor="file-upload" className="add-product">
+                                                                    <i className="fa-solid fa-plus"></i> Dosya Yüklemek İçin Tıklayınız
+                                                                </label>
+                                                                <input id="file-upload" className="d-none" type="file" onChange={handleFileUpload} />
+                                                            </form>
                                                         </div>
 
                                                         <hr className='dropdown-divider' />
@@ -155,48 +139,50 @@ function Products() {
                                     <hr />
                                     <div className="row">
                                         <div className="col-12 p-0 product-list-container">
-                                        <ul className='product-list'>
-                                        {filteredProducts.map(product => (
-                                            <li 
-                                            key={product.id} 
-                                            className={`product-item ${selectedProduct === product.id ? 'product-active' : ''}`}
-                                            onClick={() => setSelectedProduct(product.id)}
-                                            >
-                                            {product.productName}
-                                            </li>
-                                        ))}
-                                        </ul>
+                                            <ul className='product-list'>
+                                                {filteredProducts.map((product, index) => (
+                                                    <li
+                                                        key={product[1]} // Assuming index 1 contains the product ID
+                                                        className={`product-item ${selectedProduct === index ? 'product-active' : ''}`}
+                                                        onClick={() => setSelectedProduct(index)}
+                                                    >
+                                                        {product[5]} {/* Assuming index 5 contains the product name */}
+                                                    </li>
+                                                ))}
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                                 <div className="col-8 pbg ps-2">
-                                        {products.length === 0 && <img src={info} alt="" className='fadeIn' id='add-product-info'/>}
-                                         {(selectedProduct || selectedProduct === 0) && (
-                                             <div className='slideleft'>
-                                            <p className='profile-title'>Firma Stok Kodu: {products[selectedProduct].productID}</p>
-                                            <div className="row ps-3">
-                                                <div className="col-3 image-wrap">
-                                                    <img id="product-image" src={products[selectedProduct].image} alt="" />
+                                {productadmin.userProducts.length === 0 && <img src={info} alt="" className='fadeIn' id='add-product-info'/>}
+                                {(selectedProduct !== null && selectedProduct >= 0 && selectedProduct < filteredProducts.length) && (
+                                    <div className='slideleft'>
+                                        <p className='profile-title'>Firma Stok Kodu: {filteredProducts[selectedProduct][4]}</p>
+                                        <div className="row ps-3 mt-4">
+                                            <div className="col-3 image-wrap">
+                                                <img id="product-image" src={filteredProducts[selectedProduct][13]} alt="" />
+                                            </div>
+                                            <div className="col-9 ps-5">
+                                                <div>
+                                                    <h4 className='mb-1' > {filteredProducts[selectedProduct][5]}</h4>
+                                                    <h5 className='my-3'>{filteredProducts[selectedProduct][12]}₺</h5>
+                                                    <hr style={{margin:"0 15rem 1rem 0"}}/>
+                                                    <h6 className='my-4'>{filteredProducts[selectedProduct][6]}</h6>
                                                 </div>
-                                                <div className="col-9 ps-5">
-                                                    <div>
-                                                        <h4 className='mb-1' > {products[selectedProduct].productName}</h4>
-                                                        <h5 className='my-3'>{products[selectedProduct].price}₺</h5>
-                                                        <hr style={{margin:"0 15rem 1rem 0"}}/>
-                                                        <h6 className='my-4'>{products[selectedProduct].description}</h6>
-                                                    </div>
+                                                <div className='d-flex justify-content-end pe-4'>
+                                                    <button className='buton2' onClick={()=>handleProductDelete(filteredProducts[selectedProduct][1])} >Bu Ürünü Sil</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    )}
-                                            
-                                </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </>
   );

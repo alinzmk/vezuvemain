@@ -25,18 +25,15 @@ function Services() {
         const [selectedItem, setSelectedItem] = useState(null);
         const [activeTab, setActiveTab] = useState('amazon'); // Initialize with the default active tab
         //------------------------------------------------------------------------------   
-
         const openModal = (item) => {
             setIsModalOpen(true);
             setSelectedItem(item);
             document.body.classList.add('modal-open');
         }
-
         const closeModal = () => {
             setIsModalOpen(false);    
             document.body.classList.remove('modal-open');
         }
-
         const serviceItems = [
                 { name: 'Amazon Business', type: 'Business', firstPrice:"95.000",  month: false, price: '80.000', logo: "amazon.png", image: "amazon_business.png", },
 
@@ -87,7 +84,6 @@ function Services() {
                 { name: 'Ozon Abonelik', type: 'Aylık Abonelik', firstPrice:"15.000", month:"true" , price: '11.999', logo: "ozon.png", image: "ozon_abonelik.png", 
                 info4:"Vezüve Ozon'nun Türkiye'deki yetkili servis sağlayıcısıdır."},
             ];
-
         const ownServices = [
             {name: "İNGİLTERE ŞİRKET KURULUMU" , price:"deneme", description:"İngiltere pazarında satış süreçlerini başlatmak için İngiltere’de Tüzel kişiliğe sahip olmanız gerekir. Partner firmalarımız ile şirket kurulum süreçleriniz hızla tamamlayın.", },
             {name: "İNGİLTERE MUHASEBE HİZMETİ" ,  price:"deneme", description:"İngiltere’de muhasebe süreçlerinizi takip etmesi için bir muhasebeci ile çalışmalısınız. Partner firmalarımız ile en uygun fiyatlara muhasebe hizmeti satın alın.", },
@@ -101,7 +97,6 @@ function Services() {
             {name: "SERTİFİKASYON BELGELENDİRME" ,  price:"deneme", description:"Ürünlerinizin yurtdışına çıkabilmesi için bazı sertifikalara ihtiyacı olabilir. FDA, MSDS gibi belgelendirme süreçlerini hızla tamamlayın.",},
         ];
         
-
         useEffect(() => {
             const storedTab = JSON.parse(localStorage.getItem("tab"));
             if (storedTab) {

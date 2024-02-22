@@ -25,18 +25,20 @@ export const getAdminToken = async (username, password) => {
   }
 };
 
-export const getAllUserData = async () => {
+export const getAllUserData = async (accessToken) => {
   try {
     const response = await axios.get(`${BASE_URL}/get_all_user_data`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      },
     });
 
     return response.data;
   } catch (error) {
-    console.error('Error getting all user data:', error);
+    console.error('Error fetching all user data:', error);
     throw error;
   }
 };
-
 export const setUserData = async (accessToken, column, newValue, userId, customerId) => {
   try {
     const response = await axios.post( `${BASE_URL}/set_user_data`, {
@@ -60,144 +62,70 @@ export const setUserData = async (accessToken, column, newValue, userId, custome
   }
 };
 
-export const getUserDocuments = async (accessToken, userId, customerId) => {
+export const getUserPortfolio = async (accessToken, customerId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/get_user_documents`, {
-      params: {
-        user_id: userId,
-        customer_id: customerId,
-      },
+    const response = await axios.get(`${BASE_URL}/get_user_portfolio?customer_id=${customerId}`, {
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`,
       },
     });
 
     return response.data;
   } catch (error) {
-    console.error('Error getting user documents:', error);
+    console.error('Error fetching user portfolio:', error);
     throw error;
   }
 };
 
-export const setUserDocuments = async (accessToken, column, newValue, userId, customerId) => {
-  try {
-    const response = await axios.post(
-      `${BASE_URL}/set_user_documents`,
-      {
-        column,
-        newValue,
-        user_id: userId,
-        customer_id: customerId,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,
-        },
-      }
-    );
-
-    return response.data;
-  } catch (error) {
-    console.error('Error setting user documents:', error);
-    throw error;
-  }
-};
-
-export const uploadUserDocument = async (accessToken, fileName, file, customerId) => {
-  try {
-    // Check if the file is a PDF
-    if (file.type !== 'application/pdf') {
-      throw new Error('Invalid file type. Only PDF files are allowed.');
-    }
-
-    // Check if the file size is less than 20 MB
-    const maxSize = 20 * 1024 * 1024; // 20 MB in bytes
-    if (file.size > maxSize) {
-      throw new Error('File size exceeds the maximum limit of 20 MB.');
-    }
-
-    const formData = new FormData();
-    formData.append('file_name', fileName);
-    formData.append('file', file);
-    formData.append('customer_id', customerId);
-
-    const response = await axios.post(`${BASE_URL}/upload_user_document`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': `Bearer ${accessToken}`,
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    console.error('Error uploading user document:', error);
-    throw error;
-  }
-};
-
-export const downloadDocument = async (accessToken, fileName, customerId) => {
-  try {
-    const response = await axios.get(`${BASE_URL}/download_document`, {
-      params: {
-        file_name: fileName,
-        customer_id: customerId,
-      },
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-      },
-      responseType: 'blob', // Specify the response type as a blob
-    });
-
-    // Create a blob URL to make the file downloadable
-    const blob = new Blob([response.data], { type: 'application/pdf' });
-    const url = window.URL.createObjectURL(blob);
-
-    // Create a link and trigger a click event to initiate the download
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    return { status: 200, info: 'Download successful' };
-  } catch (error) {
-    console.error('Error downloading document:', error);
-    throw error;
-  }
-};
-
-export const getUserPlan = async (accessToken, userId, customerId) => {
+export const getUserPlan = async (accessToken, customerId) => {
   try {
     const response = await axios.get(`${BASE_URL}/get_user_plan`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      },
       params: {
-        user_id: userId,
         customer_id: customerId,
       },
+    });
+    
+    return response.data;
+  } 
+  catch (error) {
+    console.error('Error fetching user plan:', error);
+    throw error;
+  }
+};
+
+export const getUserDocuments = async (accessToken, customerId) => {
+  console.log(customerId, accessToken)
+  try {
+    const response = await axios.get(`${BASE_URL}/get_user_documents?customer_id=${customerId}`, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
       },
     });
-
+    console.log(response)
     return response.data;
   } catch (error) {
-    console.error('Error getting user plan:', error);
+    console.error('Error fetching user documents:', error);
     throw error;
   }
+};
+
+export const uploadDocument = async (accessToken, fileName, file, customerID) => {
+ 
+  
+};
+
+export const downloadDocument = async (accessToken, fileName, customer_id) => {
+
 };
 
 // SET USER PLAN EKLENECEK
 
-
-export const getUserTasks = async (accessToken, userId, customerId) => {
+export const getUserTasks = async (accessToken, customerId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/get_user_tasks`, {
-      params: {
-        user_id: userId,
-        customer_id: customerId,
-      },
+    const response = await axios.get(`${BASE_URL}/get_user_tasks?customer_id=${customerId}`, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
       },
@@ -205,7 +133,7 @@ export const getUserTasks = async (accessToken, userId, customerId) => {
 
     return response.data;
   } catch (error) {
-    console.error('Error getting user tasks:', error);
+    console.error('Error fetching user tasks:', error);
     throw error;
   }
 };
@@ -258,13 +186,10 @@ export const createUserTask = async (accessToken, customerId, taskName) => {
   }
 };
 
-export const getUserProducts = async (accessToken, userId, customerId) => {
+
+export const getUserProducts = async (accessToken, customerId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/get_user_products`, {
-      params: {
-        user_id: userId,
-        customer_id: customerId,
-      },
+    const response = await axios.get(`${BASE_URL}/get_user_products?customer_id=${customerId}`, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
       },
@@ -272,27 +197,23 @@ export const getUserProducts = async (accessToken, userId, customerId) => {
 
     return response.data;
   } catch (error) {
-    console.error('Error getting user products:', error);
+    console.error('Error fetching user products:', error);
     throw error;
   }
 };
 
-export const addProductToUser = async (accessToken, userId, product, customerId) => {
+export const addProductToUser = async (file, customer_id, accessToken) => {
   try {
-    const response = await axios.post(
-      `${BASE_URL}/add_product_to_user`,
-      {
-        user_id: userId,
-        product,
-        customer_id: customerId,
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('customer_id', customer_id);
+
+    const response = await axios.post(`${BASE_URL}/add_product_to_user`, formData, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'multipart/form-data',
       },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,
-        },
-      }
-    );
+    });
 
     return response.data;
   } catch (error) {
@@ -302,17 +223,15 @@ export const addProductToUser = async (accessToken, userId, product, customerId)
 };
 
 
-export const deleteProduct = async (accessToken, userId, productId, customerId) => {
+export const deleteProduct = async (product_id, customer_id, accessToken) => {
   try {
     const response = await axios.delete(`${BASE_URL}/delete_product`, {
-      data: {
-        user_id: userId,
-        product_id: productId,
-        customer_id: customerId,
-      },
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`,
+      },
+      data: {
+        product_id: product_id,
+        customer_id: customer_id,
       },
     });
 
@@ -322,4 +241,3 @@ export const deleteProduct = async (accessToken, userId, productId, customerId) 
     throw error;
   }
 };
-

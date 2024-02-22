@@ -54,6 +54,27 @@ function Dashboard() {
         var total = currentSale - previousSale;
         return total
       } 
+
+      const remainDays = () => {
+        if(month !== 0){
+            var prevMonth = month- 1
+        }
+        else if(month === 0){
+            var prevMonth = 11 
+        }
+        var currentSale = dash.sales[0][month].value
+        var previousSale = dash.sales[0][prevMonth].value
+        var total = currentSale - previousSale;
+        return total
+      } 
+
+      const calculateRemainingDays = () => {
+        const start = new Date(plan.startDate);
+        const end = new Date(plan.finishDate);
+        const timeDifference = end.getTime() - start.getTime();
+        const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+        return(daysDifference);
+      };
       
    
   return (
@@ -126,7 +147,7 @@ function Dashboard() {
                                     <div className='col-12 trans mainhov' id='total-growth'>
                                         <div className='col-12 slideup position-relative'>
                                             <h6>Toplam Büyüme</h6>
-                                            {dash.currentSale ? (
+                                            {dash ? (
                                                 <>
                                                     <h2>{totalGrowth()}$<span className='aylık'>/aylık</span></h2>
                                                     <p className='minus2'>+%0</p>
@@ -185,7 +206,8 @@ function Dashboard() {
                                     <h5 className='main-info' >Kalan Abonelik Süreniz <i class="fa-regular fa-clock"></i> : <span className='main-info2' >
                                         {plan ? (
                                                 <>
-                                                    <span className='main-info2'>{plan.startDate}{plan.finishDate}</span> 
+                                                    <span className='main-info2'>{calculateRemainingDays()} gün</span> 
+                                                    
                                                     
                                                 </>
                                             ) : (
