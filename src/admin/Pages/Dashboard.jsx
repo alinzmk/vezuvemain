@@ -7,11 +7,13 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPlanAdmin } from '../../redux/features/adminplan/planAdminSlice';
 import { getDashAdmin } from '../../redux/features/admindash/dashAdminSlice';
+import AdminPage from '../Modals/AdminPage';
 
 
 function Dashboard() {
     
     const accessToken = (sessionStorage.getItem("token"));
+    const user_id = (sessionStorage.getItem("selectedCustomer"))
     const navigate = useNavigate();
     if(!accessToken) {
         navigate("/");  
@@ -19,8 +21,9 @@ function Dashboard() {
    //------------------------------------------------------------------------------   
     const currentDate = new Date();
     const month = currentDate.getMonth();
-    const {planadmin} = useSelector((state) => state.planadmin);
-    const {dashadmin} = useSelector((state) => state.dashadmin);
+    const {planadmin} = useSelector((state) => state.planadmin)
+    const {useradmin} = useSelector((state) => state.useradmin)
+    const {dashadmin} = useSelector((state) => state.dashadmin)
     const dispatch = useDispatch()
     //------------------------------------------------------------------------------
 
@@ -50,23 +53,12 @@ function Dashboard() {
 
   return (
       <>
-        <div className="dashboard m-0 h-100">
-            <div className="row h-100">
-                <div className="p-0 h-100">
-        <Sidebar2/>
-                </div>
-                <div className="container mt-4 slideleft right">
-                    <div className="row d-flex justify-content-between me-5">
-                        <div className="col-12 ">
-                            <div className="row mb-4 d-flex justify-content-between">
-                                <h2 className='purple w-auto mt-3'>Ana Panel</h2>
-                                <img src={logo} className='sidebar-logo' alt=""/>
-                            </div>
-                        </div>
-                        <div className="row slideleft">
-                            <div className="col-6">
-                                <div className="row d-flex justify-content-between pe-3">
-                                    <div className='col-lg-4 col-12 trans mainhov' id='total-sales'>
+      <AdminPage pageName={"Ana Panel"}>
+
+      <div className="row slideleft">
+                            <div className="col-12 col-lg-6">
+                                <div className="row d-flex justify-content-between pe-0 pe-lg-3">
+                                    <div className='col-12 trans mainhov' id='total-sales'>
                                         <div className='col-12 slideup position-relative'>
                                             <h6>Toplam Satış</h6>
                                             {dashadmin.sales.length !== 0 ? (
@@ -134,7 +126,7 @@ function Dashboard() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-6 mb-3 d-flex justify-content-between" id='customer-info'>                           
+                            <div className="col-12 col-lg-6 mb-3 d-flex justify-content-between" id='customer-info'>                           
                                 <div className="col-12 ps-5 my-auto">
                                     <h5 className='main-info' >Aktif hizmetiniz <i class="fa-solid fa-box-open"></i> : <span className='main-info2' >
                                         {planadmin.userPlan ? (
@@ -191,7 +183,7 @@ function Dashboard() {
                             </div>
                         </div>
                         <div className="row slideleft">
-                            <div  className="col-6">
+                            <div  className="col-12 col-lg-6">
                                 <div className="row me-1" id="graph">
                                     <div className="col-12 text-center">
                                             <h3 className='p-3'>Satış Raporu</h3>
@@ -204,7 +196,7 @@ function Dashboard() {
                                     </div>
                                 </div>
                             </div>
-                            <div id="status" className="col-6">
+                            <div id="status" className="col-12 col-lg-6">
                                 <div className="col-12 text-center mt-4">
                                     <h3>Son Durumlar</h3>
                                 </div>
@@ -280,13 +272,8 @@ function Dashboard() {
                                 </div>
                             </div>
                         </div>
-
-                        
-                       
-                    </div>
-                </div>
-            </div>
-        </div>
+      </AdminPage>
+        
     </> 
   );
 }

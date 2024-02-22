@@ -1,19 +1,15 @@
-import { getProfileData } from '../redux/features/profiledata/profileSlice';
-import { getPlanData } from '../redux/features/plandata/planSlice';
-import { getDashData } from '../redux/features/dashdata/dashSlice';
-import { getTaskData } from '../redux/features/taskdata/taskSlice';
-import { getProductData } from '../redux/features/productdata/productSlice';
-import { getDocData } from '../redux/features/docdata/docSlice';
+import { getDashAdmin } from "./features/admindash/dashAdminSlice"
+import { getPlanAdmin } from "./features/adminplan/planAdminSlice"
+import { getProductAdmin } from "./features/adminproduct/productAdminSlice"
+import { getTaskAdmin } from "./features/admintask/taskAdminSlice"
 
-export const fetchAllRedux = () => {
+export const fetchAdminRedux = () => {
     return dispatch => {
-        dispatch(getProfileData())
-        dispatch(getPlanData())
-        dispatch(getDashData())
-        dispatch(getTaskData())
-        dispatch(getProductData())
-        dispatch(getDocData())
+        dispatch(getPlanAdmin())
+        dispatch(getDashAdmin())
+        dispatch(getProductAdmin())
+        dispatch(getTaskAdmin())
     }
 }
 
-export default fetchAllRedux
+export default fetchAdminRedux

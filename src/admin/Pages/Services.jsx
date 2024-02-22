@@ -12,6 +12,7 @@ import emag from "../Assets/emag.png"
 import ozon from "../Assets/ozon.png"
 import trendyol from "../Assets/trendyol.png"
 import Service1 from '../Modals/Plan';
+import AdminPage from '../Modals/AdminPage';
 
 function Services() {
         const [isModalOpen, setIsModalOpen] = useState(false);
@@ -126,23 +127,10 @@ function Services() {
         return (
             <>
             <Service1 isOpen={isModalOpen} onClose={closeModal} selectedItem={selectedItem} serviceItems={serviceItems} />
-        <div className="dashboard m-0">
 
-        <div className='slideup'>
-        </div> 
-            <div className="row">
-                <div className="p-0">
-                 <Sidebar2/>
-                </div>
-                <div className="container mt-4 slideleft right">
-                    <div className="row">
-                        <div className="col-12 mb-0">                           
-                            <div className="row mb-4 me-5 d-flex justify-content-between">
-                                <h2 className='purple w-auto mt-3'>Hizmetlerimiz</h2>
-                                <img src={logo} className='sidebar-logo' alt="" />
-                            </div>
-                        </div>
-                        <div className="col-12 slideleft">
+            <AdminPage  pageName={"Hizmetlerimiz"}>
+
+            <div className="col-12 slideleft">
                             <div className="row">
                                 <div className="col-11 pbg pt-3">
                                     <nav>
@@ -441,10 +429,8 @@ function Services() {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            </AdminPage>
+        
     </>
   );
 }

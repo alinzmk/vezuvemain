@@ -39,22 +39,18 @@ export const getAllUserData = async (accessToken) => {
     throw error;
   }
 };
-export const setUserData = async (accessToken, column, newValue, userId, customerId) => {
+
+export const setUserData = async (column, newValue, customer_id, accessToken) => {
   try {
-    const response = await axios.post( `${BASE_URL}/set_user_data`, {
-        column,
-        newValue,
-        user_id: userId,
-        customer_id: customerId,
-      },
+    const response = await axios.post(
+      `${BASE_URL}/set_user_data`,
+      { column, newValue, customer_id }, // Data to send in the request body
       {
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`,
         },
       }
     );
-
     return response.data;
   } catch (error) {
     console.error('Error setting user data:', error);
@@ -138,24 +134,17 @@ export const getUserTasks = async (accessToken, customerId) => {
   }
 };
 
-export const setUserTasks = async (accessToken, userId, column, newValue, customerId) => {
+export const setUserTasks = async (taskName, column, newValue, customer_id, accessToken) => {
   try {
     const response = await axios.post(
       `${BASE_URL}/set_user_tasks`,
-      {
-        user_id: userId,
-        column,
-        newValue,
-        customer_id: customerId,
-      },
+      { taskName, column, newValue, customer_id }, // Data to send in the request body
       {
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`,
         },
       }
     );
-
     return response.data;
   } catch (error) {
     console.error('Error setting user tasks:', error);
@@ -163,22 +152,22 @@ export const setUserTasks = async (accessToken, userId, column, newValue, custom
   }
 };
 
-export const createUserTask = async (accessToken, customerId, taskName) => {
+export const createUserTask = async (customer_id, task_name, accessToken) => {
+  console.log("API FUNCTION", customer_id, task_name, accessToken)
+  customer_id = parseInt(customer_id)
   try {
     const response = await axios.post(
       `${BASE_URL}/create_user_task`,
-      {
-        customer_id: customerId,
-        task_name: taskName,
+      { 
+        customer_id,
+        task_name 
       },
       {
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`,
         },
       }
     );
-
     return response.data;
   } catch (error) {
     console.error('Error creating user task:', error);
