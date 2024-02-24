@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { successNotification } from '../../Modals/Notification';
 import { getUserAdmin } from '../../redux/features/adminuser/userAdminSlice';
 import AdminPage from '../Modals/AdminPage';
+import fetchAdminRedux from '../../redux/fetchAdminRedux';
 
 function Profile() {
 
@@ -25,7 +26,7 @@ function Profile() {
     const {planadmin} = useSelector((state) => state.planadmin);
     const dispatch = useDispatch();
     //------------------------------------------------------------------------------   
-
+   
     // SET PROFILE DATA
     const handleSetUserData = async (column) => {
         try {
@@ -46,6 +47,13 @@ function Profile() {
         handleSetUserData(state);
         setEditable(null);
     }
+    useEffect(() => {
+        if (useradmin.length===0 || planadmin.length===0) {
+            dispatch(getUserAdmin())
+            dispatch(fetchAdminRedux());
+        }
+      }, [dispatch, useradmin, planadmin]);
+    
 
   return (
     <>
@@ -55,16 +63,15 @@ function Profile() {
                 <div className="row ps-0 my-3 slideup ">
                     <div className="col-9 my-auto">
                         <div className="col-12">
-                            <h3 className='ms-4 purple'>Hoş geldiniz<i class="fa-solid fa-hands"></i>, Sayın {useradmin ? (
-                                <>{useradmin[user_id-1].name} {useradmin[user_id-1].surname}</>
+                            <h3 className='ms-4 purple'>Hoş geldiniz<i class="fa-solid fa-hands"></i>, Sayın {useradmin[user_id-1] ? (
+                                <>{useradmin[user_id-1].name}</>
                                 ) : (
                                 <>Müşterimiz</>
                             )}.</h3>
-
                         </div>
                         <div className="col-12 ms-4 purple ">
-                            <h6 className=''>Şu anda ödeme planınız; {planadmin ?(
-                                <>{planadmin.currentPlan}</>
+                            <h6 className=''>Şu anda ödeme planınız; {planadmin.userPlan ?(
+                                <>{planadmin.userPlan.currentPlan}</>
                             ) : (
                                 <>Aktif Planınız yok</>
                             )}  
@@ -84,7 +91,7 @@ function Profile() {
                                         <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>updateUserData("accountName")} ><i class="fa-solid fa-floppy-disk"></i></button>
                                     </div>
                             ) : (
-                                useradmin ? (
+                                useradmin[user_id-1] ? (
                                     <form onSubmit={(e) => e.preventDefault()}>
                                         <div className="d-flex align-items-center">
                                             <h6 className='profile-info'>{useradmin[user_id-1].accountName}</h6>
@@ -109,7 +116,7 @@ function Profile() {
                                         <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>updateUserData("email")} ><i class="fa-solid fa-floppy-disk"></i></button>
                                     </div>
                             ) : (
-                                useradmin ? (
+                                useradmin[user_id-1] ? (
                                     <form onSubmit={(e) => e.preventDefault()}>
                                         <div className="d-flex align-items-center">
                                             <h6 className='profile-info'>{useradmin[user_id-1].email}</h6>
@@ -136,7 +143,7 @@ function Profile() {
                                     <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>updateUserData("phone")} ><i class="fa-solid fa-floppy-disk"></i></button>
                                     </div>
                                 ) : (
-                                    useradmin ? (
+                                    useradmin[user_id-1] ? (
                                         <form onSubmit={(e) => e.preventDefault()}>
                                         <div className="d-flex align-items-center">
                                             <h6 className='profile-info'>{useradmin[user_id-1].phone}</h6>
@@ -165,7 +172,7 @@ function Profile() {
                                         <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>updateUserData("companyTitle")} ><i class="fa-solid fa-floppy-disk"></i></button>
                                     </div>
                                 ) : (
-                                    useradmin ? (
+                                    useradmin[user_id-1] ? (
                                         // Display user address if userData exists
                                         <form onSubmit={(e) => e.preventDefault()}>
                                             <div className="d-flex align-items-center">
@@ -199,7 +206,7 @@ function Profile() {
                                         <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>updateUserData("taxAdmin")} ><i class="fa-solid fa-floppy-disk"></i></button>
                                     </div>
                                 ) : (
-                                    useradmin.taxAdmin ? (
+                                    useradmin[user_id-1] ? (
                                         <form onSubmit={(e) => e.preventDefault()}>
                                         <div className="d-flex align-items-center">
                                             <h6 className='profile-info'>{useradmin[user_id-1].taxAdmin}</h6>
@@ -230,7 +237,7 @@ function Profile() {
                                         <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>updateUserData("taxNumber")} ><i class="fa-solid fa-floppy-disk"></i></button>
                                     </div>
                             ) : (
-                                useradmin ? (
+                                useradmin[user_id-1] ? (
                                     <form onSubmit={(e) => e.preventDefault()}>
                                         <div className="d-flex align-items-center">
                                             <h6 className='profile-info'>{useradmin[user_id-1].taxNumber}</h6>
@@ -258,7 +265,7 @@ function Profile() {
                                         <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>updateUserData("city")} ><i class="fa-solid fa-floppy-disk"></i></button>
                                     </div>
                                 ) : (
-                                    useradmin ? (
+                                    useradmin[user_id-1] ? (
                                         <form onSubmit={(e) => e.preventDefault()}>
                                         <div className="d-flex align-items-center">
                                             <h6 className='profile-info'>{useradmin[user_id-1].city}</h6>
@@ -291,7 +298,7 @@ function Profile() {
                                         <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>updateUserData("address")} ><i class="fa-solid fa-floppy-disk"></i></button>
                                     </div>
                                 ) : (
-                                    useradmin ? (
+                                    useradmin[user_id-1] ? (
                                         <form onSubmit={(e) => e.preventDefault()}>
                                         
                                             <div className="d-flex align-items-center">

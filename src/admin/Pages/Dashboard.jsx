@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPlanAdmin } from '../../redux/features/adminplan/planAdminSlice';
 import { getDashAdmin } from '../../redux/features/admindash/dashAdminSlice';
 import AdminPage from '../Modals/AdminPage';
+import fetchAdminRedux from '../../redux/fetchAdminRedux';
+import getUserAdmin from '../../redux/features/adminuser/userAdminSlice';
 
 
 function Dashboard() {
@@ -22,9 +24,9 @@ function Dashboard() {
     const currentDate = new Date();
     const month = currentDate.getMonth();
     const {planadmin} = useSelector((state) => state.planadmin)
-    const {useradmin} = useSelector((state) => state.useradmin)
     const {dashadmin} = useSelector((state) => state.dashadmin)
     const dispatch = useDispatch()
+   
     //------------------------------------------------------------------------------
 
     //------------------------------------------------------------------------------  
@@ -51,6 +53,13 @@ function Dashboard() {
         return(daysDifference);
       };
 
+      useEffect(() => {
+        if (dashadmin.length===0 || planadmin.length===0) {
+            dispatch(fetchAdminRedux());
+        }
+      }, [dispatch, dashadmin, planadmin]);
+    
+
   return (
       <>
       <AdminPage pageName={"Ana Panel"}>
@@ -61,7 +70,7 @@ function Dashboard() {
                                     <div className='col-12 trans mainhov' id='total-sales'>
                                         <div className='col-12 slideup position-relative'>
                                             <h6>Toplam Satış</h6>
-                                            {dashadmin.sales.length !== 0 ? (
+                                            {dashadmin.sales ? (
                                                 <>
                                                     <h2>{dashadmin.sales[0][month].value}$<span className='aylık'>/aylık</span></h2>
                                                     <p className='plus'>+%3</p>
@@ -77,7 +86,7 @@ function Dashboard() {
                                     <div className='col-lg-3 col-12  trans mainhov' id='total-purchases'>
                                         <div className='col-12 slideup'>
                                             <h6>Toplam Reklam Harcaması</h6>
-                                            {dashadmin.ads.length !== 0 ? (
+                                            {dashadmin.ads ? (
                                                 <>
                                                     <h2>{dashadmin.ads[0][month].value}$<span className='aylık'>/günlük</span></h2>
                                                     <p className='plus'>+%3</p>
@@ -93,7 +102,7 @@ function Dashboard() {
                                     <div className='col-lg-3 col-12 trans mainhov' id='total-orders'>
                                         <div className='col-12 slideup'>
                                             <h6>Toplam Sipariş</h6>
-                                            {dashadmin.sales_unit.length !== 0 ? (
+                                            {dashadmin.sales_unit ? (
                                                     <>
                                                         <h2>{dashadmin.sales_unit[0][month].value}<span className='aylık'>/adet</span></h2>
                                                         <p className='minus'>+%0</p>
@@ -110,7 +119,7 @@ function Dashboard() {
                                     <div className='col-12 trans mainhov' id='total-growth'>
                                         <div className='col-12 slideup position-relative'>
                                             <h6>Toplam Büyüme</h6>
-                                            {dashadmin.sales.length !== 0 ? (
+                                            {dashadmin.sales ? (
                                                 <>
                                                     <h2>{totalGrowth()}$<span className='aylık'>/aylık</span></h2>
                                                     <p className='minus2'>+%0</p>
@@ -121,7 +130,6 @@ function Dashboard() {
                                                     <p className='plus2'>+%0</p>
                                                 </>
                                         )}
-                                                
                                         </div>
                                     </div>
                                 </div>

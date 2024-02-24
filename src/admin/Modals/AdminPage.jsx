@@ -20,7 +20,7 @@ const AdminPage = ({ pageName, children }) => {
                     <div className="row">
                         <div className="col-12 mb-0">                           
                             <div className="row mb-4 me-5 d-flex justify-content-between">
-                                <h2 className='purple w-auto mt-3'>{pageName} / {useradmin[user_id-1].email}</h2>
+                                <h2 className='purple w-auto mt-3'>{pageName} </h2>
                                 <img src={logo} className='sidebar-logo ' alt="" />
                             </div>
                         </div>
