@@ -230,3 +230,60 @@ export const deleteProduct = async (product_id, customer_id, accessToken) => {
     throw error;
   }
 };
+
+export const updateToUserSales = async ( customer_id, month, sale_amount, accessToken) => {
+  console.log( customer_id, month, sale_amount, accessToken)
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/update_to_user_sales`,
+      { customer_id, month, sale_amount }, // Data to send in the request body
+      {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error updating user sales:', error);
+    throw error;
+  }
+};
+
+export const updateToUserAds = async ( customer_id, month, ads_amount, accessToken) => {
+  console.log( customer_id, month, ads_amount, accessToken)
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/update_to_user_ads`,
+      { customer_id, month, ads_amount }, // Data to send in the request body
+      {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error updating user sales:', error);
+    throw error;
+  }
+};
+
+export const updateToUserSalesUnit = async ( customer_id, month, sale_unit_amount, accessToken) => {
+  console.log( customer_id, month, sale_unit_amount, accessToken)
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/update_to_user_sales_unit`,
+      { customer_id, month, sale_unit_amount }, // Data to send in the request body
+      {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error updating user sales:', error);
+    throw error;
+  }
+};

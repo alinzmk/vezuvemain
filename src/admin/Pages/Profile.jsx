@@ -20,7 +20,7 @@ function Profile() {
         navigate("/");
     }
     const [editable, setEditable] = useState("");
-    const [newValue, setNewValue] = useState('');
+    const [newValue, setNewValue] = useState('');   
     //-----------------------------------------------------------------------------    
     const {useradmin} = useSelector((state) => state.useradmin);
     const {planadmin} = useSelector((state) => state.planadmin);

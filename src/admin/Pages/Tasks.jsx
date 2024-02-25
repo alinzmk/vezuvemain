@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { createUserTask, setUserTasks } from '../AdminApiService';
 import { getTaskAdmin } from '../../redux/features/admintask/taskAdminSlice';
 import AdminPage from '../Modals/AdminPage';
+import fetchAdminRedux from '../../redux/fetchAdminRedux';
 
 function Tasks() {
 
@@ -64,6 +65,13 @@ function Tasks() {
     const inProgressTasks = getTasksByStatus('In Progress');
     const finishedTasks = getTasksByStatus('Finished');
 
+    useEffect(() => {
+        console.log("MAl")
+        if (!taskadmin || taskadmin.length === 0) {
+            dispatch(fetchAdminRedux());
+        }
+    }, [dispatch, taskadmin]);
+    
 
     
       if(!taskadmin.tasks){
