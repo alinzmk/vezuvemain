@@ -5,6 +5,7 @@ import Sidebar2 from '../Modals/Sidebar2';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import fetchAllRedux from '../redux/fetchAllRedux';
+import UserPage from '../Modals/UserPage';
 
 function Tasks() {
 
@@ -38,21 +39,9 @@ function Tasks() {
         return null
         }
   return (
-    <>
-        <div className="dashboard m-0">
-            <div className="row d-flex ">
-                <div className="p-0">
-                    <Sidebar2/>
-                </div>
-                <div className="container mt-4 slideleft right">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="row mb-4 d-flex justify-content-between me-5">
-                                <h2 className='purple w-auto mt-3'>Proje Alanı</h2>
-                                <img src={logo} className='sidebar-logo' alt="" />
-                            </div>
-                            <div className="row slideleft task-wrapper">
-                                <div className="col-4 pe-3 ps-0 ms-0">
+    <UserPage>
+      <div className="row slideleft task-wrapper">
+                                <div className="col-12 col-lg-4 pe-3 ps-0 ms-0 mb-3 mb-lg-0">
                                     <div className="task-seperator pbg ps-3 pe-3">
                                         <h5 className='task-status'><i class="fa-solid fa-list-check ms-2 my-auto"></i> Planlandı</h5>
                                         <ul id="plan" className="task-ul">
@@ -67,7 +56,7 @@ function Tasks() {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="col-4 pe-3 ps-0 ms-0">
+                                <div className="col-12 col-lg-4 pe-3 ps-0 ms-0 mb-3 mb-lg-0">
                                     <div className="task-seperator pbg ps-3 pe-3">
                                         <h5 className='task-status'><i class="fa-regular fa-clock ms-2 my-auto"></i> Süreç İşliyor</h5>
                                         <ul id="process" className="task-ul">
@@ -82,7 +71,7 @@ function Tasks() {
                                         </ul>
                                     </div>
                                 </div>
-                                <div className="col-4 pe-3 ps-0 ms-0">
+                                <div className="col-12 col-lg-4 pe-3 ps-0 ms-0 mb-3 mb-lg-0">
                                     <div className="task-seperator pbg ps-3 pe-3">
                                         <h5 className='task-status'><i class="fa-solid fa-check-double ms-2 my-auto"></i> Tamamlandı</h5>
                                         <ul id="finished" className="task-ul">
@@ -98,12 +87,7 @@ function Tasks() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </>
+    </UserPage>
   );
 }
 

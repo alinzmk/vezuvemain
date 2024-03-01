@@ -10,6 +10,7 @@ import planAdminReducer from "../features/adminplan/planAdminSlice";
 import dashAdminReducer from "../features/admindash/dashAdminSlice";
 import productAdminReducer from "../features/adminproduct/productAdminSlice";
 import taskAdminReducer from "../features/admintask/taskAdminSlice";
+import docAdminReducer from "../features/admindoc/docAdminSlice";
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
     dashadmin: dashAdminReducer,
     productadmin: productAdminReducer,
     taskadmin: taskAdminReducer,
+    docadmin: docAdminReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 });

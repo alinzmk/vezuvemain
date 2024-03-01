@@ -6,6 +6,7 @@ import Sidebar2 from '../Modals/Sidebar2';
 import Finder from '../Modals/Finder-App';
 import map from "../Assets/worldmap.png"
 import Requirements from '../Modals/Requirements';
+import UserPage from '../Modals/UserPage';
 
 function MarketFinder() {
 
@@ -47,84 +48,68 @@ function MarketFinder() {
             closeModal={closeModal}
             fullData={{selectedVideoId}}
         />
-        <div className="dashboard m-0 h-100">
-            <div className="row h-100">
-                <div className="p-0 h-100">
-        <Sidebar2/>
-                </div>
-                <div className="container mt-4 slideleft right">
-                    <div className="row d-flex justify-content-between">
-                        <div className="col-12 ">
-                            <div className="row mb-4 d-flex justify-content-between me-5">
-                                <h2 className='purple w-auto mt-3'>Market Finder (BETA)</h2>
-                                <img src={logo} className='sidebar-logo' alt="" />
-                            </div>
+        <UserPage>
+            <div className="finder-wrapper">
+                <div className="row slideleft ">
+
+                    <div className="col-12 col-lg-4 ps-0 pe-4 mb-3 mb-lg-0">
+                        <div className="pbg py-5 px-3">
+                            <Finder onSelectData={handleSelectData}/>
                         </div>
+                    </div>
 
-                        <div className="finder-wrapper">
-                            <div className="row slideleft ">
-
-                                <div className="col-4 ps-0 pe-4">
-                                    <div className="pbg py-5 px-3">
-                                        <Finder onSelectData={handleSelectData}/>
-                                    </div>
+                    <div className="col-12 col-lg-8 ps-0 h-120">
+                        <div className="pbg p-5">   
+                            <div className={`row finder-text ${selectedData ? 'd-none' : ''}`}>
+                                <div className="col-12 my-auto text-center">
+                                    <p className=''>    
+                                        Market Finder aracımızla ürünlerin için en uygun olan hedef ülkeyi ve pazaryerini belirleyebileceksiniz. 
+                                        Markef Finder, sizin işletmenizle alakali verdiginiz bilgileri yapay zeka ve kendi veritabanları ile
+                                        harmanlayarak size hızlı ve etkili bir pazar önerisi sunar.
+                                    </p>
+                                    <img className='map' src={map} alt="" />
+                                    <h5 className='mt-4'>    
+                                        Sizin ise tek yapmanız gereken şirketinizin bilgilerini doğru şekilde girerek şirketiniz için en
+                                        doğru pazarı bulmak.
+                                    </h5>
                                 </div>
+                            </div>
+                            <div>
+                                {selectedData && selectedData2 && <ResultComponent
+                                    full={selectedData}
+                                    
+                                    name={selectedData.name}
+                                    logo={selectedData.logo}
+                                    title={selectedData.title}
+                                    items={selectedData.items}
+                                    flag={selectedData.flag}
+                                    flag2={selectedData.flag2}
+                                    title2={selectedData.title2}
+                                    items2={selectedData.items2}
+                                    buttonText={selectedData.buttonText}
+                                    link={selectedData.marketLink}
 
-                                <div className="col-8 ps-0 h-100">
-                                    <div className="pbg p-5">   
-                                        <div className={`row finder-text ${selectedData ? 'd-none' : ''}`}>
-                                            <div className="col-12 my-auto text-center">
-                                                <p className=''>    
-                                                    Market Finder aracımızla ürünlerin için en uygun olan hedef ülkeyi ve pazaryerini belirleyebileceksiniz. 
-                                                    Markef Finder, sizin işletmenizle alakali verdiginiz bilgileri yapay zeka ve kendi veritabanları ile
-                                                    harmanlayarak size hızlı ve etkili bir pazar önerisi sunar.
-                                                </p>
-                                                <img className='map' src={map} alt="" />
-                                                <h5 className='mt-4'>    
-                                                    Sizin ise tek yapmanız gereken şirketinizin bilgilerini doğru şekilde girerek şirketiniz için en
-                                                    doğru pazarı bulmak.
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            {selectedData && selectedData2 && <ResultComponent
-                                                full={selectedData}
-                                                
-                                                name={selectedData.name}
-                                                logo={selectedData.logo}
-                                                title={selectedData.title}
-                                                items={selectedData.items}
-                                                flag={selectedData.flag}
-                                                flag2={selectedData.flag2}
-                                                title2={selectedData.title2}
-                                                items2={selectedData.items2}
-                                                buttonText={selectedData.buttonText}
-                                                link={selectedData.marketLink}
+                                    full_2={selectedData2}
+                                    name_2={selectedData2.name}
+                                    logo_2={selectedData2.logo}
+                                    title_2={selectedData2.title}
+                                    items_2={selectedData2.items}
+                                    flag_2={selectedData2.flag}
+                                    flag2_2={selectedData2.flag2}
+                                    title2_2={selectedData2.title2}
+                                    items2_2={selectedData2.items2}
+                                    buttonText_2={selectedData2.buttonText}
+                                    link_2={selectedData2.marketLink}
 
-                                                full_2={selectedData2}
-                                                name_2={selectedData2.name}
-                                                logo_2={selectedData2.logo}
-                                                title_2={selectedData2.title}
-                                                items_2={selectedData2.items}
-                                                flag_2={selectedData2.flag}
-                                                flag2_2={selectedData2.flag2}
-                                                title2_2={selectedData2.title2}
-                                                items2_2={selectedData2.items2}
-                                                buttonText_2={selectedData2.buttonText}
-                                                link_2={selectedData2.marketLink}
-
-                                                
-                                                handleClick={handleClick}
-                                            />}
-                                        </div>
-                                    </div>
-                                </div>
+                                    
+                                    handleClick={handleClick}
+                                />}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </UserPage>
     </>
   );
 }

@@ -92,6 +92,24 @@ export const getUserPlan = async (accessToken, customerId) => {
   }
 };
 
+export const setUserPlan = async (accessToken, customerId, column, newValue) => {
+  try {
+    const url = `${BASE_URL}/set_user_plan?column=${column}&newValue=${newValue}&customer_id=${customerId}`;
+
+    const response = await axios.post(url, null, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    return response.data;
+  } 
+  catch (error) {
+    console.error('Error setting user plan:', error);
+    throw error;
+  }
+};
 export const getUserDocuments = async (accessToken, customerId) => {
   console.log(customerId, accessToken)
   try {
@@ -108,13 +126,60 @@ export const getUserDocuments = async (accessToken, customerId) => {
   }
 };
 
-export const uploadDocument = async (accessToken, fileName, file, customerID) => {
- 
-  
+export const uploadDocument = async (accessToken, fileName, file, customer_id) => {
+  console.log("APİ İÇİNDEKİ DATA", customer_id, fileName, accessToken, file)
+  try {
+    // Check file type
+    if (file.type !== 'application/pdf') {
+      warningNotification("LÜTFEN PDF YÜKLEYİNİZ")
+      throw new Error('Invalid file type. Only PDF files are allowed.');
+    }
+
+    // Check file size (max size: 20 MB)
+    if (file.size > 20 * 1024 * 1024) {
+      throw new Error('File size exceeds the maximum limit of 20 MB.');
+    }
+    const formData = new FormData();
+    formData.append('file_name', fileName);
+    formData.append('file', file);
+
+    const response = await axios.post(`${BASE_URL}/upload_user_document?customer_id=${customer_id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${accessToken}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error uploading document:', error);
+    throw error;
+  }
 };
+export const downloadDocument = async (fileName, customerId, token ) => {
 
-export const downloadDocument = async (accessToken, fileName, customer_id) => {
+  try {
+    const fullUrl = `http://adminapi.vezuport.com/download_document?file_name=${fileName}&customer_id=${customerId}`;
+    const response = await axios.get(fullUrl, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      responseType: 'blob' // Specify response type as blob
+    });
 
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `${fileName}.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    return response;
+  } catch (error) {
+    console.error('Hata:', error);
+    return `Hata: ${error.message}`;
+  }
 };
 
 // SET USER PLAN EKLENECEK

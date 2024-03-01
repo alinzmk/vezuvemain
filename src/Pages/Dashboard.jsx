@@ -6,6 +6,7 @@ import Sidebar2 from '../Modals/Sidebar2';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import fetchAllRedux from '../redux/fetchAllRedux';
+import UserPage from '../Modals/UserPage';
 
 
 function Dashboard() {
@@ -78,22 +79,9 @@ function Dashboard() {
       
    
   return (
-      <>
-        <div className="dashboard m-0 h-100">
-            <div className="row h-100">
-                <div className="p-0 h-100">
-        <Sidebar2/>
-                </div>
-                <div className="container mt-4 slideleft right">
-                    <div className="row d-flex justify-content-between me-5">
-                        <div className="col-12 ">
-                            <div className="row mb-4 d-flex justify-content-between">
-                                <h2 className='purple w-auto mt-3'>Ana Panel</h2>
-                                <img src={logo} className='sidebar-logo' alt=""/>
-                            </div>
-                        </div>
-                        <div className="row slideleft">
-                            <div className="col-6">
+      <UserPage>
+        <div className="row slideleft">
+                            <div className="col-12 col-lg-6">
                                 <div className="row d-flex justify-content-between pe-3">
                                     <div className='col-lg-4 col-12 trans mainhov' id='total-sales'>
                                         <div className='col-12 slideup position-relative'>
@@ -147,7 +135,7 @@ function Dashboard() {
                                     <div className='col-12 trans mainhov' id='total-growth'>
                                         <div className='col-12 slideup position-relative'>
                                             <h6>Toplam Büyüme</h6>
-                                            {dash ? (
+                                            {dash.sales ? (
                                                 <>
                                                     <h2>{totalGrowth()}$<span className='aylık'>/aylık</span></h2>
                                                     <p className='minus2'>+%0</p>
@@ -163,7 +151,7 @@ function Dashboard() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-6 mb-3 d-flex justify-content-between" id='customer-info'>                           
+                            <div className="col-12 col-lg-6 mb-3 d-flex justify-content-between" id='customer-info'>                           
                                 <div className="col-12 ps-5 my-auto">
                                     <h5 className='main-info' >Aktif hizmetiniz <i class="fa-solid fa-box-open"></i> : <span className='main-info2' >
                                         {plan ? (
@@ -220,12 +208,12 @@ function Dashboard() {
                             </div>
                         </div>
                         <div className="row slideleft">
-                            <div  className="col-6">
+                            <div  className="col-12 col-lg-6 mb-lg-0 mb-3">
                                 <div className="row me-1" id="graph">
                                     <div className="col-12 text-center">
                                             <h3 className='p-3'>Satış Raporu</h3>
                                     </div>
-                                    <div className="col-12 m-0 chart-wrapper">
+                                    <div className="col-12 m-0  chart-wrapper">
                                        
                                                 <LineChart/>
                                   
@@ -233,7 +221,7 @@ function Dashboard() {
                                     </div>
                                 </div>
                             </div>
-                            <div id="status" className="col-6">
+                            <div id="status" className="col-12 col-lg-6">
                                 <div className="col-12 text-center mt-4">
                                     <h3>Son Durumlar</h3>
                                 </div>
@@ -309,14 +297,7 @@ function Dashboard() {
                                 </div>
                             </div>
                         </div>
-
-                        
-                       
-                    </div>
-                </div>
-            </div>
-        </div>
-    </>
+      </UserPage>
   );
 }
 

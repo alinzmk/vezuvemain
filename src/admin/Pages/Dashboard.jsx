@@ -11,13 +11,13 @@ import AdminPage from '../Modals/AdminPage';
 import fetchAdminRedux from '../../redux/fetchAdminRedux';
 import getUserAdmin from '../../redux/features/adminuser/userAdminSlice';
 import { successNotification } from '../../Modals/Notification';
-import { updateToUserAds, updateToUserSales, updateToUserSalesUnit } from '../AdminApiService';
+import { setUserPlan, updateToUserAds, updateToUserSales, updateToUserSalesUnit } from '../AdminApiService';
 
 
 function Dashboard() {
     
     const accessToken = (sessionStorage.getItem("token"));
-    const user_id = (sessionStorage.getItem("selectedCustomer"))
+    const user_id = parseInt(sessionStorage.getItem("selectedCustomer"))
     const navigate = useNavigate();
     if(!accessToken) {
         navigate("/");  
@@ -60,15 +60,6 @@ function Dashboard() {
         return(daysDifference);
       };
 
-          // SET PROFILE DATA
-          /* const updateAdsData = (state) =>{
-              handleSetAdsData(state);
-              setEditable(null);
-            }
-            const updateSalesUnitData = (state) =>{
-                handleSetSalesUnitData(state);
-                setEditable(null);
-            } */
     const handleSetSalesData = async () => {
         try {
             const sale_amount = parseInt(newValue)
@@ -101,23 +92,25 @@ function Dashboard() {
         }
         };
         
-        const updateAdsData = () =>{
-            handleSetAdsData()
-            alert("yesyes")
-            setEditable(null);
-        }
+    const updateAdsData = () =>{
+        handleSetAdsData()
+        alert("yesyes")
+        setEditable(null);
+    }
+
+       /*  user_id, currentPlan, expert, expertmail, startDate, finishDate */
         
-        const handleSetSaleUnitData = async () => {
-            try {
-                const unit_amount = parseInt(newValue)
-                const response = await updateToUserSalesUnit(user_id , monthNames[month], unit_amount, accessToken);
-                console.log('User sales updated successfully:', response);
-                dispatch(fetchAdminRedux()) 
-                // Handle success
-            } catch (error) {
-                console.error('Error updating user sales:', error);
-            // Handle error
-        }
+    const handleSetSaleUnitData = async () => {
+        try {
+            const unit_amount = parseInt(newValue)
+            const response = await updateToUserSalesUnit(user_id , monthNames[month], unit_amount, accessToken);
+            console.log('User sales updated successfully:', response);
+            dispatch(fetchAdminRedux()) 
+            // Handle success
+        } catch (error) {
+            console.error('Error updating user sales:', error);
+        // Handle error
+    }
     };
     
     const updateSaleUnitData = () =>{
@@ -125,6 +118,19 @@ function Dashboard() {
         alert("yesyes")
         setEditable(null);
     }
+
+    const handleSetUserPlan = async (column) => {
+        try {
+          // Call the setUserPlan function with input values
+          const response = await setUserPlan(accessToken, user_id, column, newValue);
+          console.log('User plan set successfully:', response);
+          dispatch(fetchAdminRedux()) 
+          setEditable(null);
+        } catch (error) {
+          console.error('Error setting user plan:', error);
+          // Handle error
+        }
+      };
     
     useEffect(() => {
         if (dashadmin.length===0 || planadmin.length===0) {
@@ -250,43 +256,80 @@ function Dashboard() {
             </div>
             <div className="col-12 col-lg-6 mb-3 d-flex justify-content-between" id='customer-info'>                           
                 <div className="col-12 ps-5 my-auto">
-                    <h5 className='main-info' >Aktif hizmetiniz <i class="fa-solid fa-box-open"></i> : <span className='main-info2' >
-                        {planadmin.userPlan ? (
-                                <>
-                                    <span className='main-info2'>{planadmin.userPlan.currentPlan}</span>
-                                </>
-                            ) : (
-                                <>
-                                    No Data
-                                </>
-                        )}
-                        {}</span></h5>
+                        {editable === "currentPlan" ? (
+                        <>
+                                    <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleSetUserPlan("currentPlan")} >
+                                        Kaydet <i class="fa-solid fa-floppy-disk"></i>
+                                    </button>
+                                    <input type='text' className='profile-input' placeholder={planadmin.userPlan.currentPlan} onChange={(e) => setNewValue(e.target.value)}></input>
+                        </>
+                        ):(
+                        <>
+                            {planadmin.userPlan ? (
+                                    <>
+                                    <form onSubmit={(e) => e.preventDefault()}>
+                                            <button type='button' className="profile-button ms-auto trans me-3 my-2" onClick={()=>setEditable("currentPlan")}>
+                                                Plan Düzenle <i className="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                        <span className='main-info2'>{planadmin.userPlan.currentPlan}</span>
+                                    </form>
+                                    </>
+                                ) : (
+                                    <>
+                                        No Data
+                                    </>
+                            )}
+                        </>)}
                     <hr className='info-hr' />
-                    <h5 className='main-info' >E-Ticaret Uzmanınız <i class="fa-regular fa-user"></i> : <span className='main-info2' >
-                        {planadmin.userPlan ? (
-                                <>
-                                    <span className='main-info2'>{planadmin.userPlan.expert}</span>
-                                    
-                                </>
-                            ) : (
-                                <>
-                                    No Data
-                                </>
-                        )}
-                        </span></h5>  
-                    <hr  className='info-hr'/>                                  
-                    <h5 className='main-info' >Uzman İletişim Bilgileri <i class="fa-regular fa-user"></i> : <span className='main-info2' >
-                        {planadmin.userPlan ? (
-                                <>
-                                    <span className='main-info2'>{planadmin.userPlan.expertmail}</span>
-                                    
-                                </>
-                            ) : (
-                                <>
-                                    No Data
-                                </>
-                        )}
-                        </span></h5>  
+                    {editable === "expert" ? (
+                        <>
+                                    <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleSetUserPlan("expert")} >
+                                        Kaydet <i class="fa-solid fa-floppy-disk"></i>
+                                    </button>
+                                    <input type='text' className='profile-input' placeholder={planadmin.userPlan.expert} onChange={(e) => setNewValue(e.target.value)}></input>
+                        </>
+                        ):(
+                        <>
+                            {planadmin.userPlan ? (
+                                    <>
+                                    <form onSubmit={(e) => e.preventDefault()}>
+                                            <button type='button' className="profile-button ms-auto trans me-3 my-2" onClick={()=>setEditable("expert")}>
+                                                Uzman Düzenle <i className="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                        <span className='main-info2'>{planadmin.userPlan.expert}</span>
+                                    </form>
+                                    </>
+                                ) : (
+                                    <>
+                                        No Data
+                                    </>
+                            )}
+                        </>)} 
+                    <hr  className='info-hr'/>
+                    {editable === "expertmail" ? (
+                        <>
+                                    <button class="profile-button ms-auto trans me-3 my-2" onClick={()=>handleSetUserPlan("expertmail")} >
+                                        Kaydet <i class="fa-solid fa-floppy-disk"></i>
+                                    </button>
+                                    <input type='text' className='profile-input' placeholder={planadmin.userPlan.expertmail} onChange={(e) => setNewValue(e.target.value)}></input>
+                        </>
+                        ):(
+                        <>
+                            {planadmin.userPlan ? (
+                                    <>
+                                    <form onSubmit={(e) => e.preventDefault()}>
+                                            <button type='button' className="profile-button ms-auto trans me-3 my-2" onClick={()=>setEditable("expertmail")}>
+                                                Uzman Mail Düzenle <i className="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                        <span className='main-info2'>{planadmin.userPlan.expertmail}</span>
+                                    </form>
+                                    </>
+                                ) : (
+                                    <>
+                                        No Data
+                                    </>
+                            )}
+                        </>)}                                 
                     <hr className='info-hr' />
                     <h5 className='main-info' >Kalan Abonelik Süreniz <i class="fa-regular fa-clock"></i> : <span className='main-info2' >
                         {planadmin.userPlan ? (

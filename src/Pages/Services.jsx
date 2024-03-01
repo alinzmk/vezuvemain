@@ -12,6 +12,7 @@ import emag from "../Assets/emag.png"
 import ozon from "../Assets/ozon.png"
 import trendyol from "../Assets/trendyol.png"
 import Service1 from '../Modals/Plan';
+import UserPage from '../Modals/UserPage';
 
 function Services() {
 
@@ -109,23 +110,8 @@ function Services() {
         return (
             <>
             <Service1 isOpen={isModalOpen} onClose={closeModal} selectedItem={selectedItem} serviceItems={serviceItems} />
-        <div className="dashboard m-0">
-
-        <div className='slideup'>
-        </div> 
-            <div className="row">
-                <div className="p-0">
-                 <Sidebar2/>
-                </div>
-                <div className="container mt-4 slideleft right">
-                    <div className="row">
-                        <div className="col-12 mb-0">                           
-                            <div className="row mb-4 me-5 d-flex justify-content-between">
-                                <h2 className='purple w-auto mt-3'>Hizmetlerimiz</h2>
-                                <img src={logo} className='sidebar-logo' alt="" />
-                            </div>
-                        </div>
-                        <div className="col-12 slideleft">
+        <UserPage>
+        <div className="col-12 slideleft">
                             <div className="row">
                                 <div className="col-11 pbg pt-3">
                                     <nav>
@@ -154,7 +140,7 @@ function Services() {
                                                     <div class="tab-content" id="nav-tabContent">
                                                         <div className={`tab-pane fade ${activeTab === 'amazon' ? 'show active' : ''}`} id="amazon" role="tabpanel" aria-labelledby="amazon-tab">
                                                             <div className="row mt-4">
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                         <div  onClick={() => openModal(serviceItems[0])} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >{serviceItems[0].name}</p>
                                                                             <p className='hizmet-tür' >{serviceItems[0].type}</p>
@@ -163,7 +149,7 @@ function Services() {
                                                                         </div>  
                                                                 
                                                                 </div>
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                         <div onClick={() => openModal(serviceItems[1])} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >{serviceItems[1].name}</p>
                                                                             <p className='hizmet-tür' >{serviceItems[1].type}</p>
@@ -171,7 +157,7 @@ function Services() {
                                                                             <img className='hizmet-img' src={amazon} alt="" />
                                                                         </div>
                                                                 </div>
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[2])} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >Amazon Abonelik</p>
@@ -185,7 +171,7 @@ function Services() {
                                                         </div>
                                                         <div className={`tab-pane fade ${activeTab === 'handmade' ? 'show active' : ''}`} id="amazonHandmade" role="tabpanel" aria-labelledby="amazonHandmade-tab">
                                                             <div className="row mt-4">
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[3])} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >Amazon Handmade</p>
@@ -195,7 +181,7 @@ function Services() {
                                                                         </div>  
                                                                     
                                                                 </div>
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[4])} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >Amazon Handmade</p>
@@ -209,7 +195,7 @@ function Services() {
                                                         </div>
                                                         <div className={`tab-pane fade ${activeTab === 'etsy' ? 'show active' : ''}`} id="etsy" role="tabpanel" aria-labelledby="etsy-tab">
                                                             <div className="row mt-4">
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[5])} className="hizmet allegro">
                                                                             <p className='hizmet-isim' >Etsy Enterprise</p>
@@ -219,7 +205,7 @@ function Services() {
                                                                         </div>  
                                                                     
                                                                 </div>
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[6])} className="hizmet allegro">
                                                                             <p className='hizmet-isim' >Etsy Star-seller</p>
@@ -229,7 +215,7 @@ function Services() {
                                                                         </div>
                                                                     
                                                                 </div>
-                                                                <div onClick={() => openModal(serviceItems[7])} className="col-3 mb-4">
+                                                                <div onClick={() => openModal(serviceItems[7])} className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div className="hizmet allegro">
                                                                             <p className='hizmet-isim' >Etsy Aylık</p>
@@ -239,7 +225,7 @@ function Services() {
                                                                         </div>  
                                                                     
                                                                 </div>
-                                                                <div onClick={() => openModal(serviceItems[8])} className="col-3 mb-4">
+                                                                <div onClick={() => openModal(serviceItems[8])} className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div className="hizmet allegro">
                                                                             <p className='hizmet-isim' >Etsy Yeni Girişimci</p>
@@ -253,7 +239,7 @@ function Services() {
                                                         </div>
                                                         <div className={`tab-pane fade ${activeTab === 'allegro' ? 'show active' : ''}`} id="allegro" role="tabpanel" aria-labelledby="allegro-tab">
                                                             <div className="row mt-4">
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[9])} className="hizmet allegro">
                                                                             <p className='hizmet-isim' >Allegro Business</p>
@@ -263,7 +249,7 @@ function Services() {
                                                                         </div>  
                                                                     
                                                                 </div>
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[10])} className="hizmet allegro">
                                                                             <p className='hizmet-isim' >Allegro Abonelik</p>
@@ -277,7 +263,7 @@ function Services() {
                                                         </div>
                                                         <div className={`tab-pane fade ${activeTab === 'trendyol' ? 'show active' : ''}`} id="trendyol" role="tabpanel" aria-labelledby="trendyol-tab">
                                                             <div className="row mt-4">
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[11])} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >Trendyol KOBİ</p>
@@ -287,7 +273,7 @@ function Services() {
                                                                         </div>  
                                                                     
                                                                 </div>
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[12])} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >Trendyol Abonelik</p>
@@ -302,7 +288,7 @@ function Services() {
                                                         </div>
                                                         <div className={`tab-pane fade ${activeTab === 'walmart' ? 'show active' : ''}`} id="walmart" role="tabpanel" aria-labelledby="walmart-tab">
                                                             <div className="row mt-4">
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[13])} className="hizmet walmart">
                                                                             <p className='hizmet-isim' >Walmart Business</p>
@@ -312,7 +298,7 @@ function Services() {
                                                                         </div>  
                                                                     
                                                                 </div>
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[14])} className="hizmet walmart">
                                                                             <p className='hizmet-isim' >Walmart Abonelik</p>
@@ -326,7 +312,7 @@ function Services() {
                                                         </div>
                                                         <div className={`tab-pane fade ${activeTab === 'wayfair' ? 'show active' : ''}`} id="wayfair" role="tabpanel" aria-labelledby="wayfair-tab">
                                                             <div className="row mt-4">
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[15])} className="hizmet wayfair">
                                                                             <p className='hizmet-isim' >Wayfair Business</p>
@@ -336,7 +322,7 @@ function Services() {
                                                                         </div>  
                                                                     
                                                                 </div>
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[16])} className="hizmet wayfair">
                                                                             <p className='hizmet-isim' >Wayfair Abonelik</p>
@@ -350,7 +336,7 @@ function Services() {
                                                         </div>
                                                         <div className={`tab-pane fade ${activeTab === 'emag' ? 'show active' : ''}`} id="emag" role="tabpanel" aria-labelledby="emag-tab">
                                                             <div className="row mt-4">
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[17])} className="hizmet ozon">
                                                                             <p className='hizmet-isim' >Emag Giriş</p>
@@ -364,7 +350,7 @@ function Services() {
                                                         </div>
                                                         <div className={`tab-pane fade ${activeTab === 'ozon' ? 'show active' : ''}`} id="ozon" role="tabpanel" aria-labelledby="ozon-tab">
                                                             <div className="row mt-4">
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[18])} className="hizmet ozon">
                                                                             <p className='hizmet-isim' >Ozon Business</p>
@@ -374,7 +360,7 @@ function Services() {
                                                                         </div>  
                                                                     
                                                                 </div>
-                                                                <div className="col-3 mb-4">
+                                                                <div className="col-6 col-lg-3 mb-4">
                                                                     
                                                                         <div onClick={() => openModal(serviceItems[19])} className="hizmet ozon">
                                                                             <p className='hizmet-isim' >Ozon Abonelik</p>
@@ -395,7 +381,7 @@ function Services() {
                                                 <p>Hizmet Açıklamalarını Okumak İçin Hizmetin Üstüne Tıklayınız.</p>
                                             <div className="row mt-3">
                                                 {ownServices.map((service, index) => (
-                                                    <div className="col-4 mb-4" key={index}>
+                                                    <div className="col-6 col-lg-4 mb-4" key={index}>
                                                         <div className="">
                                                             <div className="accordion accordion-flush hizmet vezu" id={`accordionPanelsStayOpenExample-${index}`}>  
                                                                 <div class="accordion-item">
@@ -424,10 +410,7 @@ function Services() {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </UserPage>
     </>
   );
 }

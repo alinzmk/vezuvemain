@@ -1,4 +1,4 @@
-/* import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getUserDocuments } from "../../../admin/AdminApiService";
 
 const initialState = {
@@ -32,4 +32,4 @@ export const docAdminSlice = createSlice({
   }
 })
 
-export default docAdminSlice.reducer; */
+export default docAdminSlice.reducer;
