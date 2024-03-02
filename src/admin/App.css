@@ -41,7 +41,6 @@ body {
   background-repeat: repeat;
   background-size: cover;
   overflow-x: hidden;
-  overflow-y: auto;
   color: rgba(28, 29, 34, 0.8);
   user-select: none;
   -webkit-user-drag: none; }
@@ -203,6 +202,7 @@ form .signup-link a:hover {
 /** LOGIN REGISTER FINISH**/
 /** SIDEBAR**/
 .sidebar2 {
+  z-index: 99;
   position: fixed;
   display: flex;
   max-width: 133px; }
@@ -637,12 +637,6 @@ button:focus {
   border-radius: 20px;
   box-shadow: 0px 0px 10px 1px #1c1d22; }
 
-.product-list-container {
-  min-height: 60vh;
-  max-height: 60vh;
-  /* Adjust the height as needed */
-  overflow-y: auto; }
-
 #add-product-info {
   max-width: 800px;
   max-height: 500px;
@@ -982,16 +976,19 @@ button:focus {
   text-align: center;
   color: rgba(28, 29, 34, 0.8);
   margin: 2rem auto 2rem auto;
-  font-size: 1.4rem; }
+  font-size: 1.4rem;
+  overflow-y: visible; }
 .task-wrapper .task-ul {
   margin-bottom: 3rem;
   list-style: none;
-  padding: 0 3rem; }
+  padding: 0 3rem;
+  overflow: visible; }
   .task-wrapper .task-ul .task-li {
     font-size: 1.1rem;
     position: relative;
     padding: 0.5rem;
-    margin: 1.5rem auto; }
+    margin: 1.5rem auto;
+    overflow: visible; }
     .task-wrapper .task-ul .task-li .task-title, .task-wrapper .task-ul .task-li .task-description {
       font-size: 18px;
       margin: 0;
@@ -1003,10 +1000,17 @@ button:focus {
       text-align: end;
       top: 15px;
       right: 10px; }
+    .task-wrapper .task-ul .task-li .task-icon-admin {
+      position: absolute;
+      text-align: end;
+      top: 8px;
+      right: 10px;
+      overflow: visible; }
 .task-wrapper .task-seperator {
   min-height: 30vh;
   max-height: 82vh;
-  overflow-y: auto; }
+  overflow: visible;
+  overflow-y: visible; }
 
 /* PROJE ALANI BİTİŞ */
 /* video modal başlangıç */

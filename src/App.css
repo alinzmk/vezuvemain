@@ -1012,7 +1012,7 @@ button:focus {
 .task-wrapper .task-seperator {
   min-height: 30vh;
   max-height: 82vh;
-  overflow-y: auto; }
+  overflow: visible; }
 
 /* PROJE ALANI BİTİŞ */
 /* video modal başlangıç */

@@ -22,6 +22,7 @@ function Dashboard() {
     if(!accessToken) {
         navigate("/");  
     }
+   
    //------------------------------------------------------------------------------   
     const currentDate = new Date();
     const month = currentDate.getMonth();
@@ -31,6 +32,9 @@ function Dashboard() {
     const {planadmin} = useSelector((state) => state.planadmin)
     const {dashadmin} = useSelector((state) => state.dashadmin)
     const dispatch = useDispatch()
+    if(dashadmin.length === 0){
+        dispatch(fetchAdminRedux())
+    }
    
     //------------------------------------------------------------------------------
 
@@ -50,15 +54,15 @@ function Dashboard() {
         var previousSale = dashadmin.sales[0][prevMonth].value
         var total = currentSale - previousSale;
         return total
-      } 
+    } 
 
-      const calculateRemainingDays = () => {
-        const start = new Date(planadmin.userPlan.startDate);
-        const end = new Date(planadmin.userPlan.finishDate);
-        const timeDifference = end.getTime() - start.getTime();
-        const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
-        return(daysDifference);
-      };
+    const calculateRemainingDays = () => {
+    const start = new Date(planadmin.userPlan.startDate);
+    const end = new Date(planadmin.userPlan.finishDate);
+    const timeDifference = end.getTime() - start.getTime();
+    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    return(daysDifference);
+    }
 
     const handleSetSalesData = async () => {
         try {
@@ -71,11 +75,10 @@ function Dashboard() {
             console.error('Error updating user sales:', error);
             // Handle error
         }
-        };
+    }
 
     const updateSalesData = () =>{
         handleSetSalesData()
-        alert("yesyes")
         setEditable(null);
     }
      
@@ -90,11 +93,10 @@ function Dashboard() {
             console.error('Error updating user sales:', error);
             // Handle error
         }
-        };
+    }
         
     const updateAdsData = () =>{
         handleSetAdsData()
-        alert("yesyes")
         setEditable(null);
     }
 
@@ -115,7 +117,6 @@ function Dashboard() {
     
     const updateSaleUnitData = () =>{
         handleSetSaleUnitData()
-        alert("yesyes")
         setEditable(null);
     }
 
@@ -132,13 +133,7 @@ function Dashboard() {
         }
       };
     
-    useEffect(() => {
-        if (dashadmin.length===0 || planadmin.length===0) {
-            dispatch(fetchAdminRedux());
-        }
-      }, [dispatch, dashadmin, planadmin]);
-    
-
+      
   return (
       <>
       <AdminPage pageName={"Ana Panel"}>
@@ -161,7 +156,9 @@ function Dashboard() {
                                 {dashadmin.sales ? (
                                 <>
                                     <form onSubmit={(e) => e.preventDefault()}>
-                                            <h2>{dashadmin.sales[0][month].value}$<span className='aylık'>/aylık</span></h2>
+                                                {dashadmin.sales && dashadmin.sales[0] && (
+                                                    <h2>{dashadmin.sales[0][month].value}$<span className='aylık'>/aylık</span></h2>
+                                                )}
                                             <button type='button' className="profile-button ms-auto trans me-3 my-2" onClick={()=>setEditable("sales")}>
                                                 Satış Düzenle <i className="fa-solid fa-pen-to-square"></i>
                                             </button>
@@ -192,7 +189,9 @@ function Dashboard() {
                                 {dashadmin.ads ? (
                                 <>
                                     <form onSubmit={(e) => e.preventDefault()}>
+                                    {dashadmin.ads && dashadmin.ads[0] && (
                                         <h2>{dashadmin.ads[0][month].value}$<span className='aylık'>/günlük</span></h2>
+                                                )}
                                         <button type='button' className="profile-button ms-auto trans me-3 my-2" onClick={()=>setEditable("ads")}>
                                             Reklam Düzenle <i className="fa-solid fa-pen-to-square"></i>
                                         </button>
@@ -221,7 +220,9 @@ function Dashboard() {
                                 {dashadmin.sales_unit ? (
                                     <>
                                         <form onSubmit={(e) => e.preventDefault()}>
+                                        {dashadmin.sales_unit && dashadmin.sales_unit[0] && (
                                             <h2>{dashadmin.sales_unit[0][month].value}<span className='aylık'>/adet</span></h2>
+                                                )}
                                             <button type='button' className="profile-button ms-auto trans me-3 my-2" onClick={()=>setEditable("sales_unit")}>
                                                 Unit Düzenle <i className="fa-solid fa-pen-to-square"></i>
                                             </button>
@@ -241,8 +242,12 @@ function Dashboard() {
                             <h6>Toplam Büyüme</h6>
                             {dashadmin.sales ? (
                                 <>
-                                    <h2>{totalGrowth()}$<span className='aylık'>/aylık</span></h2>
-                                    <p className='minus2'>+%0</p>
+                                {dashadmin.sales && dashadmin.sales[0] && (
+                                    <>
+                                        <h2>{totalGrowth()}$<span className='aylık'>/aylık</span></h2>
+                                        <p className='minus2'>+%0</p>
+                                    </>
+                                                )}
                                 </>
                             ) : (
                                 <>

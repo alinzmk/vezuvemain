@@ -14,26 +14,27 @@ import AdminPage from '../Modals/AdminPage';
 
 function SelectCustomer() {
 
-
     const [userData, setUserData] = useState(null);
     const accessToken = sessionStorage.getItem("token")
-    const [selectedCustomer, setselectedCustomer] = useState(''); 
+    const [selectedCustomer, setSelectedCustomer] = useState(''); 
     const [searchQuery, setSearchQuery] = useState('');
 
-    const {useradmin} = useSelector((state) => state.useradmin);
+    const { useradmin } = useSelector((state) => state.useradmin);
 
     const dispatch = useDispatch();
     
     const selectCustomer = (id) =>{
         sessionStorage.setItem("selectedCustomer", id);
+        sessionStorage.setItem("customerMail", useradmin[id-1].email);
+        setSelectedCustomer(id);
         dispatch(fetchAdminRedux())
-        
     };  
     
-    if(useradmin.length === 0){
-        dispatch(getUserAdmin())
-    }
-
+    useEffect(() => {
+        if(useradmin.length === 0){
+            dispatch(getUserAdmin())
+        }
+    }, [dispatch, useradmin.length]);
 
   return (
     <>
@@ -41,24 +42,17 @@ function SelectCustomer() {
             <div className="row slideleft">
                 <div className="col-3 pe-3 ps-0 ms-0">
                     <div className="pbg ps-3 pe-3">
-                    {/* <div className="row p-search mx-auto mt-4 mb-0">
-                            <div className="col-1 my-auto ms-2 p-0">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </div>
-                            <div className="col-8 p-0">
-                                <input type="text" className='product-input' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder='Müşteri Arayın'></input>
-                            </div>
-                            <div className="col-1 ps-auto m-auto">
-                            </div>
-                        </div> */}
                         <hr/>
                         <div className="row">
                             <div className="col-12 p-0 product-list-container">
-                                <ul>
+                                <ul className='product-list' >
                                     {useradmin && useradmin.map(user => (
-                                    <li key={user.user_id}
-                                        onClick={() => selectCustomer(user.user_id)}
-                                    >{user.name}</li>
+                                        <li key={user.user_id}
+                                            onClick={() => selectCustomer(user.user_id)}
+                                            className={selectedCustomer === user.user_id ? 'product-active' : ''}
+                                        >
+                                            {user.name}/{user.email}
+                                        </li>
                                     ))}
                                 </ul>
                             </div>
@@ -72,5 +66,3 @@ function SelectCustomer() {
 }
 
 export default SelectCustomer;
-
-
