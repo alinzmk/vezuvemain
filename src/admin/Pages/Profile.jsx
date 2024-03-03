@@ -75,7 +75,7 @@ function Profile() {
                             ) : (
                                 <>Aktif Planınız yok</>
                             )}  
-                            <button class="buton2 ms-2 mt-2 trans" onClick={()=>navigate('/Hizmetler')} ><i class="fa-solid fa-repeat"></i> Değiştir</button></h6>
+                            <button class="buton2 ms-2 mt-2 trans"><i class="fa-solid fa-repeat"></i> Değiştir</button></h6>
                         </div>
                     </div>
                 </div>

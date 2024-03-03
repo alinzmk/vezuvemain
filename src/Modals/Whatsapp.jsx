@@ -8,7 +8,7 @@ const whatsapp = () => {
         <>
             <WhatsAppWidget 
                                             companyName="Vezüve Destek Hattı"
-                                            phoneNumber="+905377638075"
+                                            phoneNumber="+905334519575"
                                             message="Size Nasıl Yardımcı Olabiliriz?"
                                             replyTimeText=""
                                             sendButtonText="GÖNDER"

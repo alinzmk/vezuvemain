@@ -13,20 +13,14 @@ import fetchAdminRedux from '../../redux/fetchAdminRedux';
 import AdminPage from '../Modals/AdminPage';
 
 function SelectCustomer() {
-
-    const [userData, setUserData] = useState(null);
-    const accessToken = sessionStorage.getItem("token")
-    const [selectedCustomer, setSelectedCustomer] = useState(''); 
-    const [searchQuery, setSearchQuery] = useState('');
-
     const { useradmin } = useSelector((state) => state.useradmin);
-
     const dispatch = useDispatch();
-    
+    const [selectedCustomer, setSelectedCustomer] = useState(null); // Define selectedCustomer state
+
     const selectCustomer = (id) =>{
         sessionStorage.setItem("selectedCustomer", id);
         sessionStorage.setItem("customerMail", useradmin[id-1].email);
-        setSelectedCustomer(id);
+        setSelectedCustomer(id); // Update selectedCustomer state
         dispatch(fetchAdminRedux())
     };  
     
@@ -36,33 +30,33 @@ function SelectCustomer() {
         }
     }, [dispatch, useradmin.length]);
 
-  return (
-    <>
-        <AdminPage>
-            <div className="row slideleft">
-                <div className="col-3 pe-3 ps-0 ms-0">
-                    <div className="pbg ps-3 pe-3">
-                        <hr/>
-                        <div className="row">
-                            <div className="col-12 p-0 product-list-container">
-                                <ul className='product-list' >
-                                    {useradmin && useradmin.map(user => (
-                                        <li key={user.user_id}
-                                            onClick={() => selectCustomer(user.user_id)}
-                                            className={selectedCustomer === user.user_id ? 'product-active' : ''}
-                                        >
-                                            {user.name}/{user.email}
-                                        </li>
-                                    ))}
-                                </ul>
+    return (
+        <>
+            <AdminPage>
+                <div className="row slideleft">
+                    <div className="col-3 pe-3 ps-0 ms-0">
+                        <div className="pbg ps-3 pe-3">
+                            <hr/>
+                            <div className="row">
+                                <div className="col-12 p-0 product-list-container">
+                                    <ul className='product-list' >
+                                        {useradmin && useradmin.map(user => (
+                                            <li key={user.user_id}
+                                                onClick={() => selectCustomer(user.user_id)}
+                                                className={selectedCustomer === user.user_id ? 'product-active' : ''}
+                                            >
+                                                {user.name}/{user.email}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </AdminPage>
-    </>
-  );
+            </AdminPage>
+        </>
+    );
 }
 
 export default SelectCustomer;

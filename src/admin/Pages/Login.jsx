@@ -14,6 +14,9 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  sessionStorage.clear("selectedCustomer")
+  sessionStorage.clear("customerMail")
+  
 
   const handleUsername = (event) => {
     setUsername(event.target.value);
@@ -36,6 +39,8 @@ function Login() {
         sessionStorage.setItem("token", result.access_token)
         successNotification("Başarıyla Giriş Yapıldı")
         dispatch(getUserAdmin())
+        sessionStorage.setItem("selectedCustomer", 1)
+        sessionStorage.setItem("customerMail", "lütfen bir müşteri seçiniz")
         setTimeout(() => {
           navigate("/admin/MusteriSec")
         }, 400)
