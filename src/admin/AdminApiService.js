@@ -1,6 +1,6 @@
 import axios from "axios";
 import { warningNotification } from "../Modals/Notification";
-const BASE_URL = 'http://adminapi.vezuport.com'; 
+const BASE_URL = 'https://adminapi.vezuport.com'; 
 
 export const getAdminToken = async (username, password) => {
   try {

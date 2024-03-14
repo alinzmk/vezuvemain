@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { warningNotification } from './Modals/Notification';
-const BASE_URL = 'http://userapi.vezuport.com';
+const BASE_URL = 'https://userapi.vezuport.com';
 
 
 export const loginUser = async (username, password) => {
