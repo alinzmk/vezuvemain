@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />
   },
   {
-    path: "/Kayıt",
+    path: "/kayit",
     element: <Register/>,
     errorElement: <ErrorPage />
   },

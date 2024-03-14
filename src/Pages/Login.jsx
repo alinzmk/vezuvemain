@@ -105,7 +105,7 @@ function Login() {
               <div className="row button">
                 <input onClick={handleSubmit} type="submit" value="Giriş Yap" />
               </div>
-              <div className="signup-link" onClick={()=>navigate("/Kayıt")}>Hala VezüPort ile tanışmadın mı? Hemen bizimle iletişime geçebilirsin</div>
+              <div className="signup-link" onClick={()=>navigate("/kayit")}>Hala VezüPort ile tanışmadın mı? Hemen bizimle iletişime geçebilirsin</div>
             </form>
           </div>
         </div>
