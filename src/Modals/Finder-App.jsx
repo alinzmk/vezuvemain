@@ -353,30 +353,20 @@ const data =
       "AVRUPA 51 Milyar Euro Yıllık Satış Aylık 800 Milyon Ziyaretçi",
       "Satıcı Sayısı: 1,9 MİLYON",
       "Popüler Pazaryerleri: YouTube, Facebook",
-
     ],
-    flag: {
-      name: 'us.png',
-      opacity: 1 ,
-    },
-    flag2: {
-      name: 'uk.png',
-      opacity: 0 ,
-    },
-    
     city: 0 ,
     items2: [
       {"ŞİRKET KURULUMU": "200-250 dolar"},
       {"Amazon aylık kira bedeli"	: "40 DOLAR"},
-      {"EAN Barkod":	"1750-5000 tl"},
+      {"GS1 Uluslararası barkod":	"1750-5000 tl"},
       {"Lojistik":	"50X60X60 Amazon standarlarında 10 koli 750 dolar"},
       {"Günlük reklam maliyeti	Minimum": "35-50 dolar"},
       {"Lansman Maliyeti": "Ürün fiyatlarına bağlı olarak 15-35 dolar ürün fiyatı aralığı için 500-750 dolar"},
     ],
     buttonText: "Uzman Ekibimiz ile Hemen Amazon'da",
-    marketLink: "https://vezuve.com.tr/wp-content/uploads/2023/10/vezuve-guncel-amazon-ekim-tanitim-sunumu.pdf"
+    marketLink: "https://drive.google.com/file/d/1R7fn5dOonJ_Xlwf9bm2pmmEM_t6wYvmx/view?usp=sharing"
   },
-  {   
+  {
       name: "Etsy",
       logo: 'etsy.png',
       items: [
@@ -387,58 +377,38 @@ const data =
         "Popüler Pazaryerleri: Pinterest, YouTube"
 
       ],
-      flag: {
-        name: 'us.png',
-        opacity: 1 ,
-      },
-      flag2: {
-        name: 'uk.png',
-        opacity: 0.1 ,
-      },
       
       city: 0 ,
       items2: [
-        {"ŞİRKET KURULUMU": "200-250 dolar"},
-        {"Amazon aylık kira bedeli"	: "40 DOLAR"},
-        {"EAN Barkod":	"1750-5000 tl"},
-        {"Lojistik":	"50X60X60 Amazon standarlarında 10 koli 750 dolar"},
-        {"Günlük reklam maliyeti	Minimum": "35-50 dolar"},
-        {"Lansman Maliyeti": "Ürün fiyatlarına bağlı olarak 15-35 dolar ürün fiyatı aralığı için 500-750 dolar"},
+        {"Şirket Kurulumu": " Zorunlu değildir isteğe bağlı maliyet:150-250 dolar"},
+        {"Lojistik":	"15-25 dolar ( tekli gönderime uygun elde taşınabilen ürün grupları 10-15 desi). Ürün fiyatlarına bağlı olarak 15-35 dolar ürün fiyatı aralığı için 350-400 dolar"},
+        {"Günlük reklam maliyeti	Minimum": "15-45 dolar"},
       ],
       buttonText: "Uzman Ekibimiz ile Hemen Etsy'de",
-      marketLink: "https://vezuve.com.tr/wp-content/uploads/2023/09/ETSY-Vezuve-Hizmet-Tanitim-Sunumlari-Agustos-2023_compressed.pdf"
+      marketLink: "https://drive.google.com/file/d/10iMVmWYO_N8J7peoViC-ImhtedmBtL7O/view?usp=drive_link"
     },
     {   
       name: "Emag",
       logo: 'emag.png',
       items: [
         'Aylık Trafik: 32.6M',
-        'EMAG BULGARİSTAN 5.5 M- EMAG MACARİSTAN 7.8 MİLYON TARAFİK ALIR',
+        'EMAG BULGARİSTAN 5.5M, EMAG MACARİSTAN 7.8 MİLYON TRAFİK ALIR',
         "Satıcı Sayısı: 30-32 BİN",
         "yıllık CİRO: 8.5 milyar dolarlık",
         "Popüler Pazaryerleri: Youtube, Facebook"
-
       ],
-      flag: {
-        name: 'us.png',
-        opacity: 1 ,
-      },
-      flag2: {
-        name: 'uk.png',
-        opacity: 0.1 ,
-      },
       
       city: 0 ,
       items2: [
         {"ŞİRKET KURULUMU": "200-250 dolar"},
         {"Amazon aylık kira bedeli"	: "40 DOLAR"},
-        {"EAN Barkod":	"1750-5000 tl"},
-        {"Lojistik":	"50X60X60 Amazon standarlarında 10 koli 750 dolar"},
-        {"Günlük reklam maliyeti	Minimum": "35-50 dolar"},
-        {"Lansman Maliyeti": "Ürün fiyatlarına bağlı olarak 15-35 dolar ürün fiyatı aralığı için 500-750 dolar"},
+        {"GS1 Uluslararası barkod":	"1750-5000 tl"},
+        {"Lojistik":	"karayolu kargo; 50X60X60 standarlarında 10 koli 400-500 euro"},
+        {"Günlük reklam maliyeti	Minimum": "35-50 LEİ "},
+        {"Lansman Maliyeti": "Ürün fiyatlarına bağlı olarak 15-35 LEİ ürün fiyatı aralığı için 500-750 LEİ"},
       ],
       buttonText: "Uzman Ekibimiz ile Hemen Emag'de",
-      marketLink: "https://vezuve.com.tr/wp-content/uploads/2023/10/vezuve-eihracat-sitesi-kurulumu-guncel-tanitim-sunumu-eylul_compressed.pdf"
+      marketLink: ""
     },
     {   
       name: "Allegro",
@@ -451,185 +421,116 @@ const data =
         "Popüler Pazaryerleri: YouTube, Facebook"
 
       ],
-      flag: {
-        name: 'us.png',
-        opacity: 1 ,
-      },
-      flag2: {
-        name: 'uk.png',
-        opacity: 0.1 ,
-      },
       
       city: 0 ,
       items2: [
-        {"ŞİRKET KURULUMU": "200-250 dolar"},
+        {"ŞİRKET KURULUMU": "750 Euro"},
         {"Amazon aylık kira bedeli"	: "40 DOLAR"},
-        {"EAN Barkod":	"1750-5000 tl"},
-        {"Lojistik":	"50X60X60 Amazon standarlarında 10 koli 750 dolar"},
-        {"Günlük reklam maliyeti	Minimum": "35-50 dolar"},
-        {"Lansman Maliyeti": "Ürün fiyatlarına bağlı olarak 15-35 dolar ürün fiyatı aralığı için 500-750 dolar"},
+        {"GS1 Uluslararası barkod":	" Şirket cirosuna göre:1750-5000 TL "},
+        {"Lojistik":	"karayolu kargo; 50X60X60 standarlarında 10 koli 400-500 Euro"},
+        {"Günlük reklam maliyeti	Minimum": "35-50 ZLOTİ"},
+        {"Lansman Maliyeti": "Ürün fiyatlarına bağlı olarak 15-35 ZLOTİ ürün fiyatı aralığı için 500-750 ZLOTİ"},
       ],
       buttonText: "Uzman Ekibimiz ile Hemen Allegro'da",
-      marketLink: "https://vezuve.com.tr/wp-content/uploads/2023/10/vezuve-eihracat-sitesi-kurulumu-guncel-tanitim-sunumu-eylul_compressed.pdf"
+      marketLink: "https://drive.google.com/file/d/1KX-S83D7XOaFncb0iZ3uDEdyMSc2hZl2/view?usp=drive_link"
     },
     {
       name: "Wayfair",
       logo: 'wayfair.png',
       items: [
-        'Aylık Trafik: 213.2M',
+        'Aylık Trafik: 6.1M (İngiltere), 13M (Birleşik Devletler)',
         'Satıcı Sayısı: 135.000',
-        "Yıllık Satış: 8.5 milyar dolar",
-        "Yeni başlayan satıcılara 0 komisyon desteği sunmaktadır.",
-        "Popüler Pazaryerleri: YouTube, Facebook"
+        "Yıllık Satış: 14 milyar dolar",
+        "Ortalama 97.7 Milyon aylık trafiğe sahiptir.",
+        "Popüler Pazaryerleri: Facebook, Pinterest"
       ],
-      flag: {
-        name: 'us.png',
-        opacity: 1 ,
-      },
-      flag2: {
-        name: 'uk.png',
-        opacity: 0.1 ,
-      },
       
       city: 0 ,
       items2: [
-        {"ŞİRKET KURULUMU": "200-250 dolar"},
-        {"Amazon aylık kira bedeli"	: "40 DOLAR"},
-        {"EAN Barkod":	"1750-5000 tl"},
-        {"Lojistik":	"50X60X60 Amazon standarlarında 10 koli 750 dolar"},
-        {"Günlük reklam maliyeti	Minimum": "35-50 dolar"},
-        {"Lansman Maliyeti": "Ürün fiyatlarına bağlı olarak 15-35 dolar ürün fiyatı aralığı için 500-750 dolar"},
+        {"ŞİRKET KURULUMU": "1 Yıllık şirket kurulumu dahil kapsamlı paket piyasa fiyat ortalaması: 1000-1100 dolar"},
+        {"Yalnız şirket kurulumu"	: "200-250 dolar"},
+        {"GS1 Uluslararası barkod":	"Şirket cirosuna göre:1750-5000 TL "},
+        {"Lojistik":	"Deniz yolu, hava yolu teklif almak için hizmetler sayfasına geçiş yapınız. (mobilya ürün grubunda stok miktarına göre maliyetleri oldukça değişkendir.)"},
+        {"Günlük reklam maliyeti	Minimum": "25-50 Dolar"},
+        {"Ara depo": "teklif almak için hizmetler sayfasına geçiş yapınız. (mobilya ürün grubunda stok miktarına göre maliyetleri oldukça değişkendir.)"},
       ],
-      buttonText: "Uzman Ekibimiz ile Hemen Allegro'da",
-      marketLink: "https://vezuve.com.tr/wp-content/uploads/2023/10/vezuve-eihracat-sitesi-kurulumu-guncel-tanitim-sunumu-eylul_compressed.pdf"
+      buttonText: "Uzman Ekibimiz ile Hemen Wayfair'de",
+      marketLink: "https://drive.google.com/file/d/1iGG382U2wtaU-SCC1-0Nn4Sw-CB_H3RE/view?usp=drive_link"
     },
     {
       name: "Zalando",
       logo: 'zalando.png',
       items: [
-        'Aylık Trafik: 213.2M',
-        'Satıcı Sayısı: 135.000',
-        "Yıllık Satış: 8.5 milyar dolar",
-        "Yeni başlayan satıcılara 0 komisyon desteği sunmaktadır.",
-        "Popüler Pazaryerleri: YouTube, Facebook"
+        'Aylık Trafik: 24 ülkede 1.7 Milyar',
+        '50 MİLYON AKTİF MÜŞTERİ',
+        "360 MİLYAR DOLAR ORTALAMA GELİR",
+        "Popüler Pazaryerleri: YouTube"
 
       ],
-      flag: {
-        name: 'us.png',
-        opacity: 1 ,
-      },
-      flag2: {
-        name: 'uk.png',
-        opacity: 0.1 ,
-      },
       
       city: 0 ,
       items2: [
-        {"ŞİRKET KURULUMU": "200-250 dolar"},
-        {"Amazon aylık kira bedeli"	: "40 DOLAR"},
-        {"EAN Barkod":	"1750-5000 tl"},
-        {"Lojistik":	"50X60X60 Amazon standarlarında 10 koli 750 dolar"},
-        {"Günlük reklam maliyeti	Minimum": "35-50 dolar"},
-        {"Lansman Maliyeti": "Ürün fiyatlarına bağlı olarak 15-35 dolar ürün fiyatı aralığı için 500-750 dolar"},
+        {"Bulunamadı": "200-250 dolar"}
       ],
-      buttonText: "Uzman Ekibimiz ile Hemen Allegro'da",
-      marketLink: "https://vezuve.com.tr/wp-content/uploads/2023/10/vezuve-eihracat-sitesi-kurulumu-guncel-tanitim-sunumu-eylul_compressed.pdf"
+      buttonText: "Uzman Ekibimiz ile Hemen Zalando'da",
+      marketLink: ""
     },
     {
       name: "Bol.com",
       logo: 'bolcom.png',
       items: [
-        'Aylık Trafik: 213.2M',
-        'Satıcı Sayısı: 135.000',
-        "Yıllık Satış: 8.5 milyar dolar",
-        "Yeni başlayan satıcılara 0 komisyon desteği sunmaktadır.",
+        'Aylık Trafik: 65M',
+        'Satıcı Sayısı: 50.000',
         "Popüler Pazaryerleri: YouTube, Facebook"
 
       ],
-      flag: {
-        name: 'us.png',
-        opacity: 1 ,
-      },
-      flag2: {
-        name: 'uk.png',
-        opacity: 0.1 ,
-      },
       
       city: 0 ,
       items2: [
-        {"ŞİRKET KURULUMU": "200-250 dolar"},
-        {"Amazon aylık kira bedeli"	: "40 DOLAR"},
-        {"EAN Barkod":	"1750-5000 tl"},
-        {"Lojistik":	"50X60X60 Amazon standarlarında 10 koli 750 dolar"},
-        {"Günlük reklam maliyeti	Minimum": "35-50 dolar"},
-        {"Lansman Maliyeti": "Ürün fiyatlarına bağlı olarak 15-35 dolar ürün fiyatı aralığı için 500-750 dolar"},
-      ],
-      buttonText: "Uzman Ekibimiz ile Hemen Allegro'da",
-      marketLink: "https://vezuve.com.tr/wp-content/uploads/2023/10/vezuve-eihracat-sitesi-kurulumu-guncel-tanitim-sunumu-eylul_compressed.pdf"
+        {"Bulunamadı": ""} ],
+      buttonText: "Uzman Ekibimiz ile Hemen Bol.com'da",
+      marketLink: ""
     },
     {
       name: "Ozon",
       logo: 'ozon.png',
       items: [
-        'Aylık Trafik: 213.2M',
-        'Satıcı Sayısı: 135.000',
+        'Aylık Trafik: 384.2M',
+        'Satıcı Sayısı: 250.000',
         "Yıllık Satış: 8.5 milyar dolar",
-        "Yeni başlayan satıcılara 0 komisyon desteği sunmaktadır.",
-        "Popüler Pazaryerleri: YouTube, Facebook"
+        "Ozon'da %57 Markalı %43 Markasız ürün vardır. Pazaryerinde 20 farklı kategoride 130 milyon SKU üzerinde ürün bulunmaktadır.",
+        "Popüler Pazaryerleri: YouTube, VK"
 
       ],
-      flag: {
-        name: 'us.png',
-        opacity: 1 ,
-      },
-      flag2: {
-        name: 'uk.png',
-        opacity: 0.1 ,
-      },
       
       city: 0 ,
       items2: [
-        {"ŞİRKET KURULUMU": "200-250 dolar"},
-        {"Amazon aylık kira bedeli"	: "40 DOLAR"},
-        {"EAN Barkod":	"1750-5000 tl"},
-        {"Lojistik":	"50X60X60 Amazon standarlarında 10 koli 750 dolar"},
-        {"Günlük reklam maliyeti	Minimum": "35-50 dolar"},
-        {"Lansman Maliyeti": "Ürün fiyatlarına bağlı olarak 15-35 dolar ürün fiyatı aralığı için 500-750 dolar"},
+        {"GS1 Uluslararası barkod": "Şirket cirosuna göre:1750-5000 TL "},
+        {"Lojistik":	"Uçak kargo; 8-15 Dolar ( tekli gönderime uygun elde taşınabilen ürün grupları 10-15 desi)"},
+        {"Günlük reklam maliyeti	Minimum": "5-7 dolar "}
       ],
-      buttonText: "Uzman Ekibimiz ile Hemen Allegro'da",
-      marketLink: "https://vezuve.com.tr/wp-content/uploads/2023/10/vezuve-eihracat-sitesi-kurulumu-guncel-tanitim-sunumu-eylul_compressed.pdf"
+      buttonText: "Uzman Ekibimiz ile Hemen Ozon'da",
+      marketLink: "https://drive.google.com/file/d/1xRuH9ejSnvk6KpT_F2cIrtiC0cXlEtmx/view?usp=drive_link"
     },
     {
       name: "Fruugo",
       logo: 'fruugo.png',
       items: [
-        'Aylık Trafik: 213.2M',
-        'Satıcı Sayısı: 135.000',
-        "Yıllık Satış: 8.5 milyar dolar",
-        "Yeni başlayan satıcılara 0 komisyon desteği sunmaktadır.",
-        "Popüler Pazaryerleri: YouTube, Facebook"
-
+        'Aylık Trafik: 2M (Birleşik Krallık), 1.6M (Romanya), 1.7(İsviçre), 1.5(Polonya)',
+        '2021 yılında toplamda 240 milyon ziyaretçi ağırlamıştır.',
+        "pazaryeri üzerinde satışta bulunan 42 milyon SKU ürün bulunmaktadır.",
+        "2021 yılında 340 milyon pound değerinde 7.9 milyon adet ürün satışı gerçekleşmiştir.",
+        "Popüler Pazaryerleri: YouTube, Instagram"
       ],
-      flag: {
-        name: 'us.png',
-        opacity: 1 ,
-      },
-      flag2: {
-        name: 'uk.png',
-        opacity: 0.1 ,
-      },
-      
       city: 0 ,
       items2: [
-        {"ŞİRKET KURULUMU": "200-250 dolar"},
-        {"Amazon aylık kira bedeli"	: "40 DOLAR"},
-        {"EAN Barkod":	"1750-5000 tl"},
-        {"Lojistik":	"50X60X60 Amazon standarlarında 10 koli 750 dolar"},
-        {"Günlük reklam maliyeti	Minimum": "35-50 dolar"},
-        {"Lansman Maliyeti": "Ürün fiyatlarına bağlı olarak 15-35 dolar ürün fiyatı aralığı için 500-750 dolar"},
+        {"GS1 Uluslararası barkod": "Şirket cirosuna göre:1750-5000 TL "},
+        {"Lojistik":	"Uçak kargo; 15-25 Euro ( tekli gönderime uygun elde taşınabilen ürün grupları 10-15 desi)"},
+        {"Günlük reklam maliyeti	Minimum": "15-25 Dolar"},
+        {"Lansman Maliyeti": "Ürün fiyatlarına bağlı olarak 15-35 Dolar ürün fiyatı aralığı için 250-300 dolar"},
       ],
-      buttonText: "Uzman Ekibimiz ile Hemen Allegro'da",
-      marketLink: "https://vezuve.com.tr/wp-content/uploads/2023/10/vezuve-eihracat-sitesi-kurulumu-guncel-tanitim-sunumu-eylul_compressed.pdf"
+      buttonText: "Uzman Ekibimiz ile Hemen Fruugo'da",
+      marketLink: "https://drive.google.com/file/d/1EawMEif_htoo4Upi4nlsaePpCDHwJxWF/view?usp=drive_link"
     }
 
 

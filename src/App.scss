@@ -242,7 +242,7 @@ $white: white;
   /** SIDEBAR**/
   
   .sidebar2{
-    z-index: 99;
+    z-index: 9;
     position: fixed;
     display: flex;
     max-width: 133px;
@@ -250,7 +250,7 @@ $white: white;
   
   .sidebar-wrapper2{
     position: absolute;
-    z-index: 99;
+    z-index: 9;
     min-height: 100vh;
     float: left;
     top: 0;
@@ -643,6 +643,56 @@ $white: white;
     border-radius: 10px;
     padding: 2px 7px;
   }
+
+  .confirm-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .confirm-modal h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .confirm-modal p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .confirm-actions {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .confirm-actions button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .confirm-actions button:nth-child(1) {
+    background-color: $primary10;
+    color: #fff;
+  }
+  
+  .confirm-actions button:nth-child(2) {
+    background-color: $negative;
+    color: #fff;
+  }
+  
+  .confirm-actions button:hover {
+    opacity: 0.8;
+  }
+  
   
   /** modal bitiş**/
   

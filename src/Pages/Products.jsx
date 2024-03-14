@@ -11,6 +11,7 @@ import fetchAllRedux from '../redux/fetchAllRedux';
 import { useNavigate } from 'react-router-dom';
 import { successNotification, warningNotification } from '../Modals/Notification';
 import UserPage from '../Modals/UserPage';
+import ConfirmDeleteModal from '../Modals/Delete';
 
 function Products() {
 
@@ -19,15 +20,16 @@ function Products() {
     if(!accessToken) {
         navigate("/");
     }
-   //------------------------------------------------------------------------------   
+   //------------------------------------------------------------------------------
+    const [modalIsOpen, setModalIsOpen] = useState(false); 
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const dispatch = useDispatch();
+
+
     const {product} = useSelector((state) => state.product);
-   //------------------------------------------------------------------------------   
-    if(product.length === 0){
-        dispatch(fetchAllRedux())
-    }
+   //------------------------------------------------------------------------------
+
    //------------------------------------------------------------------------------   
 
     const handleAddProductToUser = async (productsToAdd) => {
@@ -38,11 +40,13 @@ function Products() {
             console.log('Product added to user successfully!');
             successNotification("ÜRÜNLERİNİZ BAŞARIYLA EKLENDİ")
             dispatch(getProductData());
+            setModalIsOpen(false)
           } else {
             warningNotification("LÜTFEN EXCEL DOSYASI YÜKLEYİNİZ")
             console.error('Failed to add product to user.');
           }
-        } catch (error) {
+        }
+        catch (error) {
           console.error('Error adding product to user:', error);
         }
       };
@@ -75,17 +79,30 @@ function Products() {
       console.error('Error deleting product:', error);
     }
   };
+  
 
     const filteredProducts = product.filter(product =>
         product[5]?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    
+    const openModal = (x) => {
+      setModalIsOpen(true);
+  };
+  
+  const closeModal = () => {
+      setModalIsOpen(false);
+  };
+
+  const handleClick = () => {
+    openModal();
+};
+  
 
 
 
   return (
     <UserPage>
+      
         <div className="row slideleft">
             <div className="col-12 col-lg-3 pe-3 ps-0 ms-0">
                 <div className="pbg ps-3 pe-3">
@@ -159,8 +176,14 @@ function Products() {
                                 <h6 className='my-4'>{filteredProducts[selectedProduct][6]}</h6>
                             </div>
                             <div className='d-flex justify-content-end pe-4'>
-                                <button className='buton2' onClick={()=>handleProductDelete(filteredProducts[selectedProduct][1])} >Bu Ürünü Sil</button>
+                                <button className='buton2' onClick={handleClick} >Bu Ürünü Sil</button>
                             </div>
+                            <ConfirmDeleteModal
+                              isOpen={modalIsOpen}
+                              closeModal={closeModal}
+                              onDelete={() => handleProductDelete(filteredProducts[selectedProduct][1])} // Ensure it's a function
+                            />
+
                         </div>
                     </div>
                 </div>

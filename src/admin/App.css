@@ -202,14 +202,14 @@ form .signup-link a:hover {
 /** LOGIN REGISTER FINISH**/
 /** SIDEBAR**/
 .sidebar2 {
-  z-index: 99;
+  z-index: 9;
   position: fixed;
   display: flex;
   max-width: 133px; }
 
 .sidebar-wrapper2 {
   position: absolute;
-  z-index: 99;
+  z-index: 9;
   min-height: 100vh;
   float: left;
   top: 0;

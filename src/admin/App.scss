@@ -241,7 +241,7 @@ $white: white;
   /** SIDEBAR**/
   
   .sidebar2{
-    z-index: 99;
+    z-index: 9;
     position: fixed;
     display: flex;
     max-width: 133px;
@@ -249,7 +249,7 @@ $white: white;
   
   .sidebar-wrapper2{
     position: absolute;
-    z-index: 99;
+    z-index: 9;
     min-height: 100vh;
     float: left;
     top: 0;

@@ -91,7 +91,7 @@ function Documents() {
                                                     <input id="bankInfo-file-upload" className="d-none" type="file" onChange={(e) => handleFileUpload(e, "bankInfo")} />
                                                 </form>
                                                 ) : (
-                                                <button onClick={()=>handleDownloadDocument("bankInfo")} className='buton3 m-0'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                <button onClick={()=>handleDownloadDocument("bankInfo")} className='buton3 m-0'>Yüklendi <i class="fa-solid fa-cloud-arrow-down"></i></button>
                                             )}
                                         </div>
                                     </div>
@@ -125,7 +125,7 @@ function Documents() {
                                                     <button type="submit" style={{ display: 'none' }} class="identityDocument"></button>
                                                 </form>
                                              ) : (
-                                                 <button onClick={()=>handleDownloadDocument("identityDocument")} className='buton3 m-0'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                 <button onClick={()=>handleDownloadDocument("identityDocument")} className='buton3 m-0'>Yüklendi <i class="fa-solid fa-cloud-arrow-down"></i></button>
                                         )}
                                     </div>
                                 </div>
@@ -159,7 +159,7 @@ function Documents() {
                                                     <button type="submit" style={{ display: 'none' }} class="activityDocument"></button>
                                                 </form>
                                             ) : (
-                                                <button onClick={()=>handleDownloadDocument("activityDocument")}  className='buton3 m-0 slideup'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                <button onClick={()=>handleDownloadDocument("activityDocument")}  className='buton3 m-0 slideup'>Yüklendi <i class="fa-solid fa-cloud-arrow-down"></i></button>
                                         )}
                                     </div>
                                 </div>
@@ -193,7 +193,7 @@ function Documents() {
                                                 <button type="submit" style={{ display: 'none' }} class="englandCertificate"></button>
                                             </form>
                                             ) : (
-                                                <button onClick={()=>handleDownloadDocument("englandCertificate")}  className='buton3 m-0 slideup'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                <button onClick={()=>handleDownloadDocument("englandCertificate")}  className='buton3 m-0 slideup'>Yüklendi <i class="fa-solid fa-cloud-arrow-down"></i></button>
                                         )}
                                     </div>
                                 </div>
@@ -226,7 +226,7 @@ function Documents() {
                                                     <button type="submit" style={{ display: 'none' }} class="taxPlate"></button>
                                                 </form>
                                                 ) : (
-                                                    <button onClick={()=>handleDownloadDocument("taxPlate")}  className='buton3 m-0'>Yüklendi <i class="fa-solid fa-check-double"></i></button>
+                                                    <button onClick={()=>handleDownloadDocument("taxPlate")}  className='buton3 m-0'>Yüklendi <i class="fa-solid fa-cloud-arrow-down"></i></button>
                                             )}
                                         </div>
                                     </div>
@@ -260,7 +260,7 @@ function Documents() {
                                                     <button type="submit" style={{ display: 'none' }} class="bill"></button>
                                                 </form>
                                                 ) : (
-                                                    <button onClick={()=>handleDownloadDocument("bill")}  className='buton3 m-0'>Yüklendi<i class="fa-solid fa-check-double"></i></button>
+                                                    <button onClick={()=>handleDownloadDocument("bill")}  className='buton3 m-0'>Yüklendi<i class="fa-solid fa-cloud-arrow-down"></i></button>
                                             )}
                                         </div>
                                     </div>

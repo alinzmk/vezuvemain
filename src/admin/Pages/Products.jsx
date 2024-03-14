@@ -9,6 +9,7 @@ import { successNotification, warningNotification } from '../../Modals/Notificat
 import { getProductAdmin } from '../../redux/features/adminproduct/productAdminSlice';
 import fetchAdminRedux from '../../redux/fetchAdminRedux';
 import AdminPage from '../Modals/AdminPage';
+import ConfirmDeleteModal from '../Modals/Delete';
 
 function Products() {
 
@@ -21,6 +22,7 @@ function Products() {
     //------------------------------------------------------------------------------   
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
+    const [modalIsOpen, setModalIsOpen] = useState(false); 
     const dispatch = useDispatch();
     const {productadmin} = useSelector((state) => state.productadmin)
     //------------------------------------------------------------------------------   
@@ -86,7 +88,19 @@ function Products() {
     }, [dispatch, productadmin]);
     
 
-
+    const openModal = (x) => {
+        setModalIsOpen(true);
+    };
+    
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
+  
+    const handleClick = () => {
+      openModal();
+  };
+    
+  
 
   return (
     <>
@@ -157,16 +171,22 @@ function Products() {
                                 <img id="product-image" src={filteredProducts[selectedProduct][13]} alt="" />
                             </div>
                             <div className="col-9 ps-5">
-                                <div>
-                                    <h4 className='mb-1' > {filteredProducts[selectedProduct][5]}</h4>
-                                    <h5 className='my-3'>{filteredProducts[selectedProduct][12]}₺</h5>
-                                    <hr style={{margin:"0 15rem 1rem 0"}}/>
-                                    <h6 className='my-4'>{filteredProducts[selectedProduct][6]}</h6>
-                                </div>
-                                <div className='d-flex justify-content-end pe-4'>
-                                    <button className='buton2' onClick={()=>handleProductDelete(filteredProducts[selectedProduct][1])} >Bu Ürünü Sil</button>
-                                </div>
+                            <div>
+                                <h4 className='mb-1' > {filteredProducts[selectedProduct][5]}</h4>
+                                <h5 className='my-3'>{filteredProducts[selectedProduct][12]}₺</h5>
+                                <hr style={{margin:"0 15rem 1rem 0"}}/>
+                                <h6 className='my-4'>{filteredProducts[selectedProduct][6]}</h6>
                             </div>
+                            <div className='d-flex justify-content-end pe-4'>
+                                <button className='buton2' onClick={handleClick} >Bu Ürünü Sil</button>
+                            </div>
+                            <ConfirmDeleteModal
+                              isOpen={modalIsOpen}
+                              closeModal={closeModal}
+                              onDelete={() => handleProductDelete(filteredProducts[selectedProduct][1])} // Ensure it's a function
+                            />
+
+                        </div>
                         </div>
                     </div>
                 )}

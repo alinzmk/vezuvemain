@@ -8,10 +8,13 @@ const Requirements = ({ isOpen, closeModal, fullData}) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
+  
+
   const navigate = useNavigate();
 
   function toServices(){
-    localStorage.setItem("tab", JSON.stringify(fullData.selectedVideoId.name))
+    const tab = fullData.selectedMarket.name.toLowerCase();
+    sessionStorage.setItem("tab", JSON.stringify(tab))
     navigate("/Hizmetler");
   }
 
@@ -38,11 +41,11 @@ const Requirements = ({ isOpen, closeModal, fullData}) => {
       >
         <div className='reqModal' style={{zIndex: "99"}}>
           <div className='reqWrapper pbg'>
-              {fullData.selectedVideoId ? (
+              {fullData.selectedMarket ? (
                 <div className="row">
-                  <h3 className='reqTitle text-center'>{upperCase(fullData.selectedVideoId.name)} için Pazar Gereklilikleri</h3>
+                  <h3 className='reqTitle text-center'>{upperCase(fullData.selectedMarket.name)} için Pazar Gereklilikleri</h3>
                   <table className='reqTable m-auto'>
-                  {fullData.selectedVideoId.items2.map((item, index) => (
+                  {fullData.selectedMarket.items2.map((item, index) => (
                     Object.entries(item).map(([key, value], innerIndex) => (
                         <tr key={index + innerIndex}>
                           <td className='column1'>{key}</td>
@@ -53,7 +56,7 @@ const Requirements = ({ isOpen, closeModal, fullData}) => {
                       </table>
                   <div className='mt-5' style={{textAlign: "center", fontSize: "1.1rem"}} >
                       <p className=' mb-2'>
-                          {fullData.selectedVideoId.buttonText}
+                          {fullData.selectedMarket.buttonText}
                       </p>
                        <button className='satin-al' onClick={toServices}>Satışa Başla</button>
                   </div>

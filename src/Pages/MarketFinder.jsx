@@ -17,18 +17,18 @@ function MarketFinder() {
     }
     //------------------------------------------------------------------------------   
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [selectedVideoId, setSelectedVideoId] = useState("");
+    const [selectedMarket, setSelectedMarket] = useState("");
     const [selectedData, setSelectedData] = useState(null);
     const [selectedData2, setSelectedData2] = useState(null);
     //------------------------------------------------------------------------------   
 
     const openModal = (x) => {
-        setSelectedVideoId(x);
+        setSelectedMarket(x);
         setModalIsOpen(true);
     };
     
     const closeModal = () => {
-        setSelectedVideoId(null);
+        setSelectedMarket(null);
         setModalIsOpen(false);
     };
     
@@ -46,7 +46,7 @@ function MarketFinder() {
       <Requirements
             isOpen={modalIsOpen}
             closeModal={closeModal}
-            fullData={{selectedVideoId}}
+            fullData={{selectedMarket}}
         />
         <UserPage>
             <div className="finder-wrapper">

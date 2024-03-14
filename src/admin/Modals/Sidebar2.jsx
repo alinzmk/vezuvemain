@@ -37,11 +37,6 @@ const Sidebar2 = () => {
                              <i class="fa-solid fa-pen-ruler"></i>
                          </NavLink>
                     </li>
-                    <li className={(splitLocation[1] === "admin" && splitLocation[2] === "MarketFinder")  ? "side-active sidebar-li2" : "sidebar-li2"}>
-                         <NavLink to={"/admin/MarketFinder"} className='sidebar-link' activeClassName="side-active">
-                            <i class="fa-solid fa-crosshairs"></i>
-                         </NavLink>
-                    </li>
                     <li className={(splitLocation[1] === "admin" && splitLocation[2] === "Urunler")  ? "side-active sidebar-li2" : "sidebar-li2"}>
                          <NavLink to={"/admin/Urunler"} className='sidebar-link' activeClassName="side-active">
                             <i class="fa-solid fa-bag-shopping"></i>
@@ -55,11 +50,6 @@ const Sidebar2 = () => {
                     <li className={(splitLocation[1] === "admin" && splitLocation[2] === "Belgelerim")  ? "side-active sidebar-li2" : "sidebar-li2"}>
                          <NavLink to={"/admin/Belgelerim"} className='sidebar-link' activeClassName="side-active">
                             <i class="fa-solid fa-file"></i>
-                         </NavLink>
-                    </li>
-                    <li className={(splitLocation[1] === "admin" && splitLocation[2] === "Dersler")  ? "side-active sidebar-li2" : "sidebar-li2"}>
-                         <NavLink to={"/admin/Dersler"} className='sidebar-link' activeClassName="side-active">
-                              <i class="fa-brands fa-youtube"></i>
                          </NavLink>
                     </li>
                     <li className="sidebar-li2">

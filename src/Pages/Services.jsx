@@ -2,7 +2,6 @@ import '../App.css';
 import { useState, useEffect } from 'react';
 import logo from "../Assets/logo-renkli.png"
 import {  useNavigate  } from 'react-router-dom';
-import Sidebar2 from '../Modals/Sidebar2';
 import amazon from "../Assets/amazon.png";
 import allegro from "../Assets/allegro.png";
 import walmart from "../Assets/walmart.png";
@@ -36,53 +35,46 @@ function Services() {
             document.body.classList.remove('modal-open');
         }
         const serviceItems = [
-                { name: 'Amazon Business', type: 'Business', firstPrice:"95.000",  month: false, price: '80.000', logo: "amazon.png", image: "amazon_business.png", },
+                { name: 'Amazon Business', type: 'Business', firstPrice:"1.000",  month: false, price: '700', logo: "amazon.png", image: "amazon_business.png", },
+                { name: 'Amazon Global', type: 'Global', firstPrice:"1.400",  month: false, price: '1.000', logo: "amazon.png", image: "amazon_global.png", },
+                { name: 'Amazon Abonelik', type: 'Aylık Abonelik', firstPrice:"750", month: "aylık ", price: '650', logo: "amazon.png", image: "amazon_abonelik.png", },
+                { name: 'Amazon Handmade', type: 'Handmade', firstPrice:"2.300", month: false, price: '1.800', logo: "amazon.png", image: "amazon_handmade.png", info1:"3 aylık Amazon Handmade süreniz dolduktan sonra talep edersiniz Abonelik paketimizle size amazon departman hizmeti",},
+                { name: 'Amazon Handmade', type: 'Aylık Abonelik', firstPrice:"700", month:"true" , price: '650', logo: "amazon.png", image: "amazon_handmade_abonelik.png", info1:"3 aylık Amazon Handmade süreniz dolduktan sonra talep edersiniz Abonelik paketimizle size amazon departman hizmeti",},
 
-                { name: 'Amazon Global', type: 'Global', firstPrice:"130.000",  month: false, price: '100.000', logo: "amazon.png", image: "amazon_global.png", },
+                { name: 'Etsy Enterprise', type: 'Enterprise', firstPrice:"750", month: false, price: '500', logo: "etsy.png", image: "etsy_enterprise.png", },
+                { name: 'Etsy Star-Seller', type: 'Star-Seller', firstPrice:"900", month: false, price: '650', logo: "etsy.png", image: "etsy_star.png", },
 
-                { name: 'Amazon Abonelik', type: 'Aylık Abonelik', firstPrice:"22.000", month: "aylık ", price: '17.999', logo: "amazon.png", image: "amazon_abonelik.png", },
-
-                { name: 'Amazon Handmade', type: 'Handmade', firstPrice:"75.000", month: false, price: '59.999', logo: "amazon.png", image: "amazon_handmade.png", 
-                info1:"3 aylık Amazon Handmade süreniz dolduktan sonra talep edersiniz Abonelik paketimizle size amazon departman hizmeti",},
-
-                { name: 'Amazon Handmade', type: 'Aylık Abonelik', firstPrice:"18.000", month:"true" , price: '13.999', logo: "amazon.png", image: "amazon_handmade_abonelik.png", 
-                info1:"3 aylık Amazon Handmade süreniz dolduktan sonra talep edersiniz Abonelik paketimizle size amazon departman hizmeti",},
-
-                { name: 'Etsy Enterprise', type: 'Enterprise', firstPrice:"32.000", month: false, price: '27.500', logo: "etsy.png", image: "etsy_enterprise.png", },
-
-                { name: 'Etsy Star-Seller', type: 'Star-Seller', firstPrice:"36.000", month: false, price: '32.000', logo: "etsy.png", image: "etsy_star.png", },
-
-                { name: 'Etsy Abonelik', type: 'Aylık Abonelik', firstPrice:"13.000", month: false, price: '9.999', logo: "etsy.png", image: "etsy_abonelik.png", 
+                { name: 'Etsy Abonelik', type: 'Aylık Abonelik', firstPrice:"550", month: false, price: '400', logo: "etsy.png", image: "etsy_abonelik.png", 
                 info1:"Abonelik sistemimizle çalışan firmalarımız talep ettiği sürece her ay aboneliği yenilenmektedir.",},
 
                 { name: 'Etsy Yeni Girişimci', type: 'KOBİ Paketi', firstPrice:"18.000", month: false, price: '25.000', logo: "etsy.png", image: "etsy_starter.png", 
                 info1:"Atölyeler, ev hanımları ve genç girişimciler için hazırlanmış özel paketimiz. \nHizmet süresi sonunda müşterilerimiz aylık abonelik hizmetimizle çalışmaya devam edebilirler.",},
 
-                { name: 'Allegro Business', type: 'Business', firstPrice:"39.000", month: false, price: '34.000', logo: "allegro.png", image: "allegro_business.png", 
+                { name: 'Allegro Business', type: 'Business', firstPrice:"1.600", month: false, price: '1.300', logo: "allegro.png", image: "allegro_business.png", 
                 info2: "Döviz ödemeleri güncel döviz kurundan TL ile yapılabilmektedir.",},
 
-                { name: 'Allegro Abonelik', type: 'Aylık Abonelik', firstPrice:"20.000", month: true , price: '17.500', logo: "allegro.png", image: "allegro_abonelik.png", 
+                { name: 'Allegro Abonelik', type: 'Aylık Abonelik', firstPrice:"850", month: true , price: '700', logo: "allegro.png", image: "allegro_abonelik.png", 
                 info2: "Döviz ödemeleri güncel döviz kurundan TL ile yapılabilmektedir.",},
 
                 { name: 'Trendyol KOBİ', type: 'KOBİ Paketi', firstPrice:"22.000", month: false, price: '18.000', logo: "trendyol.png", image: "trendyol_kobi.png", },
 
                 { name: 'Trendyol Abonelik', type: 'Aylık Abonelik', firstPrice:"12.000", month:"true" , price: '10.000', logo: "trendyol.png", image: "trendyol_abonelik.png", },
 
-                { name: 'Walmart Business', type: 'Business', firstPrice:"95.000", month: false, price: '80.000', logo: "walmart.png", image: "walmart_business.png", },
+                { name: 'Walmart Business', type: 'Business', firstPrice:"3.600", month: false, price: '3.700', logo: "walmart.png", image: "walmart_business.png", },
 
-                { name: 'Walmart Abonelik', type: 'Aylık Abonelik', firstPrice:"35.000", month:"true" , price: '29.000', logo: "walmart.png", image: "walmart_abonelik.png", },
+                { name: 'Walmart Abonelik', type: 'Aylık Abonelik', firstPrice:"1.600", month:"true" , price: '1.400', logo: "walmart.png", image: "walmart_abonelik.png", },
 
-                { name: 'Wayfair Business', type: 'Business', firstPrice:"85.000", month: false, price: '73.999', logo: "wayfair.png", image: "wayfair_business.png", },
+                { name: 'Wayfair Business', type: 'Business', firstPrice:"4.000", month: false, price: '3.500', logo: "wayfair.png", image: "wayfair_business.png", },
 
-                { name: 'Wayfair Abonelik', type: 'Aylık Abonelik', firstPrice:"31.000", month:"true" , price: '25.999', logo: "wayfair.png", image: "wayfair_abonelik.png", },
+                { name: 'Wayfair Abonelik', type: 'Aylık Abonelik', firstPrice:"1.500", month:"true" , price: '1.300', logo: "wayfair.png", image: "wayfair_abonelik.png", },
 
                 { name: 'Emag Giriş', type: 'Starter', firstPrice:"21.000", month: false, price: '17.999', logo: "emag.png", image: "emag_starter.png", 
                 info3: "Vezüve Romanya ofisi ve ara deposuyla sizlere hizmet vermektedir.",},
 
-                { name: 'Ozon Global', type: 'Global', firstPrice:"37.000", month: false, price: '29.999', logo: "ozon.png", image: "ozon_global.png", 
+                { name: 'Ozon Global', type: 'Global', firstPrice:"850", month: false, price: '600', logo: "ozon.png", image: "ozon_global.png", 
                 info4:"Vezüve Ozon'nun Türkiye'deki yetkili servis sağlayıcısıdır."},
 
-                { name: 'Ozon Abonelik', type: 'Aylık Abonelik', firstPrice:"15.000", month:"true" , price: '11.999', logo: "ozon.png", image: "ozon_abonelik.png", 
+                { name: 'Ozon Abonelik', type: 'Aylık Abonelik', firstPrice:"700", month:"true" , price: '500', logo: "ozon.png", image: "ozon_abonelik.png", 
                 info4:"Vezüve Ozon'nun Türkiye'deki yetkili servis sağlayıcısıdır."},
             ];
         const ownServices = [
@@ -99,11 +91,11 @@ function Services() {
         ];
         
         useEffect(() => {
-            const storedTab = JSON.parse(localStorage.getItem("tab"));
+            const storedTab = JSON.parse(sessionStorage.getItem("tab"));
             if (storedTab) {
                 setActiveTab(storedTab);
             }
-            localStorage.setItem("tab", JSON.stringify(""));
+            sessionStorage.setItem("tab", JSON.stringify(""));
         }, []);
         
         
