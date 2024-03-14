@@ -1149,5 +1149,11 @@ button:focus {
       font-size: 1rem; }
       .finder-result .finder-ul p {
         margin: 0; } }
+@media only screen and (max-width: 992px) {
+  .wrapper {
+    width: 300px !important; } }
+@media only screen and (max-width: 320px) {
+  .wrapper {
+    width: 250px !important; } }
 
 /*# sourceMappingURL=App.css.map */

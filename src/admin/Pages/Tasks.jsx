@@ -4,7 +4,7 @@ import logo from "../Assets/logo-renkli.png"
 import Sidebar2 from '../Modals/Sidebar2';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createUserTask, setUserTasks } from '../AdminApiService';
+import { createUserTask, deleteUserTask, setUserTasks } from '../AdminApiService';
 import { getTaskAdmin } from '../../redux/features/admintask/taskAdminSlice';
 import AdminPage from '../Modals/AdminPage';
 import fetchAdminRedux from '../../redux/fetchAdminRedux';
@@ -53,6 +53,20 @@ function Tasks() {
         }
       };
 
+      const handleDeleteUserTask = async (taskName) => {
+        try {
+          // Call the deleteUserTask function with the taskName
+          const response = await deleteUserTask(taskName, accessToken, user_id);
+          console.log('User task deleted successfully:', response);
+          dispatch(getTaskAdmin())
+          // Handle success
+        } catch (error) {
+          console.error('Error deleting user task:', error);
+          // Handle error
+        }
+      };
+
+
       const getTasksByStatus = (status) => {
         if (!taskadmin.tasks || !taskadmin.tasks.tasks) {
           return [];
@@ -66,7 +80,6 @@ function Tasks() {
     const finishedTasks = getTasksByStatus('Finished');
 
     useEffect(() => {
-        console.log("MAl")
         if (!taskadmin || taskadmin.length === 0) {
             dispatch(fetchAdminRedux());
         }
@@ -112,7 +125,7 @@ function Tasks() {
                                             <li onClick={()=>handleSetUserTasks(task.taskName, "taskStatus", "Planned" )} ><a class="dropdown-item" href="#">Plan</a></li>
                                             <li onClick={()=>handleSetUserTasks(task.taskName, "taskStatus", "In Progress" )} ><a class="dropdown-item" href="#">Process</a></li>
                                             <li onClick={()=>handleSetUserTasks(task.taskName, "taskStatus", "Finished" )} ><a class="dropdown-item" href="#">Finished</a></li>
-                                            <li><a class="dropdown-item" href="#">DELETE</a></li>
+                                            <li onClick={()=>handleDeleteUserTask(task.taskName)} ><a class="dropdown-item" href="#">Delete</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -135,7 +148,7 @@ function Tasks() {
                                                 <li onClick={()=>handleSetUserTasks(task.taskName, "taskStatus", "Planned" )} ><a class="dropdown-item" href="#">Plan</a></li>
                                                 <li onClick={()=>handleSetUserTasks(task.taskName, "taskStatus", "In Progress" )} ><a class="dropdown-item" href="#">Process</a></li>
                                                 <li onClick={()=>handleSetUserTasks(task.taskName, "taskStatus", "Finished" )} ><a class="dropdown-item" href="#">Finished</a></li>
-                                                <li><a class="dropdown-item" href="#">DELETE</a></li>
+                                                <li onClick={()=>handleDeleteUserTask(task.taskName)} ><a class="dropdown-item" href="#">Delete</a></li>
                                             </ul>
                                     </div>
                                 </li>
@@ -158,7 +171,7 @@ function Tasks() {
                                                 <li onClick={()=>handleSetUserTasks(task.taskName, "taskStatus", "Planned" )} ><a class="dropdown-item" href="#">Plan</a></li>
                                                 <li onClick={()=>handleSetUserTasks(task.taskName, "taskStatus", "In Progress" )} ><a class="dropdown-item" href="#">Process</a></li>
                                                 <li onClick={()=>handleSetUserTasks(task.taskName, "taskStatus", "Finished" )} ><a class="dropdown-item" href="#">Finished</a></li>
-                                                <li><a class="dropdown-item" href="#">DELETE</a></li>
+                                                <li onClick={()=>handleDeleteUserTask(task.taskName)} ><a class="dropdown-item" href="#">Delete</a></li>
                                             </ul>
                                     </div>
                                 </li>

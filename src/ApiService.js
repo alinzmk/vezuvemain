@@ -25,6 +25,24 @@ export const loginUser = async (username, password) => {
   }
 };
 
+export const registerEarlyUser = async (mail, name, phone) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/register_early_user?mail=${mail}&name=${name}&phone=${phone}`,
+      // No need to send data in the request body
+      {
+        headers: {
+          'Content-Type': 'application/json', // Specify the content type if needed
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error registering early user:', error);
+    throw error;
+  }
+};
+
 export const getUserData = async (accessToken) => {
   try {
     const response = await axios.get(`${BASE_URL}/get_user_data`, {

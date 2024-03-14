@@ -240,6 +240,23 @@ export const createUserTask = async (customer_id, task_name, accessToken) => {
   }
 };
 
+export const deleteUserTask = async (taskName, accessToken, customer_id) => {
+  try {
+    const response = await axios.delete(
+      `${BASE_URL}/delete_user_task?customer_id=${customer_id}&taskName=${taskName}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting user task:', error);
+    throw error;
+  }
+};
+
 
 export const getUserProducts = async (accessToken, customerId) => {
   try {
