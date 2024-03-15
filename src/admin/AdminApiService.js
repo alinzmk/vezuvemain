@@ -16,7 +16,6 @@ export const getAdminToken = async (username, password) => {
         },
       }
     );
-
     return response.data;
   } catch (error) {
     warningNotification("GİRİŞ BAŞARISIZ")

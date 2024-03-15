@@ -7,6 +7,9 @@ import { loginUser, registerEarlyUser } from '../ApiService';
 import { useDispatch } from 'react-redux';
 import fetchAllRedux from '../redux/fetchAllRedux';
 import { successNotification, warningNotification } from '../Modals/Notification';
+import InfoModal from '../Modals/Info';
+import Lottie from 'lottie-react';
+import check from '../Assets/animations/check.json';
 
 function Register() {
 
@@ -15,6 +18,7 @@ function Register() {
   const [username, setUsername] = useState('');
   const [mail, setMail] = useState('');
   const [phone, setPhone] = useState('');
+  const [isRegister, setIsRegister] = useState(false); 
 
   const handleUsername = (event) => {
     setUsername(event.target.value);
@@ -27,13 +31,15 @@ function Register() {
   }
  
 
+  
+
 
 const handleRegisterEarlyUser = async () => {
   try {
     // Call the registerEarlyUser function with the user's data
     const response = await registerEarlyUser(mail, username, phone);
     if(response.status===200){
-      successNotification("Kayıt başarılı")
+      setIsRegister(true)
     }
     else if(response.status===403){
       warningNotification("Bu mail adresi sistemimize kayıtlıdır")
@@ -54,7 +60,7 @@ const handleRegisterEarlyUser = async () => {
 
     //GEREKLİ USERNAME PASSWORD CONSTRAINTS
     if (!emailRegex.test(mail)) {
-      alert('Please enter a valid email address');
+      warningNotification("Lütfen geçerli bir e-posta adresi giriniz.");
       return;
     }
     
@@ -67,44 +73,59 @@ const handleRegisterEarlyUser = async () => {
     
     <div className="App row m-0">
       <div className="col-12 col-lg-5 ">
-        <div className="login-container d-flex d-lg-flex justify-content-center">
-          <div className="wrapper ">
-            <div className="title"><img src={logo} className="login-logo" alt="VevüzeLogo" /></div>
-            <form onSubmit={handleSubmit}>
-              <div className="row">
-                <i className="fas fa-user"></i>
-                <input value={username} 
-                      onChange={handleUsername} 
-                      type="text" 
-                      placeholder="Adınız ve Soyadınız"
-                      maxLength={30} // Set maximum number of digits to 10
-                      title="Please enter only digits"
-                      required />
+        {isRegister ?(
+          <>
+            <div className='info-container d-flex d-lg-block justify-content-center'>
+              <div className="info-modal text-center">
+                <Lottie style={{height:"100px"}} loop={false} animationData={check}/>
+                <p className='m-0'>"Vezuporta kayıt oluşturduğunuz için teşekkür ederiz. Uygulamamız yayınlandığında sizi bilgilendireceğiz."</p>
               </div>
-              <div className="row">
-                <i class="fa-solid fa-at"></i>
-                <input 
-                    value={mail} 
-                    onChange={handleMail} 
-                    type="email" 
-                    placeholder="E-postanız" 
-                    maxLength={30}
-                    required />
-              </div>
-              <div className="row">
-                <i class="fa-solid fa-phone"></i>
-                <input value={phone} 
-                        onChange={handlePhone} 
+            </div>
+          </>
+        ):(
+          <>
+          <div className="login-container d-flex d-lg-block justify-content-center">
+            <div className="wrapper ">
+             
+              <div className="title"><img src={logo} className="login-logo" alt="VevüzeLogo" /></div>
+              <form onSubmit={handleSubmit}>
+                <div className="row">
+                  <i className="fas fa-user"></i>
+                  <input value={username} 
+                        onChange={handleUsername} 
                         type="text" 
-                        placeholder="Telefonunuz"
+                        placeholder="Adınız ve Soyadınız"
+                        maxLength={30} // Set maximum number of digits to 10
+                        title="Please enter only digits"
                         required />
-              </div>
-              <div className="row button">
-                <input type="submit" value="Kayıt Ol" />
-              </div>
-            </form>
-          </div>
-        </div>
+                </div>
+                <div className="row">
+                  <i class="fa-solid fa-at"></i>
+                  <input 
+                      value={mail} 
+                      onChange={handleMail} 
+                      type="text" 
+                      placeholder="E-postanız" 
+                      maxLength={30}
+                      required />
+                </div>
+                <div className="row">
+                  <i class="fa-solid fa-phone"></i>
+                  <input value={phone} 
+                          onChange={handlePhone} 
+                          type="text" 
+                          placeholder="Telefonunuz"
+                          required />
+                </div>
+                <div className="row button">
+                  <input type="submit" value="Kayıt Ol" />
+                </div>
+              </form>
+            </div>
+            </div>
+          </>
+        )}
+        
       </div>
       <div className="col-6">
       </div>
