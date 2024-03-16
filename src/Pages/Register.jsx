@@ -27,7 +27,11 @@ function Register() {
     setMail(event.target.value);
   }
   const handlePhone = (event) => {
-    setPhone(event.target.value);
+    const value = event.target.value;
+    // Validate if the input is a number
+    if (!isNaN(value) || value === '') {
+      setPhone(value);
+    }
   }
  
 
@@ -78,7 +82,7 @@ const handleRegisterEarlyUser = async () => {
             <div className='info-container d-flex d-lg-block justify-content-center'>
               <div className="info-modal text-center">
                 <Lottie style={{height:"100px"}} loop={false} animationData={check}/>
-                <p className='m-0'>"Vezuporta kayıt oluşturduğunuz için teşekkür ederiz. Uygulamamız yayınlandığında sizi bilgilendireceğiz."</p>
+                <p className='m-0'>Vezuporta kayıt oluşturduğunuz için teşekkür ederiz. Uygulamamız yayınlandığında sizi bilgilendireceğiz.</p>
               </div>
             </div>
           </>
