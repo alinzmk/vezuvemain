@@ -100,7 +100,7 @@ const handleRegisterEarlyUser = async () => {
                         type="text" 
                         placeholder="Adınız ve Soyadınız"
                         maxLength={30} // Set maximum number of digits to 10
-                        title="Please enter only digits"
+                        title="Adınız ve Soyadınız"
                         required />
                 </div>
                 <div className="row">
@@ -110,6 +110,7 @@ const handleRegisterEarlyUser = async () => {
                       onChange={handleMail} 
                       type="text" 
                       placeholder="E-postanız" 
+                      title="E-postanız"
                       maxLength={30}
                       required />
                 </div>
@@ -119,6 +120,7 @@ const handleRegisterEarlyUser = async () => {
                           onChange={handlePhone} 
                           type="text" 
                           placeholder="Telefonunuz"
+                          title="Telefonunuz"
                           required />
                 </div>
                 <div className="row button">
