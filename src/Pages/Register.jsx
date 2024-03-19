@@ -1,20 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import logo from "../Assets/logo-renkli.png";
-import { toast } from 'react-toastify';
-import { loginUser, registerEarlyUser } from '../ApiService';
-import { useDispatch } from 'react-redux';
-import fetchAllRedux from '../redux/fetchAllRedux';
-import { successNotification, warningNotification } from '../Modals/Notification';
-import InfoModal from '../Modals/Info';
+import { registerEarlyUser } from '../ApiService';
+import { warningNotification } from '../Modals/Notification';
 import Lottie from 'lottie-react';
 import check from '../Assets/animations/check.json';
 
 function Register() {
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [mail, setMail] = useState('');
   const [phone, setPhone] = useState('');
@@ -33,10 +26,6 @@ function Register() {
       setPhone(value);
     }
   }
- 
-
-  
-
 
 const handleRegisterEarlyUser = async () => {
   try {
@@ -99,7 +88,7 @@ const handleRegisterEarlyUser = async () => {
                         onChange={handleUsername} 
                         type="text" 
                         placeholder="Adınız ve Soyadınız"
-                        maxLength={30} // Set maximum number of digits to 10
+                        maxLength={30}
                         title="Adınız ve Soyadınız"
                         required />
                 </div>
