@@ -17,10 +17,11 @@ function Register() {
     setUsername(event.target.value);
   }
   const handleMail = (event) => {
-    setMail(event.target.value);
+    let temp = event.target.value.trim()
+    setMail(temp);
   }
   const handlePhone = (event) => {
-    const value = event.target.value;
+    const value = event.target.value.trim();
     // Validate if the input is a number
     if (!isNaN(value) || value === '') {
       setPhone(value);
@@ -110,6 +111,7 @@ const handleRegisterEarlyUser = async () => {
                           type="text" 
                           placeholder="Telefonunuz"
                           title="Telefonunuz"
+                          maxLength={15}
                           required />
                 </div>
                 <div className="row button">

@@ -77,8 +77,8 @@ function Login() {
     
     
     <div className="App row m-0">
-      <div className="col-5">
-        <div className="login-container">
+      <div className="col-12 col-lg-5">
+        <div className="login-container d-flex d-lg-block justify-content-center">
           <div className="wrapper">
             <div className="title"><img src={logo} className="login-logo" alt="VevüzeLogo" /></div>
             <form action="#">
