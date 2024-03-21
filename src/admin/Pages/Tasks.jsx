@@ -21,7 +21,6 @@ function Tasks() {
     const {taskadmin} = useSelector((state) => state.taskadmin)
     const [taskName, setTaskName] = useState("")
     const dispatch = useDispatch()
-    console.log(taskadmin)
     //------------------------------------------------------------------------------   
 
     /*  
@@ -44,7 +43,6 @@ function Tasks() {
       };
 
     const handleSetUserTasks = async (taskEditName, columnValue, newValue) => {
-        console.log(taskEditName, columnValue, newValue)
         try {
           const response = await setUserTasks(taskEditName, columnValue, newValue, user_id, accessToken);
           console.log('User tasks updated successfully:', response);
