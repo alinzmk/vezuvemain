@@ -158,7 +158,7 @@ export const uploadDocument = async (accessToken, fileName, file, customer_id) =
 export const downloadDocument = async (fileName, customerId, token ) => {
 
   try {
-    const fullUrl = `http://adminapi.vezuport.com/download_document?file_name=${fileName}&customer_id=${customerId}`;
+    const fullUrl = `https://adminapi.vezuport.com/download_document?file_name=${fileName}&customer_id=${customerId}`;
     const response = await axios.get(fullUrl, {
       headers: {
         'Authorization': `Bearer ${token}`

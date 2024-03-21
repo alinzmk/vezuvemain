@@ -160,7 +160,7 @@ export const uploadDocument = async (accessToken, fileName, file) => {
 export const downloadDocument = async (accessToken, fileName) => {
   console.log(fileName, accessToken)
   try {
-    const response = await axios.get(`http://userapi.vezuport.com/download_document?file_name=${fileName}`, {
+    const response = await axios.get(`https://userapi.vezuport.com/download_document?file_name=${fileName}`, {
       responseType: 'blob',
       headers: {
         'Authorization': `Bearer ${accessToken}`,

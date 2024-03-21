@@ -21,6 +21,7 @@ function Tasks() {
     const {taskadmin} = useSelector((state) => state.taskadmin)
     const [taskName, setTaskName] = useState("")
     const dispatch = useDispatch()
+    console.log(taskadmin)
     //------------------------------------------------------------------------------   
 
     /*  
@@ -66,7 +67,6 @@ function Tasks() {
         }
       };
 
-
       const getTasksByStatus = (status) => {
         if (!taskadmin.tasks || !taskadmin.tasks.tasks) {
           return [];
@@ -85,9 +85,7 @@ function Tasks() {
         }
     }, [dispatch, taskadmin]);
     
-
-    
-      if(!taskadmin.tasks){
+    if(!taskadmin.tasks){
         return null
     }
   return (
