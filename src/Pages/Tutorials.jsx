@@ -55,7 +55,7 @@ function Tutorials() {
             videoId={selectedVideoId}
         />
         
-        <UserPage>
+        <UserPage pageName={"Dersler"}>
         <div className="row slideleft">
             <div style={{overflow:"hidden"}} className='col-11 pbg videoWrapper'>
                 {videos.map((video, index) => (

@@ -48,7 +48,7 @@ function MarketFinder() {
             closeModal={closeModal}
             fullData={{selectedMarket}}
         />
-        <UserPage>
+        <UserPage pageName={"Market Finder (BETA)"}>
             <div className="finder-wrapper">
                 <div className="row slideleft ">
 
