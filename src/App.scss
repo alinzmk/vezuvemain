@@ -356,7 +356,7 @@ $white: white;
       max-width: 100vw;
       font-size: 1.3rem;
       .sidebar-wrapper2{
-        width: 50vw;
+        width: 103vw;
         transition: .5s;
         position: absolute;
         min-height: 100vh;
@@ -364,7 +364,7 @@ $white: white;
         top: 0;
         left: 0;
         margin: 0;
-        padding: 50px 10px 0 0;
+        padding: 50px 0 0 0;
         background-color: $white;
         border-right: 1px solid rgba(28, 29, 34, 0.2);
         display: flex;
@@ -402,14 +402,8 @@ $white: white;
             }
           }
           .side-active {
-            border-radius: 10px;
-            border: 1px solid $primary10; /* Set the border color and width */
-            background-color: $primary10;
-             /* Create a circular border */
-            margin: 1.5rem auto;
             a{
-              font-size: 1.2rem;
-              color: $white !important;
+              font-size: 2rem;
             }
           }
         }
@@ -1453,7 +1447,11 @@ $white: white;
 }
 
 ._2qp0Z{
-  z-index: 88;
+  z-index: 1;
+}
+
+._1yCVn{
+  z-index: 2;
 }
   
   @media only screen and (max-width: 1200px) {

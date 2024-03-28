@@ -278,7 +278,7 @@ a, a:hover {
   max-width: 100vw;
   font-size: 1.3rem; }
   .mobilsidebar2 .sidebar-wrapper2 {
-    width: 50vw;
+    width: 103vw;
     transition: .5s;
     position: absolute;
     min-height: 100vh;
@@ -286,7 +286,7 @@ a, a:hover {
     top: 0;
     left: 0;
     margin: 0;
-    padding: 50px 10px 0 0;
+    padding: 50px 0 0 0;
     background-color: white;
     border-right: 1px solid rgba(28, 29, 34, 0.2);
     display: flex;
@@ -318,16 +318,8 @@ a, a:hover {
           /** 1.3 **/ }
         .mobilsidebar2 .sidebar-wrapper2 .sidebar-ul2 .sidebar-li2 p {
           margin: 0; }
-      .mobilsidebar2 .sidebar-wrapper2 .sidebar-ul2 .side-active {
-        border-radius: 10px;
-        border: 1px solid #5570f1;
-        /* Set the border color and width */
-        background-color: #5570f1;
-        /* Create a circular border */
-        margin: 1.5rem auto; }
-        .mobilsidebar2 .sidebar-wrapper2 .sidebar-ul2 .side-active a {
-          font-size: 1.2rem;
-          color: white !important; }
+      .mobilsidebar2 .sidebar-wrapper2 .sidebar-ul2 .side-active a {
+        font-size: 2rem; }
     .mobilsidebar2 .sidebar-wrapper2 .small-logo {
       max-width: 50px; }
     .mobilsidebar2 .sidebar-wrapper2 .closeButton {
@@ -1096,7 +1088,10 @@ a, a:hover {
   z-index: 9; }
 
 ._2qp0Z {
-  z-index: 88; }
+  z-index: 1; }
+
+._1yCVn {
+  z-index: 2; }
 
 @media only screen and (max-width: 1200px) {
   .chart-wrapper {
