@@ -55,32 +55,32 @@ function Profile() {
 
     <UserPage pageName={"Profil"}>
         <section className='profil'>
-            <div className="col-9 mb-4">
+            <div className="col-12 col-lg-9  mb-lg-4 mb-2">
                 <div className="row ps-0 my-3 slideup ">
-                    <div className="col-9 my-auto">
+                    <div className="col-12 col-lg-9 my-auto">
                         <div className="col-12">
-                            <h3 className='ms-4 purple'>Hoş geldiniz<i class="fa-solid fa-hands"></i>, Sayın {profile ? (
+                            <h3 className='ms-0 ms-lg-4 purple'>Hoş geldiniz<i class="fa-solid fa-hands"></i>, Sayın {profile ? (
                                 <>{profile.name} {profile.surname}</>
                                 ) : (
                                 <>Müşterimiz</>
                             )}.</h3>
 
                         </div>
-                        <div className="col-12 ms-4 purple ">
+                        <div className="col-12 ms-0 ms-lg-4 purple ">
                             <h6 className=''>Şu anda ödeme planınız; {plan ?(
-                                <>{plan.currentPlan}</>
+                                <><button class="buton2 ms-2 mt-2 trans" onClick={()=>navigate('/Hizmetler')} ><i class="fa-solid fa-repeat"></i> {plan.currentPlan}</button></>
                             ) : (
                                 <>Aktif Planınız yok</>
                             )}  
-                            <button class="buton2 ms-2 mt-2 trans" onClick={()=>navigate('/Hizmetler')} ><i class="fa-solid fa-repeat"></i> Değiştir</button></h6>
+                            </h6>
                         </div>
                     </div>
                 </div>
             </div>
             <form>
             <div className="col-12 slideleft">
-                <div className="row mb-3">
-                    <div className="col-6 col-lg-4 ps-0 pe-3">
+                <div className="row mb-0 mb-lg-3">
+                    <div className="col-12 col-lg-4 ps-0 pe-3 mb-3 mb-lg-0">
                         <div className="pbg">
                             <p className='profile-title'>Hesap Adı</p>
                             {profile ? (
@@ -91,7 +91,7 @@ function Profile() {
 
                         </div>
                     </div>
-                    <div className="col-6 col-lg-4 ps-0 pe-3">
+                    <div className="col-12 col-lg-4 ps-0 pe-3 mb-3 mb-lg-0">
                         <div className="pbg">
                             <p className='profile-title'>E-mail</p>
                             {profile ? (
@@ -103,7 +103,7 @@ function Profile() {
                         </div>
                     </div>
                     
-                    <div className="col-6 col-lg-4 ps-0 pe-3">
+                    <div className="col-12 col-lg-4 ps-0 pe-3 mb-3 mb-lg-0">
                         <div className="pbg">
                             <p className='profile-title'>Telefon</p>
                             {editable==="phone" ? (
@@ -122,8 +122,8 @@ function Profile() {
                         </div>
                     </div>
                 </div>
-                <div className="row mb-3">
-                    <div className="col-6 col-lg-4 ps-0 pe-3">
+                <div className="row mb-0    mb-lg-3">
+                    <div className="col-12 col-lg-4 ps-0 pe-3 mb-3 mb-lg-0">
                         <div className="pbg">
                             <p className='profile-title'>Şirket Ünvanı</p>
                             {editable==="companyTitle" ? (
@@ -157,7 +157,7 @@ function Profile() {
 
                         </div>
                     </div>
-                    <div className="col-6 col-lg-4 ps-0 pe-3">
+                    <div className="col-12 col-lg-4 ps-0 pe-3 mb-3 mb-lg-0">
                         <div className="pbg">
                             <p className='profile-title'>Vergi Dairesi</p>
                             {editable==="taxAdmin" ? (
@@ -189,7 +189,7 @@ function Profile() {
                             )}
                         </div>
                     </div>
-                    <div className="col-6 col-lg-4 ps-0 pe-3">
+                    <div className="col-12 col-lg-4 ps-0 pe-3 mb-3 mb-lg-0">
                         <div className="pbg">
                             <p className='profile-title'>Vergi Numarası</p>
                             {profile ? (
@@ -202,7 +202,7 @@ function Profile() {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-6 col-lg-4 ps-0 pe-3">
+                    <div className="col-12 col-lg-4 ps-0 pe-3 mb-3 mb-lg-0">
                         <div className="pbg">
                             <p className='profile-title'>Şehir</p>
                             {editable==="city" ? (
@@ -235,7 +235,7 @@ function Profile() {
 
                         </div>
                     </div>
-                    <div className="col-8 ps-0 pe-3">
+                    <div className="col-12 ps-0 pe-3 mb-5 mb-lg-0">
                         <div className="pbg">
                             <p className='profile-title'>Açık Adres</p>
                             {editable==="address" ? (

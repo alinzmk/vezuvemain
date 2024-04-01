@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css';
 import { Link, NavLink } from 'react-router-dom';
-import logo from "../Assets/kare-logo.jpg";
 import { useLocation } from "react-router-dom";
 
 
@@ -18,7 +17,7 @@ const MobilSidebar2 = ({isOpen, toggleSidebar }) => {
           }
           else{
                document.body.style.overflow = '';
-               return "-1000px"
+               return "-800px"
           }
      }
 
@@ -28,7 +27,7 @@ const MobilSidebar2 = ({isOpen, toggleSidebar }) => {
     <div className="mobilsidebar2 m-0 p-0 d-block d-lg-none">
         <div style={{left:navOpen()}} className="sidebar-wrapper2">
             <div className="col-12 mt-0 ms-2 ps-2 text-center">
-                             <button onClick={toggleSidebar} className='closeButton'><i class="fa-solid fa-angles-left"></i></button>
+               <button onClick={toggleSidebar} className='closeButton'><i class="fa-solid fa-angles-left"></i></button>
                 <ul className='sidebar-ul2'>
                     <li className={splitLocation[1] === "Panel" || !splitLocation[1] ? "side-active sidebar-li2" : "sidebar-li2"}>
                          <NavLink exact to={"/Panel"} className='sidebar-link' activeClassName="side-active" >
@@ -78,7 +77,6 @@ const MobilSidebar2 = ({isOpen, toggleSidebar }) => {
                 </ul>
             </div>
         </div>
-            <div className={`sidebarOverlay ${isOpen ? 'd-block' : 'd-none'}`} onClick={toggleSidebar}></div>
     </div>
     </>
   );

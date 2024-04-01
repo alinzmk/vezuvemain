@@ -66,8 +66,8 @@ function Documents() {
             <div className="col-12 col-lg-10 p-0">
                 <div className="col-12 w-auto pb-3">
                     <div className="pbg">
-                        <div className="row p-3">
-                            <div className="col-1 ms-5 my-auto">
+                        <div className="row justify-content-between p-3">
+                            <div className="col-1 ms-0 ms-lg-5 my-auto">
                                 <h2 className='my-auto mx-0 slideup'><i class="fa-regular fa-file"></i></h2>
                             </div>
                             <div className="col-7 my-auto text-left">
@@ -100,8 +100,8 @@ function Documents() {
                 <div className="col-12 w-auto pb-3">
                     <div className="pbg">
 
-                    <div className="row p-3">
-                        <div className="col-1 ms-5 my-auto">
+                    <div className="row justify-content-between p-3">
+                        <div className="col-1 ms-0 ms-lg-5 my-auto">
                             <h2 className='my-auto mx-0 slideup'><i class="fa-regular fa-file"></i></h2>
                         </div>
                         <div className="col-7 my-auto text-left">
@@ -134,8 +134,8 @@ function Documents() {
                 <div className="col-12 w-auto pb-3">
                     <div className="pbg">
 
-                    <div className="row p-3">
-                        <div className="col-1 ms-5 my-auto">
+                    <div className="row justify-content-between p-3">
+                        <div className="col-1 ms-0 ms-lg-5 my-auto">
                             <h2 className='my-auto mx-0 slideup'><i class="fa-regular fa-file"></i></h2>
                         </div>
                         <div className="col-7 my-auto text-left">
@@ -168,8 +168,8 @@ function Documents() {
                 <div className="col-12 w-auto pb-3">
                     <div className="pbg">
 
-                    <div className="row p-3">
-                        <div className="col-1 ms-5 my-auto">
+                    <div className="row justify-content-between p-3">
+                        <div className="col-1 ms-0 ms-lg-5 my-auto">
                             <h2 className='my-auto mx-0 slideup'><i class="fa-regular fa-file"></i></h2>
                         </div>
                         <div className="col-7 my-auto text-left">
@@ -201,8 +201,8 @@ function Documents() {
             <div className="col-12 col-lg-10 p-0 slideup">
                 <div className="col-12 w-auto pb-3">
                     <div className="pbg">
-                        <div className="row p-3">
-                            <div className="col-1 ms-5 my-auto">
+                        <div className="row justify-content-between p-3">
+                            <div className="col-1 ms-0 ms-lg-5 my-auto">
                                 <h2 className='my-auto mx-0'><i class="fa-regular fa-file"></i></h2>
                             </div>
                             <div className="col-7 my-auto text-left">
@@ -234,8 +234,8 @@ function Documents() {
             <div className="col-12 col-lg-10 p-0 slideup">
                 <div className="col-12 w-auto pb-3">
                     <div className="pbg">
-                        <div className="row p-3">
-                            <div className="col-1 ms-5 my-auto">
+                        <div className="row justify-content-between p-3">
+                            <div className="col-1 ms-0 ms-lg-5 my-auto">
                                 <h2 className='my-auto mx-0'><i class="fa-regular fa-file"></i></h2>
                             </div>
                             <div className="col-7 my-auto text-left">

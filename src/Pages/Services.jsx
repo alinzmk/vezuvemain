@@ -33,7 +33,7 @@ function Services() {
         const closeModal = () => {
             setIsModalOpen(false);    
             document.body.classList.remove('modal-open');
-        }
+        } 
         const serviceItems = [
                 { name: 'Amazon Business', type: 'Business', firstPrice:"1.000",  month: false, price: '700', logo: "amazon.png", image: "amazon_business.png", },
                 { name: 'Amazon Global', type: 'Global', firstPrice:"1.400",  month: false, price: '1.000', logo: "amazon.png", image: "amazon_global.png", },
@@ -105,7 +105,7 @@ function Services() {
         <UserPage pageName={"Hizmetler"}>
             <section className='hizmetler'>
                 <div className="col-12 slideleft">
-                    <div className="row">
+                    <div className="row justify-content-center justify-content-lg-start">
                         <div className="col-11 pbg pt-3">
                             <nav>
                                 <div class="nav nav-tabs" id="service-tab" role="tablist">
@@ -133,29 +133,29 @@ function Services() {
                                             <div class="tab-content" id="nav-tabContent">
                                                 <div className={`tab-pane fade ${activeTab === 'amazon' ? 'show active' : ''}`} id="amazon" role="tabpanel" aria-labelledby="amazon-tab">
                                                     <div className="row mt-4">
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                                 <div  onClick={() => openModal(serviceItems[0])} className="hizmet amazon">
                                                                     <p className='hizmet-isim' >{serviceItems[0].name}</p>
                                                                     <p className='hizmet-tür' >{serviceItems[0].type}</p>
-                                                                    <p className='hizmet-ücret' >{serviceItems[0].price}₺</p>
+                                                                    <p className='hizmet-ücret' >{serviceItems[0].price}$</p>
                                                                     <img className='hizmet-img' src={amazon} alt="" />
                                                                 </div>  
                                                         
                                                         </div>
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                                 <div onClick={() => openModal(serviceItems[1])} className="hizmet amazon">
                                                                     <p className='hizmet-isim' >{serviceItems[1].name}</p>
                                                                     <p className='hizmet-tür' >{serviceItems[1].type}</p>
-                                                                    <p className='hizmet-ücret' >{serviceItems[1].price}₺</p>
+                                                                    <p className='hizmet-ücret' >{serviceItems[1].price}$</p>
                                                                     <img className='hizmet-img' src={amazon} alt="" />
                                                                 </div>
                                                         </div>
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[2])} className="hizmet amazon">
                                                                     <p className='hizmet-isim' >Amazon Abonelik</p>
                                                                     <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                    <p className='hizmet-ücret' >17.999₺/aylık</p>
+                                                                    <p className='hizmet-ücret' >17.999$/aylık</p>
                                                                     <img className='hizmet-img' src={amazon} alt="" />
                                                                 </div>
                                                             
@@ -164,22 +164,22 @@ function Services() {
                                                 </div>
                                                 <div className={`tab-pane fade ${activeTab === 'handmade' ? 'show active' : ''}`} id="amazonHandmade" role="tabpanel" aria-labelledby="amazonHandmade-tab">
                                                     <div className="row mt-4">
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[3])} className="hizmet amazon">
                                                                     <p className='hizmet-isim' >Amazon Handmade</p>
                                                                     <p className='hizmet-tür' >Handmade</p>
-                                                                    <p className='hizmet-ücret' >59.999₺</p>
+                                                                    <p className='hizmet-ücret' >59.999$</p>
                                                                     <img className='hizmet-img' src={amazon} alt="" />
                                                                 </div>  
                                                             
                                                         </div>
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[4])} className="hizmet amazon">
                                                                     <p className='hizmet-isim' >Amazon Handmade</p>
                                                                     <p className='hizmet-tür' >Abonelik </p>
-                                                                    <p className='hizmet-ücret' >13.999₺/aylık</p>
+                                                                    <p className='hizmet-ücret' >13.999$/aylık</p>
                                                                     <img className='hizmet-img' src={amazon} alt="" />
                                                                 </div>
                                                             
@@ -188,42 +188,42 @@ function Services() {
                                                 </div>
                                                 <div className={`tab-pane fade ${activeTab === 'etsy' ? 'show active' : ''}`} id="etsy" role="tabpanel" aria-labelledby="etsy-tab">
                                                     <div className="row mt-4">
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[5])} className="hizmet allegro">
                                                                     <p className='hizmet-isim' >Etsy Enterprise</p>
                                                                     <p className='hizmet-tür' >Enterprise</p>
-                                                                    <p className='hizmet-ücret' >27.500₺</p>
+                                                                    <p className='hizmet-ücret' >27.500$</p>
                                                                     <img className='hizmet-img' src={etsy} alt="" />
                                                                 </div>  
                                                             
                                                         </div>
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[6])} className="hizmet allegro">
                                                                     <p className='hizmet-isim' >Etsy Star-seller</p>
                                                                     <p className='hizmet-tür' > Star-seller </p>
-                                                                    <p className='hizmet-ücret' >32.000₺</p>
+                                                                    <p className='hizmet-ücret' >32.000$</p>
                                                                     <img className='hizmet-img' src={etsy} alt="" />
                                                                 </div>
                                                             
                                                         </div>
-                                                        <div onClick={() => openModal(serviceItems[7])} className="col-6 col-lg-3 mb-4">
+                                                        <div onClick={() => openModal(serviceItems[7])} className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div className="hizmet allegro">
                                                                     <p className='hizmet-isim' >Etsy Aylık</p>
                                                                     <p className='hizmet-tür' >Aylık Abonelik </p>
-                                                                    <p className='hizmet-ücret' >9.999₺/aylık</p>
+                                                                    <p className='hizmet-ücret' >9.999$/aylık</p>
                                                                     <img className='hizmet-img' src={etsy} alt="" />
                                                                 </div>  
                                                             
                                                         </div>
-                                                        <div onClick={() => openModal(serviceItems[8])} className="col-6 col-lg-3 mb-4">
+                                                        <div onClick={() => openModal(serviceItems[8])} className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div className="hizmet allegro">
                                                                     <p className='hizmet-isim' >Etsy Yeni Girişimci</p>
                                                                     <p className='hizmet-tür' >Kobi Paketi</p>
-                                                                    <p className='hizmet-ücret' >18.000₺</p>
+                                                                    <p className='hizmet-ücret' >18.000$</p>
                                                                     <img className='hizmet-img' src={etsy} alt="" />
                                                                 </div>
                                                             
@@ -232,23 +232,23 @@ function Services() {
                                                 </div>
                                                 <div className={`tab-pane fade ${activeTab === 'allegro' ? 'show active' : ''}`} id="allegro" role="tabpanel" aria-labelledby="allegro-tab">
                                                     <div className="row mt-4">
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[9])} className="hizmet allegro">
                                                                     <p className='hizmet-isim' >Allegro Business</p>
                                                                     <p className='hizmet-tür' >Business</p>
-                                                                    <p className='hizmet-ücret' >34.000₺</p>
+                                                                    <p className='hizmet-ücret' >34.000$</p>
                                                                     <img className='hizmet-img' src={allegro} alt="" />
                                                                 </div>  
                                                             
                                                         </div>
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[10])} className="hizmet allegro">
                                                                     <p className='hizmet-isim' >Allegro Abonelik</p>
                                                                     <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                    <p className='hizmet-ücret' >17.500₺/aylık</p>
-                                                                    <img className='hizmet-img' src={allegro} alt="" />
+                                                                    <p className='hizmet-ücret' >17.500$/aylık</p>
+                                                                    <img className='hizmet-img' src={allegro} alt=""/>
                                                                 </div>
                                                             
                                                         </div>
@@ -256,22 +256,22 @@ function Services() {
                                                 </div>
                                                 <div className={`tab-pane fade ${activeTab === 'trendyol' ? 'show active' : ''}`} id="trendyol" role="tabpanel" aria-labelledby="trendyol-tab">
                                                     <div className="row mt-4">
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[11])} className="hizmet amazon">
                                                                     <p className='hizmet-isim' >Trendyol KOBİ</p>
                                                                     <p className='hizmet-tür' >KOBİ</p>
-                                                                    <p className='hizmet-ücret' >18.000₺</p>
+                                                                    <p className='hizmet-ücret' >18.000$</p>
                                                                     <img className='hizmet-img' src={trendyol} alt="" />
                                                                 </div>  
                                                             
                                                         </div>
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[12])} className="hizmet amazon">
                                                                     <p className='hizmet-isim' >Trendyol Abonelik</p>
                                                                     <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                    <p className='hizmet-ücret' >10.000₺/aylık</p>
+                                                                    <p className='hizmet-ücret' >10.000$/aylık</p>
                                                                     <img className='hizmet-img' src={trendyol} alt="" />
                                                                 </div>
                                                             
@@ -281,22 +281,22 @@ function Services() {
                                                 </div>
                                                 <div className={`tab-pane fade ${activeTab === 'walmart' ? 'show active' : ''}`} id="walmart" role="tabpanel" aria-labelledby="walmart-tab">
                                                     <div className="row mt-4">
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[13])} className="hizmet walmart">
                                                                     <p className='hizmet-isim' >Walmart Business</p>
                                                                     <p className='hizmet-tür' >Business</p>
-                                                                    <p className='hizmet-ücret' >80.000₺</p>
+                                                                    <p className='hizmet-ücret' >80.000$</p>
                                                                     <img className='hizmet-img' src={walmart} alt="" />
                                                                 </div>  
                                                             
                                                         </div>
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[14])} className="hizmet walmart">
                                                                     <p className='hizmet-isim' >Walmart Abonelik</p>
                                                                     <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                    <p className='hizmet-ücret' >29.000₺/aylık</p>
+                                                                    <p className='hizmet-ücret' >29.000$/aylık</p>
                                                                     <img className='hizmet-img' src={walmart} alt="" />
                                                                 </div>
                                                             
@@ -305,22 +305,22 @@ function Services() {
                                                 </div>
                                                 <div className={`tab-pane fade ${activeTab === 'wayfair' ? 'show active' : ''}`} id="wayfair" role="tabpanel" aria-labelledby="wayfair-tab">
                                                     <div className="row mt-4">
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[15])} className="hizmet wayfair">
                                                                     <p className='hizmet-isim' >Wayfair Business</p>
                                                                     <p className='hizmet-tür' >Business</p>
-                                                                    <p className='hizmet-ücret' >73.999₺</p>
+                                                                    <p className='hizmet-ücret' >73.999$</p>
                                                                     <img className='hizmet-img' src={wayfair} alt="" />
                                                                 </div>  
                                                             
                                                         </div>
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[16])} className="hizmet wayfair">
                                                                     <p className='hizmet-isim' >Wayfair Abonelik</p>
                                                                     <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                    <p className='hizmet-ücret' >25.999₺/aylık</p>
+                                                                    <p className='hizmet-ücret' >25.999$/aylık</p>
                                                                     <img className='hizmet-img' src={wayfair} alt="" />
                                                                 </div>
                                                             
@@ -329,12 +329,12 @@ function Services() {
                                                 </div>
                                                 <div className={`tab-pane fade ${activeTab === 'emag' ? 'show active' : ''}`} id="emag" role="tabpanel" aria-labelledby="emag-tab">
                                                     <div className="row mt-4">
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[17])} className="hizmet ozon">
                                                                     <p className='hizmet-isim' >Emag Giriş</p>
                                                                     <p className='hizmet-tür' >Starter Pack</p>
-                                                                    <p className='hizmet-ücret' >17.500₺</p>
+                                                                    <p className='hizmet-ücret' >17.500$</p>
                                                                     <img className='hizmet-img' src={emag} alt="" />
                                                                 </div>  
                                                             
@@ -343,17 +343,17 @@ function Services() {
                                                 </div>
                                                 <div className={`tab-pane fade ${activeTab === 'ozon' ? 'show active' : ''}`} id="ozon" role="tabpanel" aria-labelledby="ozon-tab">
                                                     <div className="row mt-4">
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[18])} className="hizmet ozon">
                                                                     <p className='hizmet-isim' >Ozon Business</p>
                                                                     <p className='hizmet-tür' >Hizmet Türü</p>
-                                                                    <p className='hizmet-ücret' >29.999₺</p>
+                                                                    <p className='hizmet-ücret' >29.999$</p>
                                                                     <img className='hizmet-img' src={ozon} alt="" />
                                                                 </div>  
                                                             
                                                         </div>
-                                                        <div className="col-6 col-lg-3 mb-4">
+                                                        <div className="col-12 col-lg-3 mb-4">
                                                             
                                                                 <div onClick={() => openModal(serviceItems[19])} className="hizmet ozon">
                                                                     <p className='hizmet-isim' >Ozon Abonelik</p>
@@ -374,7 +374,7 @@ function Services() {
                                         <p>Hizmet Açıklamalarını Okumak İçin Hizmetin Üstüne Tıklayınız.</p>
                                     <div className="row mt-3">
                                         {ownServices.map((service, index) => (
-                                            <div className="col-6 col-lg-4 mb-4" key={index}>
+                                            <div className="col-12 col-lg-4 mb-4" key={index}>
                                                 <div className="">
                                                     <div className="accordion accordion-flush hizmet vezu" id={`accordionPanelsStayOpenExample-${index}`}>  
                                                         <div class="accordion-item">

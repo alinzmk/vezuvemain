@@ -42,7 +42,7 @@ const UserPage = ({ pageName, children }) => {
                  )}
                 </div>
                 <div className="container mt-4 slideleft right">
-                    <div className="row">
+                    <div className="row justify-content-center justify-content-lg-start">
                         <div className="col-12 mb-0">                           
                           <div className="row mb-3 me-0 me-lg-5 align-items-center">
                               <div className="col-auto p-0 d-flex">

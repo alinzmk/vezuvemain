@@ -70,7 +70,7 @@ function Dashboard() {
         <section className='dashboard'>
             <div className="row slideleft">
                 <div className="col-12 col-lg-6">
-                    <div className="row d-flex justify-content-between pe-3">
+                    <div className="row d-flex justify-content-between pe-0 pe-lg-3">
                         <div className='col-lg-4 col-12 trans mainhov' id='total-sales'>
                             <div className='col-12 slideup position-relative'>
                                 <h6>Toplam Satış</h6>
@@ -140,7 +140,7 @@ function Dashboard() {
                     </div>
                 </div>
                 <div className="col-12 col-lg-6 mb-3 d-flex justify-content-between" id='customer-info'>                           
-                    <div className="col-12 ps-5 my-auto">
+                    <div className="col-12 ps-1 ps-lg-5 my-auto">
                         <h5 className='main-info' >Aktif hizmetiniz <i class="fa-solid fa-box-open"></i> : <span className='main-info2' >
                             {plan ? (
                                     <>
@@ -196,7 +196,7 @@ function Dashboard() {
                 </div>
             </div>
             <div className="row slideleft">
-                <div  className="col-12 col-lg-6 mb-lg-0 mb-3">
+                <div  className="col-12 col-lg-6 mb-lg-0 mb-3 pe-0 pe-lg-3">
                     <div className="row me-1" id="graph">
                         <div className="col-12 text-center">
                                 <h3 className='p-3'>Satış Raporu</h3>
