@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../App.css';
 import { Link, NavLink } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
-
+import logo from "../Assets/logo-renkli.png"
 
 const MobilSidebar2 = ({isOpen, toggleSidebar }) => {
 
@@ -29,6 +29,7 @@ const MobilSidebar2 = ({isOpen, toggleSidebar }) => {
             <div className="col-12 mt-0 ms-2 ps-2 text-center">
                <button onClick={toggleSidebar} className='closeButton'><i class="fa-solid fa-angles-left"></i></button>
                 <ul className='sidebar-ul2'>
+                    <img style={{maxWidth:"10rem"}} src={logo} />
                     <li className={splitLocation[1] === "Panel" || !splitLocation[1] ? "side-active sidebar-li2" : "sidebar-li2"}>
                          <NavLink exact to={"/Panel"} className='sidebar-link' activeClassName="side-active" >
                              <p><i className="fa-solid fa-chart-line"></i> Panel</p>
@@ -46,7 +47,7 @@ const MobilSidebar2 = ({isOpen, toggleSidebar }) => {
                     </li>
                     <li className={splitLocation[1] === "MarketFinder" ? "side-active sidebar-li2" : "sidebar-li2"}>
                          <NavLink to={"/MarketFinder"} className='sidebar-link' activeClassName="side-active">
-                           <p> <i class="fa-solid fa-crosshairs"></i> MarketFinder</p>
+                           <p> <i class="fa-solid fa-crosshairs"></i> Market Finder (BETA)</p>
                          </NavLink>
                     </li>
                     <li className={splitLocation[1] === "Urunler" ? "side-active sidebar-li2" : "sidebar-li2"}>

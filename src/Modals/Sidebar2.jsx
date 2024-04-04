@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 import { Link, NavLink } from 'react-router-dom';
-import logo from "../Assets/kare-logo.jpg";
+import logo from "../Assets/kare-logo.png";
 import { useLocation } from "react-router-dom";
 import { useEffect } from 'react';
 
@@ -18,7 +18,7 @@ const Sidebar2 = () => {
      <div className="sidebar2 m-0 p-0 d-none d-lg-block">
           <div className="sidebar-wrapper2">
                <div className="col-12 mt-0 ms-2 ps-2 text-center">
-                    <img className='small-logo' src={logo} alt="" />
+                    <img style={{maxWidth:"4rem"}} className='small-logo' src={logo} alt="" />
                     <ul className='sidebar-ul2'>
                          <li className={splitLocation[1] === "Panel" || !splitLocation[1] ? "side-active sidebar-li2" : "sidebar-li2"}>
                               <NavLink exact to={"/Panel"} className='sidebar-link' activeClassName="side-active" >

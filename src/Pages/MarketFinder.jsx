@@ -68,7 +68,7 @@ function MarketFinder() {
             closeModal={closeModal}
             fullData={{selectedMarket}}
         />
-        <UserPage pageName={"Market Finder (BETA)"}>
+        <UserPage pageName={"Market Finder"}>
             <div className="finder-wrapper">
                 <div className="row slideleft ">
                     {isMobile ? (
@@ -76,7 +76,6 @@ function MarketFinder() {
                         { selectedData ? (
                             <>
                                 <div>
-                                    <button onClick={()=>resetData()}>  RESETDATA</button>
                                     {selectedData && selectedData2 && <ResultComponentMobile
                                         full={selectedData}
                                         
@@ -104,6 +103,7 @@ function MarketFinder() {
                                         link_2={selectedData2.marketLink}
 
                                         
+                                        handleReset={resetData}
                                         handleClick={handleClick}
                                     />}
                                 </div>
@@ -170,7 +170,6 @@ function MarketFinder() {
                                             buttonText_2={selectedData2.buttonText}
                                             link_2={selectedData2.marketLink}
 
-                                            
                                             handleClick={handleClick}
                                         />}
                                     </div>
@@ -236,7 +235,7 @@ const ResultComponent = ({ full,  logo, items,  link, link_2, buttonText, handle
 );
 
 
-const ResultComponentMobile = ({ full,  logo, items,  link, link_2, buttonText, handleClick, full_2, logo_2, items_2, buttonText_2}) => (
+const ResultComponentMobile = ({ handleReset, full,  logo, items,  link, link_2, buttonText, handleClick, full_2, logo_2, items_2, buttonText_2}) => (
     <>
     <div className='row finder-result slideUp fadeIn'>
         <Swiper
@@ -256,7 +255,7 @@ const ResultComponentMobile = ({ full,  logo, items,  link, link_2, buttonText, 
       >
         
         <SwiperSlide>
-            <div className="col-6 mt-2">
+            <div style={{height:"auto"}} className="pbg p-4 col-12 mt-2">
                 <img className='result-logo' src={require(`../Assets/${logo}`)} alt="" />
                 <h5>İstatistikler</h5>
                 <ul className='finder-ul mb-1'>
@@ -269,18 +268,19 @@ const ResultComponentMobile = ({ full,  logo, items,  link, link_2, buttonText, 
                             <p>Daha fazla bilgi almak için <strong><a target='_blank' href={link}>TIKLAYINIZ</a></strong>.</p>
                         </li>
                 </ul>
-                <div className='mt-5' style={{textAlign: "center", fontSize: "1.1rem"}} >
-                    <p  className=' mb-2'>
-                        {buttonText}
-                    </p>
-                    {buttonText && <button className='satin-al' onClick={() => handleClick(full)}>Satışa Başla</button>}
+                <div className='row'>
+                    <div className='mt-5' style={{textAlign: "center", fontSize: "1.1rem"}} >
+                        <button onClick={handleReset} className='satin-al me-3'><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                        {buttonText && <button className='satin-al' onClick={() => handleClick(full)}>Satışa Başla</button>}
+                    </div>
+
                 </div>
             </div>
 
         </SwiperSlide>
         <SwiperSlide>
 
-                <div className="col-6 mt-2">
+                <div style={{height:"auto"}} className="pbg p-4 col-12 mt-2">
                     <img className='result-logo' src={require(`../Assets/${logo_2}`)} alt="" />
                     <h5>İstatistikler</h5>
                     <ul className='finder-ul mb-1'>
@@ -293,12 +293,13 @@ const ResultComponentMobile = ({ full,  logo, items,  link, link_2, buttonText, 
                                 <p>Daha fazla bilgi almak için <strong><a target='_blank' href={link_2}>TIKLAYINIZ</a></strong>.</p>
                             </li>
                     </ul>
+                    <div className='row'>
                     <div className='mt-5' style={{textAlign: "center", fontSize: "1.1rem"}} >
-                        <p className=' mb-2'>
-                            {buttonText_2}
-                        </p>
-                        {buttonText_2 && <button className='satin-al' onClick={() => handleClick(full_2)}>Satışa Başla</button>}
+                        <button onClick={handleReset} className='satin-al me-3'><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                        {buttonText && <button className='satin-al' onClick={() => handleClick(full)}>Satışa Başla</button>}
                     </div>
+
+                </div>
                 </div>
         </SwiperSlide>
         </Swiper>

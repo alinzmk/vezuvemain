@@ -25,10 +25,10 @@ function Dashboard() {
     //------------------------------------------------------------------------------   
     if(dash.length === 0){
         dispatch(fetchAllRedux())
-    }
+    }   
     //------------------------------------------------------------------------------   
 
-    
+
     /*  const [graphData, setGraphData] = useState(null);
         const reportGraph = [];
         setGraphData({
@@ -42,6 +42,8 @@ function Dashboard() {
                 },
             ],
         }); */
+
+        
 
       const totalGrowth = () => {
         if(month !== 0){
@@ -63,8 +65,7 @@ function Dashboard() {
         const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
         return(daysDifference);
       };
-      
-   
+
   return (
       <UserPage pageName={"Panel"}>
         <section className='dashboard'>

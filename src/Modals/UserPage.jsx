@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar2 from '../Modals/Sidebar2';
 import logo from "../Assets/logo-renkli.png"
+import mobilelogo from "../Assets/kare-logo.png"
 import Whatsapp from './Whatsapp';
 import MobilSidebar2 from './MobilSidebar2';
 
@@ -50,7 +51,15 @@ const UserPage = ({ pageName, children }) => {
                                   <h2 className='purple w-auto m-auto'>{pageName}</h2>
                               </div>
                               <div className="col text-end p-0">
-                                  <img src={logo} className='sidebar-logo' alt="" />
+                                  {isMobile ? (
+                                    <>
+                                      <img src={mobilelogo} style={{maxWidth:"4rem"}} className='sidebar-logo' alt="" />
+                                    </>
+                                  ):(
+                                    <>
+                                      <img src={logo}  className='sidebar-logo' alt="" />
+                                    </>
+                                  )}
                               </div>
                           </div>
                         </div>

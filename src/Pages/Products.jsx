@@ -26,11 +26,8 @@ function Products() {
     const [searchQuery, setSearchQuery] = useState('');
     const [isMobile, setIsMobile] = useState(false);
     const dispatch = useDispatch();
-
-
     const {product} = useSelector((state) => state.product);
    //------------------------------------------------------------------------------
-
 
     useEffect(() => {
       const checkWidth = () => {
@@ -38,14 +35,14 @@ function Products() {
       };
       checkWidth();
       window.addEventListener('resize', checkWidth);
-  
+    
       // Cleanup function
       return () => {
         window.removeEventListener('resize', checkWidth);
       };
     }, []);
 
-   //------------------------------------------------------------------------------   
+   //------------------------------------------------------------------------------
 
     const handleAddProductToUser = async (productsToAdd) => {
         console.log("handleAddProductToUser",productsToAdd)
@@ -65,7 +62,7 @@ function Products() {
           console.error('Error adding product to user:', error);
         }
       };
-
+    
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -84,11 +81,11 @@ function Products() {
     try {
       const result = await deleteProduct(accessToken, productId);
       if (result.status === 200) {
-        console.log('Product deleted successfully!');
+        console.log('Product deleted successfully!')
         successNotification("ÜRÜN BAŞARIYLA SİLİNDİ")
         dispatch(getProductData());
       } else {
-        console.error('Failed to delete product.');
+        console.error('Failed to delete product.')
       }
     } catch (error) {
       console.error('Error deleting product:', error);
@@ -121,7 +118,7 @@ function Products() {
               {(selectedProduct !== null && selectedProduct >= 0 && selectedProduct < filteredProducts.length) ?(
                 <>
                 <div className='slideleft pbg'>
-                  <button className='back' onClick={()=>setSelectedProduct(null)}>GERİ DÖN</button>
+                  
                             <p className='profile-title'>Firma Stok Kodu: {filteredProducts[selectedProduct][4]}</p>
                             <div className="row  mt-4">
                                 <div className="col-12 image-wrap justify-content-center d-flex">
@@ -134,15 +131,16 @@ function Products() {
                                         <hr style={{margin:"0 15rem 1rem 0"}}/>
                                         <h6 className='my-4'>{filteredProducts[selectedProduct][6]}</h6>
                                     </div>
-                                    <div className='d-flex justify-content-end pe-4'>
+                                    <div className='d-flex justify-content-between pe-4 mb-3'>
                                         <button className='buton2' onClick={handleClick} >Bu Ürünü Sil</button>
+                                        <button className='buton2' onClick={()=>setSelectedProduct(null)}><i class="fa-solid fa-chevron-left"></i>Geri</button>
                                     </div>
                                     <ConfirmDeleteModal
                                       isOpen={modalIsOpen}
                                       closeModal={closeModal}
                                       onDelete={() => handleProductDelete(filteredProducts[selectedProduct][1])} // Ensure it's a function
                                     />
-
+        
                                 </div>
                             </div>
                         </div>
