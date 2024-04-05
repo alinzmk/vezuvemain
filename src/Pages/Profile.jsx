@@ -235,7 +235,7 @@ function Profile() {
 
                         </div>
                     </div>
-                    <div className="col-12 ps-0 pe-3 mb-5 mb-lg-0">
+                    <div className="col-12 col-lg-8 ps-0 pe-3 mb-5 mb-lg-0">
                         <div className="pbg">
                             <p className='profile-title'>Açık Adres</p>
                             {editable==="address" ? (

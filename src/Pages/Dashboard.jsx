@@ -127,7 +127,7 @@ function Dashboard() {
                                 {dash.sales ? (
                                     <>
                                         <h2>{totalGrowth()}$<span className='aylık'>/aylık</span></h2>
-                                        <p className='minus2'>+%0</p>
+                                        <p className='plus2'>+%0</p>
                                     </>
                                 ) : (
                                     <>
@@ -234,16 +234,16 @@ function Dashboard() {
                         </div>
                         <div className="row mb-4 d-flex justify-content-between">
                             <div className="col-1 my-auto ms-4">
-                                <h2><i class="fa-regular fa-folder-open"></i></h2>
+                                <h2><i class="fa-solid fa-magnifying-glass"></i></h2>
                             </div>
                                 <div className="col-3 my-auto text-center">
-                                    Şirket Kurulumu
+                                    Pazar Araştırması
                                 </div>
                                 <div className="col-2 my-auto text-center">
                                     Belge Onayı
                                 </div>
                                 <div className="col-2 my-auto text-center">
-                                    21.12.2023
+                                    31.12.2023
                                 </div>
                             <div className="col-3 my-auto text-center">
                             Hazırlanıyor <i class="fa-solid fa-file-signature"></i>
@@ -254,30 +254,13 @@ function Dashboard() {
                                 <h2><i class="fa-regular fa-folder-open"></i></h2>
                             </div>
                                 <div className="col-3 my-auto text-center">
-                                    Şirket Kurulumu
+                                Mağaza Açılışı
                                 </div>
                                 <div className="col-2 my-auto text-center">
                                     Belge Onayı
                                 </div>
                                 <div className="col-2 my-auto text-center">
-                                    21.12.2023
-                                </div>
-                            <div className="col-3 my-auto text-center">
-                                Bekleniyor <i class="fa-regular fa-clock"></i>
-                            </div>
-                        </div>
-                        <div className="row mb-4 d-flex justify-content-between">
-                            <div className="col-1 my-auto ms-4">
-                                <h2><i class="fa-regular fa-folder-open"></i></h2>
-                            </div>
-                                <div className="col-3 my-auto text-center">
-                                    Şirket Kurulumu
-                                </div>
-                                <div className="col-2 my-auto text-center">
-                                    Belge Onayı
-                                </div>
-                                <div className="col-2 my-auto text-center">
-                                    21.12.2023
+                                    21.01.2024
                                 </div>
                             <div className="col-3 my-auto text-center">
                                 Bekleniyor <i class="fa-regular fa-clock"></i>

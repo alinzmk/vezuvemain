@@ -119,7 +119,7 @@ $white: white;
   .right{
     position: relative;
     max-width: 90%;
-    margin-left: 6rem;
+    margin-left: 7rem;
   }
 
   .sidebar-logo{
@@ -748,6 +748,21 @@ $white: white;
       border: 1px solid $primary10;
       border-radius: 10px;
       padding: 2px 7px;
+    }
+    .satin-al{
+      transition: 0.3s;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      padding: 5px 35px;
+      color: $white;
+      background: rgb(26,33,66);
+      background: -moz-linear-gradient(122deg, rgb(62, 79, 162) 12%, rgba(85,112,241,1) 75%, rgba(250,88,182,1) 100%);
+      background: -webkit-linear-gradient(122deg, rgb(61, 77, 157) 12%, rgba(85,112,241,1) 75%, rgba(250,88,182,1) 100%);
+      background: linear-gradient(122deg, rgb(64, 80, 163) 12%, rgba(85,112,241,1) 75%, rgba(250,88,182,1) 100%);
+      border:none;
+      &:hover{
+        padding: 5px 40px;
+      } 
     }
   
   }
@@ -2190,6 +2205,8 @@ $white: white;
           }
         }
       }
+
+      
     }
     
     .hizmetler{

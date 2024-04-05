@@ -1,7 +1,5 @@
-import {React, useEffect, useRef, useState} from 'react';
+import {React, useEffect, useState} from 'react';
 import '../App.css';
-import { Link, NavLink, useHistory, useNavigate} from 'react-router-dom';
-import axios from 'axios';
 import { createPaymentLink } from '../ApiService';
 
 import { Navigation, Pagination } from 'swiper/modules';
@@ -25,7 +23,7 @@ const Plan1 = ({isOpen,onClose,selectedItem, serviceItems }) => {
             window.removeEventListener('resize', checkWidth);
           };
         }, []);
-  
+
     const handleCreatePaymentLink = async () => {
       try {
         const result = await createPaymentLink(accessToken, productId);

@@ -87,7 +87,7 @@ a, a:hover {
 .right {
   position: relative;
   max-width: 90%;
-  margin-left: 6rem; }
+  margin-left: 7rem; }
 
 .sidebar-logo {
   display: flex;
@@ -569,6 +569,19 @@ a, a:hover {
   border: 1px solid #5570f1;
   border-radius: 10px;
   padding: 2px 7px; }
+.overlay .satin-al {
+  transition: 0.3s;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  padding: 5px 35px;
+  color: white;
+  background: #1a2142;
+  background: -moz-linear-gradient(122deg, #3e4fa2 12%, #5570f1 75%, #fa58b6 100%);
+  background: -webkit-linear-gradient(122deg, #3d4d9d 12%, #5570f1 75%, #fa58b6 100%);
+  background: linear-gradient(122deg, #4050a3 12%, #5570f1 75%, #fa58b6 100%);
+  border: none; }
+  .overlay .satin-al:hover {
+    padding: 5px 40px; }
 
 .confirm-modal {
   position: fixed;
