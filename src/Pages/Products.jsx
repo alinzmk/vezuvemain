@@ -20,14 +20,19 @@ function Products() {
     if(!accessToken) {
         navigate("/");
     }
-   //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------
     const [modalIsOpen, setModalIsOpen] = useState(false); 
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [isMobile, setIsMobile] = useState(false);
     const dispatch = useDispatch();
     const {product} = useSelector((state) => state.product);
-   //------------------------------------------------------------------------------
+    
+    if(product.length === 0){
+        dispatch(fetchAllRedux())
+    }
+
+    //------------------------------------------------------------------------------
 
     useEffect(() => {
       const checkWidth = () => {
@@ -42,7 +47,7 @@ function Products() {
       };
     }, []);
 
-   //------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------
 
     const handleAddProductToUser = async (productsToAdd) => {
         console.log("handleAddProductToUser",productsToAdd)

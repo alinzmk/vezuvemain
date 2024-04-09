@@ -89,7 +89,6 @@ function MarketFinder() {
                                         items2={selectedData.items2}
                                         buttonText={selectedData.buttonText}
                                         link={selectedData.marketLink}
-
                                         full_2={selectedData2}
                                         name_2={selectedData2.name}
                                         logo_2={selectedData2.logo}
@@ -101,8 +100,6 @@ function MarketFinder() {
                                         items2_2={selectedData2.items2}
                                         buttonText_2={selectedData2.buttonText}
                                         link_2={selectedData2.marketLink}
-
-                                        
                                         handleReset={resetData}
                                         handleClick={handleClick}
                                     />}

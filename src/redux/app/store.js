@@ -5,6 +5,7 @@ import dashReducer from "../features/dashdata/dashSlice";
 import taskReducer from "../features/taskdata/taskSlice";
 import productReducer from "../features/productdata/productSlice";
 import docReducer from "../features/docdata/docSlice";
+import partnerReducer from "../features/partnerdata/partnerSlice";
 import userAdminReducer from "../features/adminuser/userAdminSlice";
 import planAdminReducer from "../features/adminplan/planAdminSlice";
 import dashAdminReducer from "../features/admindash/dashAdminSlice";
@@ -20,12 +21,14 @@ export const store = configureStore({
     task: taskReducer,
     product: productReducer,
     doc: docReducer,
+    partner: partnerReducer,
     useradmin: userAdminReducer,
     planadmin: planAdminReducer,
     dashadmin: dashAdminReducer,
     productadmin: productAdminReducer,
     taskadmin: taskAdminReducer,
     docadmin: docAdminReducer,
+
   },
   devTools: process.env.NODE_ENV !== "production",
 });

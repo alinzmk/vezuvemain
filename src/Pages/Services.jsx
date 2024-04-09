@@ -2,6 +2,7 @@ import '../App.css';
 import { useState, useEffect } from 'react';
 import logo from "../Assets/logo-renkli.png"
 import {  useNavigate  } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import amazon from "../Assets/amazon.png";
 import allegro from "../Assets/allegro.png";
 import walmart from "../Assets/walmart.png";
@@ -12,6 +13,9 @@ import ozon from "../Assets/ozon.png"
 import trendyol from "../Assets/trendyol.png"
 import Service1 from '../Modals/Plan';
 import UserPage from '../Modals/UserPage';
+import { successNotification } from '../Modals/Notification';
+import {sendPartnerMail} from "../ApiService"
+import fetchAllRedux from '../redux/fetchAllRedux';
 
 function Services() {
 
@@ -25,6 +29,12 @@ function Services() {
         const [selectedItem, setSelectedItem] = useState(null);
         const [activeTab, setActiveTab] = useState('amazon'); // Initialize with the default active tab
         const [isMobile, setIsMobile] = useState(false);
+        const dispatch = useDispatch();
+        const {partner} = useSelector((state) => state.partner);
+
+        if(partner.length === 0){
+            dispatch(fetchAllRedux())
+        }
         //------------------------------------------------------------------------------   
         const openModal = (item) => {
             setIsModalOpen(true);
@@ -34,7 +44,8 @@ function Services() {
         const closeModal = () => {
             setIsModalOpen(false);    
             document.body.classList.remove('modal-open');
-        } 
+        }
+
         const serviceItems = [
                 { name: 'Amazon Business', type: 'Business', firstPrice:"1.000",  month: false, price: '700', logo: "amazon.png", image: "amazon_business.png", },
                 { name: 'Amazon Global', type: 'Global', firstPrice:"1.400",  month: false, price: '1.000', logo: "amazon.png", image: "amazon_global.png", },
@@ -78,6 +89,7 @@ function Services() {
                 { name: 'Ozon Abonelik', type: 'Aylık Abonelik', firstPrice:"700", month:"true" , price: '500', logo: "ozon.png", image: "ozon_abonelik.png", 
                 info4:"Vezüve Ozon'nun Türkiye'deki yetkili servis sağlayıcısıdır."},
             ];
+        
         const ownServices = [
             {name: "İNGİLTERE ŞİRKET KURULUMU" , price:"deneme", description:"İngiltere pazarında satış süreçlerini başlatmak için İngiltere’de Tüzel kişiliğe sahip olmanız gerekir. Partner firmalarımız ile şirket kurulum süreçleriniz hızla tamamlayın.", },
             {name: "İNGİLTERE MUHASEBE HİZMETİ" ,  price:"deneme", description:"İngiltere’de muhasebe süreçlerinizi takip etmesi için bir muhasebeci ile çalışmalısınız. Partner firmalarımız ile en uygun fiyatlara muhasebe hizmeti satın alın.", },
@@ -90,14 +102,16 @@ function Services() {
             {name: "GÜMRÜK" ,  price:"deneme", description:"İhracat süreçlerinizi tamamlamak, beyannamelerinizi hazırlamak için partner gümrük şirketlerinden teklif alın.",},
             {name: "SERTİFİKASYON BELGELENDİRME" ,  price:"deneme", description:"Ürünlerinizin yurtdışına çıkabilmesi için bazı sertifikalara ihtiyacı olabilir. FDA, MSDS gibi belgelendirme süreçlerini hızla tamamlayın.",},
         ];
+
         
-        useEffect(() => {
-            const storedTab = JSON.parse(sessionStorage.getItem("tab"));
-            if (storedTab) {
-                setActiveTab(storedTab);
-            }
-            sessionStorage.setItem("tab", JSON.stringify(""));
-        }, []);
+        
+    useEffect(() => {
+        const storedTab = JSON.parse(sessionStorage.getItem("tab"));
+        if (storedTab) {
+            setActiveTab(storedTab);
+        }
+        sessionStorage.setItem("tab", JSON.stringify(""));
+    }, []);
 
     useEffect(() => {
       const checkWidth = () => {
@@ -112,13 +126,25 @@ function Services() {
       };
     }, []);
 
+    const handleSendPartnerMail = async (serviceID) => {
+        try {
+          const result = await sendPartnerMail(accessToken, serviceID);
+          if (result.status === 200) {
+            console.log('');
+            successNotification('İsteğiniz Başarıyla Gönderildi');
+          } else {
+            console.error(result);
+          }
+        } catch (error) {
+          console.error('Error setting user data:', error);
+        }
+      };
         
         return (
-            <>
-            <Service1 isOpen={isModalOpen} onClose={closeModal} selectedItem={selectedItem} serviceItems={serviceItems} />
+    <>
+    <Service1 isOpen={isModalOpen} onClose={closeModal} selectedItem={selectedItem} serviceItems={serviceItems} />
         <UserPage pageName={"Hizmetler"}>
             <section className='hizmetler'>
-                <a href='http://localhost:3000/Panel'>BURAYA TIKLA STRIPE DENEME</a>
                 <div className="col-12 slideleft">
                     <div className="row justify-content-center justify-content-lg-start">
                         <div className="col-11 pbg pt-3">
@@ -721,31 +747,30 @@ function Services() {
                                 <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                     <div className="hizmet-wrap-vezu">
                                         <p>Hizmet Açıklamalarını Okumak İçin Hizmetin Üstüne Tıklayınız.</p>
-                                    <div className="row mt-3">
-                                        {ownServices.map((service, index) => (
-                                            <div className="col-12 col-lg-4 mb-4" key={index}>
-                                                <div className="">
-                                                    <div className="accordion accordion-flush hizmet vezu" id={`accordionPanelsStayOpenExample-${index}`}>  
-                                                        <div class="accordion-item">
-                                                            <h2 className="accordion-header" id={`panelsStayOpen-heading-${index}`}> 
-                                                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#panelsStayOpen-collapse-${index}`} aria-expanded="false" aria-controls={`panelsStayOpen-collapse-${index}`}>    
-                                                                    <p className='hizmet-isim'>{service.name}</p>
-                                                                </button>
-                                                            </h2>
-                                                            <div id={`panelsStayOpen-collapse-${index}`} className="accordion-collapse collapse" aria-labelledby={`panelsStayOpen-heading-${index}`}>      
-                                                                <div class="accordion-body pt-0">
-                                                                    <p className='hizmet-tür'>{service.description}</p>
+                                        <div className="row mt-3">
+                                            {partner.map((service, index) => (
+                                                <div className="col-12 col-lg-4 mb-4" key={index}>
+                                                    <div className="">
+                                                        <div className="accordion accordion-flush hizmet vezu" id={`accordionPanelsStayOpenExample-${index}`}>  
+                                                            <div class="accordion-item">
+                                                                <h2 className="accordion-header" id={`panelsStayOpen-heading-${index}`}> 
+                                                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#panelsStayOpen-collapse-${index}`} aria-expanded="false" aria-controls={`panelsStayOpen-collapse-${index}`}>    
+                                                                        <p className='hizmet-isim'>{service.category}</p>
+                                                                    </button>
+                                                                </h2>
+                                                                <div id={`panelsStayOpen-collapse-${index}`} className="accordion-collapse collapse" aria-labelledby={`panelsStayOpen-heading-${index}`}>      
+                                                                    <div class="accordion-body pt-0">
+                                                                        <p className='hizmet-tür'>{service.description}</p>
+                                                                    </div>
                                                                 </div>
+                                                        <button className='hizmet-buton' onClick={()=>handleSendPartnerMail(service.partner_id)}>Teklif Alın</button>
+                                                        <img className='hizmet-img' src={logo} alt="" />
                                                             </div>
-                                                    <button className='hizmet-buton'>Teklif Alın</button>
-                                                    <img className='hizmet-img' src={logo} alt="" />
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        ))}
-                                    </div>
-
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

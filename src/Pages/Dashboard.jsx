@@ -21,6 +21,7 @@ function Dashboard() {
     const month = currentDate.getMonth();
     const {plan} = useSelector((state) => state.plan);
     const {dash} = useSelector((state) => state.dash);
+    const {task} = useSelector((state) => state.task);
     const dispatch = useDispatch()
     //------------------------------------------------------------------------------   
     if(dash.length === 0){
@@ -28,22 +29,25 @@ function Dashboard() {
     }   
     //------------------------------------------------------------------------------   
 
+    const getTasksByDate = () => {
+        if (!task || !task.tasks) {
+          return [];
+        }
+      
+        const tasksCopy = [...task.tasks];
+        const sortedTasks = tasksCopy.sort((a, b) => new Date(b.lastUpdate) - new Date(a.lastUpdate));
+        const firstThreeTasks = sortedTasks.slice(0, 3);
 
-    /*  const [graphData, setGraphData] = useState(null);
-        const reportGraph = [];
-        setGraphData({
-            labels: (reportGraph.map((data) => data.month)),
-            datasets: [
-            {
-                data: reportGraph.map((data) => data.value),
-                backgroundColor: "rgba(28, 29, 34, 1)",
-                borderColor: "rgba(28, 29, 34, 1)",
-                borderWidth: 1,
-                },
-            ],
-        }); */
+        return firstThreeTasks;
+      };
+      
+      const lastTasks = getTasksByDate();
+      
 
-        
+      
+    useEffect (()=>{
+        console.log(task)
+    })
 
       const totalGrowth = () => {
         if(month !== 0){
@@ -65,6 +69,26 @@ function Dashboard() {
         const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
         return(daysDifference);
       };
+
+      const statusIcon = (status) => {
+        if(status==="Finished"){
+            return <i class="fa-solid fa-check-double"></i> 
+        }
+        else if(status==="In Progress"){
+            return <i class="fa-regular fa-clock"></i>
+        }
+        else if(status==="Planned"){
+            return <i class="fa-regular fa-file"></i>
+        }
+
+      };
+
+      function formatDate(inputDate) {
+        const [datePart, timePart] = inputDate.split(' ')
+        const [year, month, day] = datePart.split('-')
+    
+        return `${day}/${month}/${year}`;
+    }
 
   return (
       <UserPage pageName={"Panel"}>
@@ -215,57 +239,22 @@ function Dashboard() {
                         <h3>Son Durumlar</h3>
                     </div>
                     <div className="col-12 mt-4">
-                        <div className="row mb-4 d-flex justify-content-between">
-                            <div className="col-1 my-auto ms-4">
-                                <h2><i class="fa-regular fa-folder-open"></i></h2>
-                            </div>
+                        {lastTasks.map((task, index) => (
+                            <div className="row mb-4 d-flex justify-content-between">
+                                <div className="col-1 my-auto ms-4">
+                                    <h2><i class="fa-regular fa-folder-open"></i></h2>
+                                </div>
+                                <div className="col-5 my-auto text-center">
+                                    {task.taskName}
+                                </div>
+                                <div className="col-2 my-auto text-center">
+                                    {formatDate(task.lastUpdate)}
+                                </div>
                                 <div className="col-3 my-auto text-center">
-                                    Şirket Kurulumu
+                                    {task.taskStatus} {statusIcon(task.taskStatus)}
                                 </div>
-                                <div className="col-2 my-auto text-center">
-                                    Belge Onayı
-                                </div>
-                                <div className="col-2 my-auto text-center">
-                                    21.12.2023
-                                </div>
-                            <div className="col-3 my-auto text-center">
-                                Tamamlandı <i class="fa-solid fa-check-double"></i>
                             </div>
-                        </div>
-                        <div className="row mb-4 d-flex justify-content-between">
-                            <div className="col-1 my-auto ms-4">
-                                <h2><i class="fa-solid fa-magnifying-glass"></i></h2>
-                            </div>
-                                <div className="col-3 my-auto text-center">
-                                    Pazar Araştırması
-                                </div>
-                                <div className="col-2 my-auto text-center">
-                                    Belge Onayı
-                                </div>
-                                <div className="col-2 my-auto text-center">
-                                    31.12.2023
-                                </div>
-                            <div className="col-3 my-auto text-center">
-                            Hazırlanıyor <i class="fa-solid fa-file-signature"></i>
-                            </div>
-                        </div>
-                        <div className="row mb-4 d-flex justify-content-between">
-                            <div className="col-1 my-auto ms-4">
-                                <h2><i class="fa-regular fa-folder-open"></i></h2>
-                            </div>
-                                <div className="col-3 my-auto text-center">
-                                Mağaza Açılışı
-                                </div>
-                                <div className="col-2 my-auto text-center">
-                                    Belge Onayı
-                                </div>
-                                <div className="col-2 my-auto text-center">
-                                    21.01.2024
-                                </div>
-                            <div className="col-3 my-auto text-center">
-                                Bekleniyor <i class="fa-regular fa-clock"></i>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>

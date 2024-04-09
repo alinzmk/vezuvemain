@@ -275,3 +275,40 @@ export const createPaymentLink = async (accessToken, productId) => {
     throw error;
   }
 };
+
+export const getAllPartnerData = async (accessToken) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/get_all_partner_data`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching all partner data:', error);
+    throw error;
+  }
+};
+
+export const sendPartnerMail = async (accessToken, toId) => {
+  toId = parseInt(toId)
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/send_partner_mail`,
+      { to_id: toId },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error sending partner mail:', error);
+    throw error;
+  }
+};
