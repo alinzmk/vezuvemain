@@ -332,7 +332,7 @@ export const getAllPackages = async (accessToken) => {
 
 export const stripePaymentReturn = async (accessToken, cameFrom, newPackageProductID) => {
   try {
-    const response = await axios.post(
+    const response = await axios.get(
       `${BASE_URL}/stripe_payment_return?cameFrom=${cameFrom}&newPackageProductID=${newPackageProductID}`,
       {
         headers: {
