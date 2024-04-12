@@ -15,24 +15,32 @@ function Stripe() {
         navigate("/");
     }
 
-    const [srcParam, setSrcParam] = useState(null)
+    const [source, setSource] = useState(null)
     
-    const processStripePaymentReturn = async () => {
-      try {
-        const response = await stripePaymentReturn(accessToken, srcParam, newPackageProductID)
-        console.log('Stripe payment return processed:', response)
-      } catch (error) {
-        console.error('Error processing stripe payment return:', error)
-      }
-    };
-
     useEffect(() => {
       const urlParams = new URLSearchParams(window.location.search);
-      setSrcParam(urlParams.get('source'))
-      processStripePaymentReturn()
-    }, []);
+      const srcParam = urlParams.get('source');
+      setSource(srcParam); // Update the state with srcParam value
+    }, []); 
   
+    useEffect(() => {
+      // This useEffect will run every time 'source' changes
+      if (source !== null) {
+        console.log(source)
+        processStripePaymentReturn();
 
+      }
+    }, [source]); // Depend on 'source'
+  
+    const processStripePaymentReturn = async () => {
+      try {
+        const response = await stripePaymentReturn(accessToken, source, newPackageProductID);
+        console.log('Stripe payment return processed:', response);
+      } catch (error) {
+        console.error('Error processing stripe payment return:', error);
+      }
+    };
+  
   return (
     <>
       <section>
