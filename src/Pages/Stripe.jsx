@@ -35,6 +35,7 @@ function Stripe() {
     const processStripePaymentReturn = async () => {
       try {
         const response = await stripePaymentReturn(accessToken, source, newPackageProductID);
+        navigate("/Panel")
         console.log('Stripe payment return processed:', response);
       } catch (error) {
         console.error('Error processing stripe payment return:', error);
