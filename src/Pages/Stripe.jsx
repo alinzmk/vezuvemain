@@ -16,12 +16,7 @@ function Stripe() {
     }
 
     const [srcParam, setSrcParam] = useState(null)
-
-    useEffect(() => {
-      const urlParams = new URLSearchParams(window.location.search);
-      setSrcParam(urlParams.get('source'))
-    }, []);
-  
+    
     const processStripePaymentReturn = async () => {
       try {
         const response = await stripePaymentReturn(accessToken, srcParam, newPackageProductID)
@@ -30,6 +25,13 @@ function Stripe() {
         console.error('Error processing stripe payment return:', error)
       }
     };
+
+    useEffect(() => {
+      const urlParams = new URLSearchParams(window.location.search);
+      setSrcParam(urlParams.get('source'))
+      processStripePaymentReturn()
+    }, []);
+  
 
   return (
     <>
