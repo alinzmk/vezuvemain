@@ -333,11 +333,7 @@ export const getAllPackages = async (accessToken) => {
 export const stripePaymentReturn = async (accessToken, cameFrom, newPackageProductID) => {
   try {
     const response = await axios.post(
-      `${BASE_URL}/stripe_payment_return`,
-      {
-        cameFrom,
-        newPackageProductID,
-      },
+      `${BASE_URL}/stripe_payment_return?cameFrom=${cameFrom}&newPackageProductID=${newPackageProductID}`,
       {
         headers: {
           'Authorization': `Bearer ${accessToken}`,
