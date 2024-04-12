@@ -14,7 +14,7 @@ import trendyol from "../Assets/trendyol.png"
 import Service1 from '../Modals/Plan';
 import UserPage from '../Modals/UserPage';
 import { successNotification } from '../Modals/Notification';
-import {sendPartnerMail} from "../ApiService"
+import {getAllPackages, sendPartnerMail} from "../ApiService"
 import fetchAllRedux from '../redux/fetchAllRedux';
 
 function Services() {
@@ -29,6 +29,7 @@ function Services() {
         const [selectedItem, setSelectedItem] = useState(null);
         const [activeTab, setActiveTab] = useState('amazon'); // Initialize with the default active tab
         const [isMobile, setIsMobile] = useState(false);
+        
         const dispatch = useDispatch();
         const {partner} = useSelector((state) => state.partner);
 
@@ -47,7 +48,7 @@ function Services() {
         }
 
         const serviceItems = [
-                { name: 'Amazon Business', type: 'Business', firstPrice:"1.000",  month: false, price: '700', logo: "amazon.png", image: "amazon_business.png", },
+                { name: 'Amazon Business', code:"TAMZNBSN", link:"https://buy.stripe.com/test_dR64hnaoxeOG9I4cMN", description:"Description1 Lorem İpsum",  type: 'Business', firstPrice:"1.000",  month: false, price: '700', logo: "amazon.png", image: "amazon_business.png", },
                 { name: 'Amazon Global', type: 'Global', firstPrice:"1.400",  month: false, price: '1.000', logo: "amazon.png", image: "amazon_global.png", },
                 { name: 'Amazon Abonelik', type: 'Aylık Abonelik', firstPrice:"750", month: "aylık ", price: '650', logo: "amazon.png", image: "amazon_abonelik.png", },
                 { name: 'Amazon Handmade', type: 'Handmade', firstPrice:"2.300", month: false, price: '1.800', logo: "amazon.png", image: "amazon_handmade.png", info1:"3 aylık Amazon Handmade süreniz dolduktan sonra talep edersiniz Abonelik paketimizle size amazon departman hizmeti",},
@@ -90,20 +91,18 @@ function Services() {
                 info4:"Vezüve Ozon'nun Türkiye'deki yetkili servis sağlayıcısıdır."},
             ];
         
-        const ownServices = [
-            {name: "İNGİLTERE ŞİRKET KURULUMU" , price:"deneme", description:"İngiltere pazarında satış süreçlerini başlatmak için İngiltere’de Tüzel kişiliğe sahip olmanız gerekir. Partner firmalarımız ile şirket kurulum süreçleriniz hızla tamamlayın.", },
-            {name: "İNGİLTERE MUHASEBE HİZMETİ" ,  price:"deneme", description:"İngiltere’de muhasebe süreçlerinizi takip etmesi için bir muhasebeci ile çalışmalısınız. Partner firmalarımız ile en uygun fiyatlara muhasebe hizmeti satın alın.", },
-            {name: "ABD ŞİRKET KURULUMU" ,  price:"deneme", description:"Amerika pazarında satış süreçlerini başlatmak için Amerika’da Tüzel kişiliğe sahip olmanız gerekir. Partner firmalarımız ile şirket kurulum süreçleriniz hızla tamamlayın.",},
-            {name: "AMERİKA MUHASEBE HİZMETİ" ,  price:"deneme", description:"Amerikada Muhasebesel süreçlerinizi takip etmesi için bir muhasebeci ile çalışmalısınız. Partner firmalarımız ile en uygun fiyatlara muhasebe hizmeti satın alın.",},
-            {name: "ALMANYA VAT KAYDI" ,  price:"deneme", description:"Avrupa’da satış süreçlerinizi başlatmak için Türkiyedeki şirketiniz adına Vergi kaydı oluşturmalısınız. Partner firmalarımız ile en uygun fiyatlara vat kaydı hizmeti satın alın.",},
-            {name: "WEB SİTESİ ALTYAPISI" ,  price:"deneme", description:"E-Ticarete başladığınızda markanızı ve ürünlerinizi tanıtacak size ait bir web siteniz olmalı. Vezüve partnerleri ile yüksek hızlı, e-ihracat uygun, web sitelerinizi oluşturun. ",},
-            {name: "YURTDIŞI MARKA TESCİLİ" ,  price:"deneme", description:"Markanızı satış yaptığınız ülkede tescil ettirmek ürünlerinizi ve fikirlerinizi korur. Yurtdışı marka tescil işlemleri için Vezüve partnerleri ile çalışın.",},
-            {name: "LOJİSTİK" ,  price:"deneme", description:"Ürünlerinizi yurtdışına güvenli şekilde taşımak için lojistik firmalarından teklif alın.",},   
-            {name: "GÜMRÜK" ,  price:"deneme", description:"İhracat süreçlerinizi tamamlamak, beyannamelerinizi hazırlamak için partner gümrük şirketlerinden teklif alın.",},
-            {name: "SERTİFİKASYON BELGELENDİRME" ,  price:"deneme", description:"Ürünlerinizin yurtdışına çıkabilmesi için bazı sertifikalara ihtiyacı olabilir. FDA, MSDS gibi belgelendirme süreçlerini hızla tamamlayın.",},
-        ];
 
-        
+        const fetchAllPackages = async () => {
+            try {
+              // Call the getAllPackages function
+              const response = await getAllPackages(accessToken);
+              console.log('All packages:', response);
+              // Handle response
+            } catch (error) {
+              console.error('Error fetching all packages:', error);
+              // Handle error
+            }
+          };
         
     useEffect(() => {
         const storedTab = JSON.parse(sessionStorage.getItem("tab"));
@@ -111,6 +110,8 @@ function Services() {
             setActiveTab(storedTab);
         }
         sessionStorage.setItem("tab", JSON.stringify(""));
+        fetchAllPackages()
+        console.log(partner)
     }, []);
 
     useEffect(() => {
@@ -748,22 +749,22 @@ function Services() {
                                     <div className="hizmet-wrap-vezu">
                                         <p>Hizmet Açıklamalarını Okumak İçin Hizmetin Üstüne Tıklayınız.</p>
                                         <div className="row mt-3">
-                                            {partner.map((service, index) => (
+                                            {partner.map((partner, index) => (
                                                 <div className="col-12 col-lg-4 mb-4" key={index}>
                                                     <div className="">
                                                         <div className="accordion accordion-flush hizmet vezu" id={`accordionPanelsStayOpenExample-${index}`}>  
                                                             <div class="accordion-item">
                                                                 <h2 className="accordion-header" id={`panelsStayOpen-heading-${index}`}> 
                                                                     <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#panelsStayOpen-collapse-${index}`} aria-expanded="false" aria-controls={`panelsStayOpen-collapse-${index}`}>    
-                                                                        <p className='hizmet-isim'>{service.category}</p>
+                                                                        <p className='hizmet-isim'>{partner.category}</p>
                                                                     </button>
                                                                 </h2>
                                                                 <div id={`panelsStayOpen-collapse-${index}`} className="accordion-collapse collapse" aria-labelledby={`panelsStayOpen-heading-${index}`}>      
                                                                     <div class="accordion-body pt-0">
-                                                                        <p className='hizmet-tür'>{service.description}</p>
+                                                                        <p className='hizmet-tür'>{partner.detail}</p>
                                                                     </div>
                                                                 </div>
-                                                        <button className='hizmet-buton' onClick={()=>handleSendPartnerMail(service.partner_id)}>Teklif Alın</button>
+                                                        <button className='hizmet-buton' onClick={()=>handleSendPartnerMail(partner.partner_id)}>Teklif Alın</button>
                                                         <img className='hizmet-img' src={logo} alt="" />
                                                             </div>
                                                         </div>

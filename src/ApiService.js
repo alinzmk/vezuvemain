@@ -312,3 +312,20 @@ export const sendPartnerMail = async (accessToken, toId) => {
     throw error;
   }
 };
+
+export const getAllPackages = async (accessToken) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/get_all_packages`,
+      {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error getting all packages:', error);
+    throw error;
+  }
+};

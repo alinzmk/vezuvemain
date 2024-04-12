@@ -181,17 +181,10 @@ function Tasks() {
                                 <ul id="plan" className="task-ul">
                                     {plannedTasks.map((task, index) => (
                                         <li className="task-li" key={index} style={{ boxShadow: `0px 0px 5px 1px #FA58B6`}}>
-                                            <p className='m-0 slideup d-flex align-items-center'>
-                                                <div class="dropdown2 me-3">
-                                                    <button class="d-flex info-btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fa-solid fa-circle-info"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu info" aria-labelledby="dropdownMenuButton2">
-                                                        Son Düzenlenme Tarihi: {formatDate(task.taskStarted)}
-                                                    </div>
-                                                </div>
-                                                {task.taskName}
-                                            </p>
+                                            <strong className='m-0 ps-1 slideup d-flex align-items-center'>
+                                                    {task.taskName} <br/>
+                                            </strong>
+                                                    İşlem Tarihi: {formatDate(task.taskStarted)}
                                             <div className='task-icon'>
                                                 <i class="fa-solid fa-list-check ms-2 my-auto"></i>
                                             </div>
@@ -206,16 +199,9 @@ function Tasks() {
                                 <ul id="process" className="task-ul">
                                     {inProgressTasks.map((task, index) => (
                                         <li className="task-li" key={index} style={{ boxShadow: `0 0 5px 1px yellow`}}>
-                                            <p className='m-0 slideup d-flex align-items-center'>
-                                                <div class="dropdown2 me-3">
-                                                    <button class="d-flex info-btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fa-solid fa-circle-info"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu info" aria-labelledby="dropdownMenuButton2">
-                                                        Son Düzenlenme Tarihi: {formatDate(task.taskStarted)}
-                                                    </div>
-                                                </div>
-                                                {task.taskName}
+                                            <p className='m-0 ps-1 slideup d-flex align-items-center'>
+                                                    {task.taskName} <br/>
+                                                    İşlem Tarihi: {formatDate(task.taskStarted)}
                                             </p>
                                                 <div className='task-icon'>
                                                     <i class="fa-regular fa-clock ms-2 my-auto"></i>
@@ -231,16 +217,9 @@ function Tasks() {
                                 <ul id="finished" className="task-ul">
                                     {finishedTasks.map((task, index) => (
                                         <li className="task-li" key={index } style={{ boxShadow: `0 0 5px 1px #270082`}}>
-                                            <p className='m-0 slideup d-flex align-items-center'>
-                                                <div class="dropdown2 me-3">
-                                                    <button class="d-flex info-btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fa-solid fa-circle-info"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu info" aria-labelledby="dropdownMenuButton2">
-                                                        Son Düzenlenme Tarihi: {formatDate(task.taskStarted)}
-                                                    </div>
-                                                </div>
-                                                {task.taskName}
+                                           <p className='m-0 ps-1 slideup d-flex align-items-center'>
+                                                    {task.taskName} <br/>
+                                                    İşlem Tarihi: {formatDate(task.taskStarted)}
                                             </p>
                                                 <div className='task-icon'>
                                                     <i class="fa-solid fa-check-double ms-2 my-auto"></i>

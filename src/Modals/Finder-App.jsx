@@ -127,7 +127,6 @@ export default function App(props) {
         className="mySwiper"
       >
         <SwiperSlide>
-            
             <div className='col-12 slide mt-5 text-center px-3 mb-5 '>
               <div className="col-12">
                   <h5>
