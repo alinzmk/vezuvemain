@@ -38,7 +38,6 @@ const Plan1 = ({isOpen,onClose,selectedItem, serviceItems }) => {
 
 
     const purchaseService = () => {
-        // Redirect to the external website
         window.location.href =  selectedItem.link;
       }
 

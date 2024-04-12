@@ -92,6 +92,12 @@ function Services() {
             ];
         
 
+        useEffect(()=>{
+            var referrer = document.referrer;
+            console.log("referrer url", referrer);
+            })
+          
+
         const fetchAllPackages = async () => {
             try {
               // Call the getAllPackages function
@@ -104,42 +110,42 @@ function Services() {
             }
           };
         
-    useEffect(() => {
-        const storedTab = JSON.parse(sessionStorage.getItem("tab"));
-        if (storedTab) {
-            setActiveTab(storedTab);
-        }
-        sessionStorage.setItem("tab", JSON.stringify(""));
-        fetchAllPackages()
-        console.log(partner)
-    }, []);
+        useEffect(() => {
+            const storedTab = JSON.parse(sessionStorage.getItem("tab"));
+            if (storedTab) {
+                setActiveTab(storedTab);
+            }
+            sessionStorage.setItem("tab", JSON.stringify(""));
+            fetchAllPackages()
+            console.log(partner)
+        }, []);
 
-    useEffect(() => {
-      const checkWidth = () => {
-        setIsMobile(window.innerWidth < 992); // Adjust breakpoint as needed
-      };
-      checkWidth();
-      window.addEventListener('resize', checkWidth);
-  
-      // Cleanup function
-      return () => {
-        window.removeEventListener('resize', checkWidth);
-      };
-    }, []);
+        useEffect(() => {
+        const checkWidth = () => {
+            setIsMobile(window.innerWidth < 992); // Adjust breakpoint as needed
+        };
+        checkWidth();
+        window.addEventListener('resize', checkWidth);
+    
+        // Cleanup function
+        return () => {
+            window.removeEventListener('resize', checkWidth);
+        };
+        }, []);
 
-    const handleSendPartnerMail = async (serviceID) => {
-        try {
-          const result = await sendPartnerMail(accessToken, serviceID);
-          if (result.status === 200) {
-            console.log('');
-            successNotification('İsteğiniz Başarıyla Gönderildi');
-          } else {
-            console.error(result);
-          }
-        } catch (error) {
-          console.error('Error setting user data:', error);
-        }
-      };
+        const handleSendPartnerMail = async (serviceID) => {
+            try {
+            const result = await sendPartnerMail(accessToken, serviceID);
+            if (result.status === 200) {
+                console.log('');
+                successNotification('İsteğiniz Başarıyla Gönderildi');
+            } else {
+                console.error(result);
+            }
+            } catch (error) {
+            console.error('Error setting user data:', error);
+            }
+        };
         
         return (
     <>

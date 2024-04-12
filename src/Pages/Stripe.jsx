@@ -5,14 +5,21 @@ import loading from '../Assets/animations/loading.json';
 import { useNavigate } from 'react-router-dom';
 
 
-function Tasks() {
+function Stripe() {
 
     const accessToken = sessionStorage.getItem("token");
     const navigate = useNavigate();
     if(!accessToken) {
         navigate("/");
     }
-    
+
+    useEffect(() => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const srcParam = urlParams.get('source');
+      console.log(srcParam); // This will log 'thelink' to the console
+    }, []); // Empty dependency array to run the effect only once after the component mounts
+  
+
   return (
     <>
       <section>
@@ -32,6 +39,6 @@ function Tasks() {
 
 
 
-export default Tasks;
+export default Stripe;
 
 

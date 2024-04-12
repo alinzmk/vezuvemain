@@ -43,12 +43,6 @@ function Dashboard() {
       
       const lastTasks = getTasksByDate();
       
-
-      
-    useEffect (()=>{
-        console.log(task)
-    })
-
       const totalGrowth = () => {
         if(month !== 0){
             var prevMonth = month- 1
