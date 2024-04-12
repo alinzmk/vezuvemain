@@ -329,3 +329,25 @@ export const getAllPackages = async (accessToken) => {
     throw error;
   }
 };
+
+export const stripePaymentReturn = async (accessToken, cameFrom, newPackageProductID) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/stripe_payment_return`,
+      {
+        cameFrom,
+        newPackageProductID,
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error processing stripe payment return:', error);
+    throw error;
+  }
+};

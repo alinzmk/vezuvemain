@@ -38,6 +38,7 @@ const Plan1 = ({isOpen,onClose,selectedItem, serviceItems }) => {
 
 
     const purchaseService = () => {
+        sessionStorage.setItem("ckg", selectedItem.code);
         window.location.href =  selectedItem.link;
       }
 

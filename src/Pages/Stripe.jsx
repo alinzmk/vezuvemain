@@ -3,22 +3,33 @@ import { useState, useEffect } from 'react';
 import Lottie from 'lottie-react';
 import loading from '../Assets/animations/loading.json';
 import { useNavigate } from 'react-router-dom';
+import { stripePaymentReturn } from '../ApiService';
 
 
 function Stripe() {
 
     const accessToken = sessionStorage.getItem("token");
+    const newPackageProductID = sessionStorage.getItem("ckg");
     const navigate = useNavigate();
     if(!accessToken) {
         navigate("/");
     }
 
+    const [srcParam, setSrcParam] = useState(null)
+
     useEffect(() => {
       const urlParams = new URLSearchParams(window.location.search);
-      const srcParam = urlParams.get('source');
-      console.log(srcParam); // This will log 'thelink' to the console
-    }, []); // Empty dependency array to run the effect only once after the component mounts
+      setSrcParam(urlParams.get('source'))
+    }, []);
   
+    const processStripePaymentReturn = async () => {
+      try {
+        const response = await stripePaymentReturn(accessToken, srcParam, newPackageProductID)
+        console.log('Stripe payment return processed:', response)
+      } catch (error) {
+        console.error('Error processing stripe payment return:', error)
+      }
+    };
 
   return (
     <>
