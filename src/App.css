@@ -1037,7 +1037,7 @@ a, a:hover {
   .tasklar .task-wrapper .task-ul .task-li {
     font-size: 1.1rem;
     position: relative;
-    padding: 0.5rem;
+    padding: 0.5rem 1.6rem 0.5rem 0.5rem;
     margin: 1.5rem auto; }
     .tasklar .task-wrapper .task-ul .task-li .task-title, .tasklar .task-wrapper .task-ul .task-li .task-description {
       font-size: 18px;
@@ -1057,7 +1057,6 @@ a, a:hover {
       right: 10px; }
 .tasklar .task-wrapper .task-seperator {
   min-height: 30vh;
-  max-height: 82vh;
   overflow: visible; }
 .tasklar .task-wrapper .dropdown2:hover .dropdown-menu {
   display: block;

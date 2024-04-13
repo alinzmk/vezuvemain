@@ -230,7 +230,9 @@ const ResultComponent = ({ handleReset, full,  logo, items,  link, link_2, butto
                 {buttonText_2 && <button className='satin-al' onClick={() => handleClick(full_2)}>Satışa Başla</button>}
             </div>
         </div>
-        <button onClick={handleReset} className='satin-al me-3'><i class="fa-solid fa-arrow-rotate-left"></i></button>
+        <div className='col-12 d-flex justify-content-center'>
+            <button onClick={handleReset} className='satin-al me-3'><i class="fa-solid fa-arrow-rotate-left"></i> Ankete Yeniden Başla</button>
+        </div>
     </div>
 );
 
