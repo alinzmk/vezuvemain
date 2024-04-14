@@ -5,6 +5,7 @@ import { getTaskData } from '../redux/features/taskdata/taskSlice';
 import { getProductData } from '../redux/features/productdata/productSlice';
 import { getDocData } from '../redux/features/docdata/docSlice';
 import { getPartnerData } from './features/partnerdata/partnerSlice';
+import { getServicepkgsData } from './features/servicepkgsdata/servicepkgsSlice';
 
 export const fetchAllRedux = () => {
     return dispatch => {
@@ -15,6 +16,7 @@ export const fetchAllRedux = () => {
         dispatch(getProductData())
         dispatch(getDocData())
         dispatch(getPartnerData())
+        dispatch(getServicepkgsData())
     }
 }
 

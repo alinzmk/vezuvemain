@@ -6,6 +6,7 @@ import taskReducer from "../features/taskdata/taskSlice";
 import productReducer from "../features/productdata/productSlice";
 import docReducer from "../features/docdata/docSlice";
 import partnerReducer from "../features/partnerdata/partnerSlice";
+import servicepkgsReducer from "../features/servicepkgsdata/servicepkgsSlice";
 import userAdminReducer from "../features/adminuser/userAdminSlice";
 import planAdminReducer from "../features/adminplan/planAdminSlice";
 import dashAdminReducer from "../features/admindash/dashAdminSlice";
@@ -22,6 +23,7 @@ export const store = configureStore({
     product: productReducer,
     doc: docReducer,
     partner: partnerReducer,
+    servicepkgs: servicepkgsReducer,
     useradmin: userAdminReducer,
     planadmin: planAdminReducer,
     dashadmin: dashAdminReducer,

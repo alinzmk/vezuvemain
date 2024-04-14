@@ -31,6 +31,8 @@ function Services() {
         const [isMobile, setIsMobile] = useState(false);
         
         const dispatch = useDispatch();
+        
+        const {servicepkgs} = useSelector((state) => state.servicepkgs);
         const {partner} = useSelector((state) => state.partner);
 
         if(partner.length === 0){
@@ -89,26 +91,7 @@ function Services() {
 
                 { name: 'Ozon Abonelik', type: 'Aylık Abonelik', firstPrice:"700", month:"true" , price: '500', logo: "ozon.png", image: "ozon_abonelik.png", 
                 info4:"Vezüve Ozon'nun Türkiye'deki yetkili servis sağlayıcısıdır."},
-            ];
-        
-
-        useEffect(()=>{
-            var referrer = document.referrer;
-            console.log("referrer url", referrer);
-            })
-          
-
-        const fetchAllPackages = async () => {
-            try {
-              // Call the getAllPackages function
-              const response = await getAllPackages(accessToken);
-              console.log('All packages:', response);
-              // Handle response
-            } catch (error) {
-              console.error('Error fetching all packages:', error);
-              // Handle error
-            }
-          };
+        ]
         
         useEffect(() => {
             const storedTab = JSON.parse(sessionStorage.getItem("tab"));
@@ -116,8 +99,6 @@ function Services() {
                 setActiveTab(storedTab);
             }
             sessionStorage.setItem("tab", JSON.stringify(""));
-            fetchAllPackages()
-            console.log(partner)
         }, []);
 
         useEffect(() => {
@@ -133,6 +114,7 @@ function Services() {
         };
         }, []);
 
+
         const handleSendPartnerMail = async (serviceID) => {
             try {
             const result = await sendPartnerMail(accessToken, serviceID);
@@ -147,6 +129,18 @@ function Services() {
             }
         };
         
+          
+          const filterPackagesByFirstWord = (packages, keyword) => {
+            return packages.filter(pkg => {
+                return pkg.code.toLowerCase().startsWith(keyword.toLowerCase());
+            });
+          };
+
+        useEffect(()=>{
+            console.log(partner)
+        })
+          
+
         return (
     <>
     <Service1 isOpen={isModalOpen} onClose={closeModal} selectedItem={selectedItem} serviceItems={serviceItems} />
@@ -179,33 +173,17 @@ function Services() {
                                                                 <div class="accordion-body">
                                                                     <div className={`tab-pane fade ${activeTab === 'amazon' ? 'show active' : ''}`} id="amazon" role="tabpanel" aria-labelledby="amazon-tab">
                                                                         <div className="row mt-4">
-                                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                                    <div  onClick={() => openModal(serviceItems[0])} className="hizmet amazon">
-                                                                                        <p className='hizmet-isim' >{serviceItems[0].name}</p>
-                                                                                        <p className='hizmet-tür' >{serviceItems[0].type}</p>
-                                                                                        <p className='hizmet-ücret' >{serviceItems[0].price}$</p>
+                                                                        {filterPackagesByFirstWord(servicepkgs, 'TAMZN').map((pkg, index)=>
+                                                                            <>
+                                                                                <div className="col-xl-3 col-lg-6 col-12 mb-4">
+                                                                                    <div  onClick={() => openModal(pkg)} className="hizmet amazon">
+                                                                                        <p className='hizmet-isim' >{pkg.name}</p>
+                                                                                        <p className='hizmet-ücret' >{pkg.price}$</p>
                                                                                         <img className='hizmet-img' src={amazon} alt="" />
                                                                                     </div>  
-                                                                            
-                                                                            </div>
-                                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                                    <div onClick={() => openModal(serviceItems[1])} className="hizmet amazon">
-                                                                                        <p className='hizmet-isim' >{serviceItems[1].name}</p>
-                                                                                        <p className='hizmet-tür' >{serviceItems[1].type}</p>
-                                                                                        <p className='hizmet-ücret' >{serviceItems[1].price}$</p>
-                                                                                        <img className='hizmet-img' src={amazon} alt="" />
-                                                                                    </div>
-                                                                            </div>
-                                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                                
-                                                                                    <div onClick={() => openModal(serviceItems[2])} className="hizmet amazon">
-                                                                                        <p className='hizmet-isim' >Amazon Abonelik</p>
-                                                                                        <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                                        <p className='hizmet-ücret' >17.999$/aylık</p>
-                                                                                        <img className='hizmet-img' src={amazon} alt="" />
-                                                                                    </div>
-                                                                                
-                                                                            </div>
+                                                                                </div>  
+                                                                            </>
+                                                                        )}
                                                                         </div>
                                                                     </div>                                                            
                                                                 </div>
@@ -221,28 +199,20 @@ function Services() {
                                                             <div class="accordion-body">
                                                             
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[3])} className="hizmet amazon">
-                                                                        <p className='hizmet-isim' >Amazon Handmade</p>
-                                                                        <p className='hizmet-tür' >Handmade</p>
-                                                                        <p className='hizmet-ücret' >59.999$</p>
-                                                                        <img className='hizmet-img' src={amazon} alt="" />
+                                                        {filterPackagesByFirstWord(servicepkgs, 'THNM').map((pkg, index)=>
+                                                                <>
+                                                                    <div className="col-12 col-lg-3 mb-4">
+                                                                        <div  onClick={() => openModal(pkg)} className="hizmet amazon">
+                                                                            <p className='hizmet-isim' >{pkg.name}</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <img className='hizmet-img' src={amazon} alt="" />
+                                                                        </div>  
                                                                     </div>  
-                                                                
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[4])} className="hizmet amazon">
-                                                                        <p className='hizmet-isim' >Amazon Handmade</p>
-                                                                        <p className='hizmet-tür' >Abonelik </p>
-                                                                        <p className='hizmet-ücret' >13.999$/aylık</p>
-                                                                        <img className='hizmet-img' src={amazon} alt="" />
-                                                                    </div>
-                                                                
-                                                            </div>
+                                                                </>
+                                                            )}
                                                         
-                                                    </div>                                                            </div>
+                                                    </div>                                                            
+                                                    </div>
                                                             </div>
                                                         </div>
                                                         <div class="accordion-item">
@@ -255,48 +225,21 @@ function Services() {
                                                             <div class="accordion-body">
                                                             
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
+                                                            {filterPackagesByFirstWord(servicepkgs, 'TET').map((pkg, index)=>
+                                                                    <>
+                                                                        <div className="col-12 col-lg-3 mb-4">
+                                                                            <div  onClick={() => openModal(pkg)} className="hizmet allegro">
+                                                                                <p className='hizmet-isim' >{pkg.name}</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <img className='hizmet-img' src={etsy} alt="" />
+                                                                            </div>  
+                                                                        </div>  
+                                                                    </>
+                                                                )}
                                                                 
-                                                                    <div onClick={() => openModal(serviceItems[5])} className="hizmet allegro">
-                                                                        <p className='hizmet-isim' >Etsy Enterprise</p>
-                                                                        <p className='hizmet-tür' >Enterprise</p>
-                                                                        <p className='hizmet-ücret' >27.500$</p>
-                                                                        <img className='hizmet-img' src={etsy} alt="" />
-                                                                    </div>  
-                                                                
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[6])} className="hizmet allegro">
-                                                                        <p className='hizmet-isim' >Etsy Star-seller</p>
-                                                                        <p className='hizmet-tür' > Star-seller </p>
-                                                                        <p className='hizmet-ücret' >32.000$</p>
-                                                                        <img className='hizmet-img' src={etsy} alt="" />
-                                                                    </div>
-                                                                
-                                                            </div>
-                                                            <div onClick={() => openModal(serviceItems[7])} className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div className="hizmet allegro">
-                                                                        <p className='hizmet-isim' >Etsy Aylık</p>
-                                                                        <p className='hizmet-tür' >Aylık Abonelik </p>
-                                                                        <p className='hizmet-ücret' >9.999$/aylık</p>
-                                                                        <img className='hizmet-img' src={etsy} alt="" />
-                                                                    </div>  
-                                                                
-                                                            </div>
-                                                            <div onClick={() => openModal(serviceItems[8])} className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div className="hizmet allegro">
-                                                                        <p className='hizmet-isim' >Etsy Yeni Girişimci</p>
-                                                                        <p className='hizmet-tür' >Kobi Paketi</p>
-                                                                        <p className='hizmet-ücret' >18.000$</p>
-                                                                        <img className='hizmet-img' src={etsy} alt="" />
-                                                                    </div>
-                                                                
-                                                            </div>
-                                                        </div>
-                                                    </div>                                                            </div>
+                                                        </div>    
+                                                    </div>                                                            
+                                                    </div>
                                                             </div>
                                                         
                                                         <div class="accordion-item">
@@ -309,28 +252,21 @@ function Services() {
                                                             <div class="accordion-body">
                                                             
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[9])} className="hizmet allegro">
-                                                                        <p className='hizmet-isim' >Allegro Business</p>
-                                                                        <p className='hizmet-tür' >Business</p>
-                                                                        <p className='hizmet-ücret' >34.000$</p>
-                                                                        <img className='hizmet-img' src={allegro} alt="" />
+                                                        {filterPackagesByFirstWord(servicepkgs, 'TALG').map((pkg, index)=>
+                                                                <>
+                                                                    <div className="col-12 col-lg-3 mb-4">
+                                                                        <div  onClick={() => openModal(pkg)} className="hizmet allegro">
+                                                                            <p className='hizmet-isim' >{pkg.name}</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <img className='hizmet-img' src={allegro} alt="" />
+                                                                        </div>  
                                                                     </div>  
-                                                                
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[10])} className="hizmet allegro">
-                                                                        <p className='hizmet-isim' >Allegro Abonelik</p>
-                                                                        <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                        <p className='hizmet-ücret' >17.500$/aylık</p>
-                                                                        <img className='hizmet-img' src={allegro} alt=""/>
-                                                                    </div>
+                                                                </>
+                                                            )}
                                                                 
                                                             </div>
                                                         </div>
-                                                    </div>                                                            </div>
+                                                    </div>                                                     
                                                             </div>
                                                         
                                                         <div class="accordion-item">
@@ -343,26 +279,17 @@ function Services() {
                                                             <div class="accordion-body">
                                                             
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[11])} className="hizmet amazon">
-                                                                        <p className='hizmet-isim' >Trendyol KOBİ</p>
-                                                                        <p className='hizmet-tür' >KOBİ</p>
-                                                                        <p className='hizmet-ücret' >18.000$</p>
-                                                                        <img className='hizmet-img' src={trendyol} alt="" />
+                                                            {filterPackagesByFirstWord(servicepkgs, 'TTRDY').map((pkg, index)=>
+                                                                <>
+                                                                    <div className="col-12 col-lg-3 mb-4">
+                                                                        <div  onClick={() => openModal(pkg)} className="hizmet amazon">
+                                                                            <p className='hizmet-isim' >{pkg.name}</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <img className='hizmet-img' src={trendyol} alt="" />
+                                                                        </div>  
                                                                     </div>  
-                                                                
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[12])} className="hizmet amazon">
-                                                                        <p className='hizmet-isim' >Trendyol Abonelik</p>
-                                                                        <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                        <p className='hizmet-ücret' >10.000$/aylık</p>
-                                                                        <img className='hizmet-img' src={trendyol} alt="" />
-                                                                    </div>
-                                                                
-                                                            </div>
+                                                                </>
+                                                            )}
                                                             
                                                         </div>
                                                     </div>                                                            </div>
@@ -378,26 +305,17 @@ function Services() {
                                                             <div class="accordion-body">
                                                             
                                                                         <div className="row mt-4">
-                                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                                
-                                                                                    <div onClick={() => openModal(serviceItems[13])} className="hizmet walmart">
-                                                                                        <p className='hizmet-isim' >Walmart Business</p>
-                                                                                        <p className='hizmet-tür' >Business</p>
-                                                                                        <p className='hizmet-ücret' >80.000$</p>
-                                                                                        <img className='hizmet-img' src={walmart} alt="" />
-                                                                                    </div>  
-                                                                                
-                                                                            </div>
-                                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                                
-                                                                                    <div onClick={() => openModal(serviceItems[14])} className="hizmet walmart">
-                                                                                        <p className='hizmet-isim' >Walmart Abonelik</p>
-                                                                                        <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                                        <p className='hizmet-ücret' >29.000$/aylık</p>
-                                                                                        <img className='hizmet-img' src={walmart} alt="" />
-                                                                                    </div>
-                                                                                
-                                                                            </div>
+                                                                        {filterPackagesByFirstWord(servicepkgs, 'TWLMT').map((pkg, index)=>
+                                                                    <>
+                                                                        <div className="col-12 col-lg-3 mb-4">
+                                                                            <div  onClick={() => openModal(pkg)} className="hizmet walmart">
+                                                                                <p className='hizmet-isim' >{pkg.name}</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <img className='hizmet-img' src={walmart} alt="" />
+                                                                            </div>  
+                                                                        </div>  
+                                                                    </>
+                                                                )}
                                                                         </div>
                                                                 </div>   
                                                                 </div>
@@ -413,28 +331,20 @@ function Services() {
                                                             <div class="accordion-body">
                                                             
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[15])} className="hizmet wayfair">
-                                                                        <p className='hizmet-isim' >Wayfair Business</p>
-                                                                        <p className='hizmet-tür' >Business</p>
-                                                                        <p className='hizmet-ücret' >73.999$</p>
-                                                                        <img className='hizmet-img' src={wayfair} alt="" />
-                                                                    </div>  
-                                                                
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[16])} className="hizmet wayfair">
-                                                                        <p className='hizmet-isim' >Wayfair Abonelik</p>
-                                                                        <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                        <p className='hizmet-ücret' >25.999$/aylık</p>
-                                                                        <img className='hizmet-img' src={wayfair} alt="" />
-                                                                    </div>
-                                                                
-                                                            </div>
+                                                        {filterPackagesByFirstWord(servicepkgs, 'TWF').map((pkg, index)=>
+                                                                    <>
+                                                                        <div className="col-12 col-lg-3 mb-4">
+                                                                            <div  onClick={() => openModal(pkg)} className="hizmet wayfair">
+                                                                                <p className='hizmet-isim' >{pkg.name}</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <img className='hizmet-img' src={wayfair} alt="" />
+                                                                            </div>  
+                                                                        </div>  
+                                                                    </>
+                                                                )}
                                                         </div>
-                                                    </div>                                                            </div>
+                                                    </div>                                 
+                                                    </div>
                                                             </div>
                                                         
                                                         <div class="accordion-item">
@@ -448,13 +358,17 @@ function Services() {
                                                             
                                                         <div className="row mt-4">
                                                             <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[17])} className="hizmet ozon">
-                                                                        <p className='hizmet-isim' >Emag Giriş</p>
-                                                                        <p className='hizmet-tür' >Starter Pack</p>
-                                                                        <p className='hizmet-ücret' >17.500$</p>
-                                                                        <img className='hizmet-img' src={emag} alt="" />
-                                                                    </div>  
+                                                                {filterPackagesByFirstWord(servicepkgs, 'TEG').map((pkg, index)=>
+                                                                    <>
+                                                                        <div className="col-12 col-lg-3 mb-4">
+                                                                            <div  onClick={() => openModal(pkg)} className="hizmet walmart">
+                                                                                <p className='hizmet-isim' >{pkg.name}</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <img className='hizmet-img' src={emag} alt="" />
+                                                                            </div>  
+                                                                        </div>  
+                                                                    </>
+                                                                )}
                                                                 
                                                             </div>
                                                         </div>
@@ -470,26 +384,17 @@ function Services() {
                                                             <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
                                                             <div class="accordion-body">
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[18])} className="hizmet ozon">
-                                                                        <p className='hizmet-isim' >Ozon Business</p>
-                                                                        <p className='hizmet-tür' >Hizmet Türü</p>
-                                                                        <p className='hizmet-ücret' >29.999$</p>
-                                                                        <img className='hizmet-img' src={ozon} alt="" />
-                                                                    </div>  
-                                                                
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[19])} className="hizmet ozon">
-                                                                        <p className='hizmet-isim' >Ozon Abonelik</p>
-                                                                        <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                        <p className='hizmet-ücret' >11.999/aylık</p>
-                                                                        <img className='hizmet-img' src={ozon} alt="" />
-                                                                    </div>
-                                                                
-                                                            </div>
+                                                            {filterPackagesByFirstWord(servicepkgs, 'TO').map((pkg, index)=>
+                                                                    <>
+                                                                        <div className="col-12 col-lg-3 mb-4">
+                                                                            <div  onClick={() => openModal(pkg)} className="hizmet ozon">
+                                                                                <p className='hizmet-isim' >{pkg.name}</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <img className='hizmet-img' src={ozon} alt="" />
+                                                                            </div>  
+                                                                        </div>  
+                                                                    </>
+                                                                )}
                                                         </div>                                                        
                                                         </div>
                                                         </div>
@@ -514,236 +419,138 @@ function Services() {
                                                 <div class="tab-content" id="nav-tabContent">
                                                     <div className={`tab-pane fade ${activeTab === 'amazon' ? 'show active' : ''}`} id="amazon" role="tabpanel" aria-labelledby="amazon-tab">
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                    <div  onClick={() => openModal(serviceItems[0])} className="hizmet amazon">
-                                                                        <p className='hizmet-isim' >{serviceItems[0].name}</p>
-                                                                        <p className='hizmet-tür' >{serviceItems[0].type}</p>
-                                                                        <p className='hizmet-ücret' >{serviceItems[0].price}$</p>
-                                                                        <img className='hizmet-img' src={amazon} alt="" />
+                                                            {filterPackagesByFirstWord(servicepkgs, 'TAMZN').map((pkg, index)=>
+                                                                <>
+                                                                    <div className="col-xl-3 col-lg-6 col-12 mb-4">
+                                                                        <div  onClick={() => openModal(pkg)} className="hizmet amazon">
+                                                                            <p className='hizmet-isim' >{pkg.name}</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <img className='hizmet-img' src={amazon} alt="" />
+                                                                        </div>  
                                                                     </div>  
-                                                            
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                    <div onClick={() => openModal(serviceItems[1])} className="hizmet amazon">
-                                                                        <p className='hizmet-isim' >{serviceItems[1].name}</p>
-                                                                        <p className='hizmet-tür' >{serviceItems[1].type}</p>
-                                                                        <p className='hizmet-ücret' >{serviceItems[1].price}$</p>
-                                                                        <img className='hizmet-img' src={amazon} alt="" />
-                                                                    </div>
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[2])} className="hizmet amazon">
-                                                                        <p className='hizmet-isim' >Amazon Abonelik</p>
-                                                                        <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                        <p className='hizmet-ücret' >17.999$/aylık</p>
-                                                                        <img className='hizmet-img' src={amazon} alt="" />
-                                                                    </div>
-                                                                
-                                                            </div>
+                                                                </>
+                                                            )}
                                                         </div>
                                                     </div>
                                                     <div className={`tab-pane fade ${activeTab === 'handmade' ? 'show active' : ''}`} id="amazonHandmade" role="tabpanel" aria-labelledby="amazonHandmade-tab">
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[3])} className="hizmet amazon">
-                                                                        <p className='hizmet-isim' >Amazon Handmade</p>
-                                                                        <p className='hizmet-tür' >Handmade</p>
-                                                                        <p className='hizmet-ücret' >59.999$</p>
-                                                                        <img className='hizmet-img' src={amazon} alt="" />
+                                                            {filterPackagesByFirstWord(servicepkgs, 'THNM').map((pkg, index)=>
+                                                                <>
+                                                                    <div className="col-12 col-lg-3 mb-4">
+                                                                        <div  onClick={() => openModal(pkg)} className="hizmet amazon">
+                                                                            <p className='hizmet-isim' >{pkg.name}</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <img className='hizmet-img' src={amazon} alt="" />
+                                                                        </div>  
                                                                     </div>  
-                                                                
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[4])} className="hizmet amazon">
-                                                                        <p className='hizmet-isim' >Amazon Handmade</p>
-                                                                        <p className='hizmet-tür' >Abonelik </p>
-                                                                        <p className='hizmet-ücret' >13.999$/aylık</p>
-                                                                        <img className='hizmet-img' src={amazon} alt="" />
-                                                                    </div>
-                                                                
-                                                            </div>
+                                                                </>
+                                                            )}
                                                         </div>
                                                     </div>
                                                     <div className={`tab-pane fade ${activeTab === 'etsy' ? 'show active' : ''}`} id="etsy" role="tabpanel" aria-labelledby="etsy-tab">
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[5])} className="hizmet allegro">
-                                                                        <p className='hizmet-isim' >Etsy Enterprise</p>
-                                                                        <p className='hizmet-tür' >Enterprise</p>
-                                                                        <p className='hizmet-ücret' >27.500$</p>
-                                                                        <img className='hizmet-img' src={etsy} alt="" />
+                                                            {filterPackagesByFirstWord(servicepkgs, 'TET').map((pkg, index)=>
+                                                                <>
+                                                                    <div className="col-12 col-lg-3 mb-4">
+                                                                        <div  onClick={() => openModal(pkg)} className="hizmet allegro">
+                                                                            <p className='hizmet-isim' >{pkg.name}</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <img className='hizmet-img' src={etsy} alt="" />
+                                                                        </div>  
                                                                     </div>  
-                                                                
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[6])} className="hizmet allegro">
-                                                                        <p className='hizmet-isim' >Etsy Star-seller</p>
-                                                                        <p className='hizmet-tür' > Star-seller </p>
-                                                                        <p className='hizmet-ücret' >32.000$</p>
-                                                                        <img className='hizmet-img' src={etsy} alt="" />
-                                                                    </div>
-                                                                
-                                                            </div>
-                                                            <div onClick={() => openModal(serviceItems[7])} className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div className="hizmet allegro">
-                                                                        <p className='hizmet-isim' >Etsy Aylık</p>
-                                                                        <p className='hizmet-tür' >Aylık Abonelik </p>
-                                                                        <p className='hizmet-ücret' >9.999$/aylık</p>
-                                                                        <img className='hizmet-img' src={etsy} alt="" />
-                                                                    </div>  
-                                                                
-                                                            </div>
-                                                            <div onClick={() => openModal(serviceItems[8])} className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div className="hizmet allegro">
-                                                                        <p className='hizmet-isim' >Etsy Yeni Girişimci</p>
-                                                                        <p className='hizmet-tür' >Kobi Paketi</p>
-                                                                        <p className='hizmet-ücret' >18.000$</p>
-                                                                        <img className='hizmet-img' src={etsy} alt="" />
-                                                                    </div>
-                                                                
-                                                            </div>
+                                                                </>
+                                                            )}
                                                         </div>
                                                     </div>
                                                     <div className={`tab-pane fade ${activeTab === 'allegro' ? 'show active' : ''}`} id="allegro" role="tabpanel" aria-labelledby="allegro-tab">
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[9])} className="hizmet allegro">
-                                                                        <p className='hizmet-isim' >Allegro Business</p>
-                                                                        <p className='hizmet-tür' >Business</p>
-                                                                        <p className='hizmet-ücret' >34.000$</p>
-                                                                        <img className='hizmet-img' src={allegro} alt="" />
+                                                        {filterPackagesByFirstWord(servicepkgs, 'TALG').map((pkg, index)=>
+                                                                <>
+                                                                    <div className="col-12 col-lg-3 mb-4">
+                                                                        <div  onClick={() => openModal(pkg)} className="hizmet allegro">
+                                                                            <p className='hizmet-isim' >{pkg.name}</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <img className='hizmet-img' src={allegro} alt="" />
+                                                                        </div>  
                                                                     </div>  
-                                                                
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[10])} className="hizmet allegro">
-                                                                        <p className='hizmet-isim' >Allegro Abonelik</p>
-                                                                        <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                        <p className='hizmet-ücret' >17.500$/aylık</p>
-                                                                        <img className='hizmet-img' src={allegro} alt=""/>
-                                                                    </div>
-                                                                
-                                                            </div>
+                                                                </>
+                                                            )}
                                                         </div>
                                                     </div>
                                                     <div className={`tab-pane fade ${activeTab === 'trendyol' ? 'show active' : ''}`} id="trendyol" role="tabpanel" aria-labelledby="trendyol-tab">
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[11])} className="hizmet amazon">
-                                                                        <p className='hizmet-isim' >Trendyol KOBİ</p>
-                                                                        <p className='hizmet-tür' >KOBİ</p>
-                                                                        <p className='hizmet-ücret' >18.000$</p>
-                                                                        <img className='hizmet-img' src={trendyol} alt="" />
+                                                            {filterPackagesByFirstWord(servicepkgs, 'TTRDY').map((pkg, index)=>
+                                                                <>
+                                                                    <div className="col-12 col-lg-3 mb-4">
+                                                                        <div  onClick={() => openModal(pkg)} className="hizmet amazon">
+                                                                            <p className='hizmet-isim' >{pkg.name}</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <img className='hizmet-img' src={trendyol} alt="" />
+                                                                        </div>  
                                                                     </div>  
-                                                                
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[12])} className="hizmet amazon">
-                                                                        <p className='hizmet-isim' >Trendyol Abonelik</p>
-                                                                        <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                        <p className='hizmet-ücret' >10.000$/aylık</p>
-                                                                        <img className='hizmet-img' src={trendyol} alt="" />
-                                                                    </div>
-                                                                
-                                                            </div>
+                                                                </>
+                                                            )}
                                                             
                                                         </div>
                                                     </div>
                                                     <div className={`tab-pane fade ${activeTab === 'walmart' ? 'show active' : ''}`} id="walmart" role="tabpanel" aria-labelledby="walmart-tab">
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[13])} className="hizmet walmart">
-                                                                        <p className='hizmet-isim' >Walmart Business</p>
-                                                                        <p className='hizmet-tür' >Business</p>
-                                                                        <p className='hizmet-ücret' >80.000$</p>
-                                                                        <img className='hizmet-img' src={walmart} alt="" />
-                                                                    </div>  
-                                                                
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[14])} className="hizmet walmart">
-                                                                        <p className='hizmet-isim' >Walmart Abonelik</p>
-                                                                        <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                        <p className='hizmet-ücret' >29.000$/aylık</p>
-                                                                        <img className='hizmet-img' src={walmart} alt="" />
-                                                                    </div>
-                                                                
-                                                            </div>
+                                                            {filterPackagesByFirstWord(servicepkgs, 'TWLMT').map((pkg, index)=>
+                                                                    <>
+                                                                        <div className="col-12 col-lg-3 mb-4">
+                                                                            <div  onClick={() => openModal(pkg)} className="hizmet walmart">
+                                                                                <p className='hizmet-isim' >{pkg.name}</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <img className='hizmet-img' src={walmart} alt="" />
+                                                                            </div>  
+                                                                        </div>  
+                                                                    </>
+                                                                )}
                                                         </div>
                                                     </div>
                                                     <div className={`tab-pane fade ${activeTab === 'wayfair' ? 'show active' : ''}`} id="wayfair" role="tabpanel" aria-labelledby="wayfair-tab">
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[15])} className="hizmet wayfair">
-                                                                        <p className='hizmet-isim' >Wayfair Business</p>
-                                                                        <p className='hizmet-tür' >Business</p>
-                                                                        <p className='hizmet-ücret' >73.999$</p>
-                                                                        <img className='hizmet-img' src={wayfair} alt="" />
-                                                                    </div>  
-                                                                
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[16])} className="hizmet wayfair">
-                                                                        <p className='hizmet-isim' >Wayfair Abonelik</p>
-                                                                        <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                        <p className='hizmet-ücret' >25.999$/aylık</p>
-                                                                        <img className='hizmet-img' src={wayfair} alt="" />
-                                                                    </div>
-                                                                
-                                                            </div>
+                                                            {filterPackagesByFirstWord(servicepkgs, 'TWF').map((pkg, index)=>
+                                                                    <>
+                                                                        <div className="col-12 col-lg-3 mb-4">
+                                                                            <div  onClick={() => openModal(pkg)} className="hizmet wayfair">
+                                                                                <p className='hizmet-isim' >{pkg.name}</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <img className='hizmet-img' src={wayfair} alt="" />
+                                                                            </div>  
+                                                                        </div>  
+                                                                    </>
+                                                                )}
                                                         </div>
                                                     </div>
                                                     <div className={`tab-pane fade ${activeTab === 'emag' ? 'show active' : ''}`} id="emag" role="tabpanel" aria-labelledby="emag-tab">
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[17])} className="hizmet ozon">
-                                                                        <p className='hizmet-isim' >Emag Giriş</p>
-                                                                        <p className='hizmet-tür' >Starter Pack</p>
-                                                                        <p className='hizmet-ücret' >17.500$</p>
-                                                                        <img className='hizmet-img' src={emag} alt="" />
-                                                                    </div>  
-                                                                
-                                                            </div>
+                                                            {filterPackagesByFirstWord(servicepkgs, 'TEG').map((pkg, index)=>
+                                                                    <>
+                                                                        <div className="col-12 col-lg-3 mb-4">
+                                                                            <div  onClick={() => openModal(pkg)} className="hizmet walmart">
+                                                                                <p className='hizmet-isim' >{pkg.name}</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <img className='hizmet-img' src={emag} alt="" />
+                                                                            </div>  
+                                                                        </div>  
+                                                                    </>
+                                                                )}
                                                         </div>
                                                     </div>
                                                     <div className={`tab-pane fade ${activeTab === 'ozon' ? 'show active' : ''}`} id="ozon" role="tabpanel" aria-labelledby="ozon-tab">
                                                         <div className="row mt-4">
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[18])} className="hizmet ozon">
-                                                                        <p className='hizmet-isim' >Ozon Business</p>
-                                                                        <p className='hizmet-tür' >Hizmet Türü</p>
-                                                                        <p className='hizmet-ücret' >29.999$</p>
-                                                                        <img className='hizmet-img' src={ozon} alt="" />
-                                                                    </div>  
-                                                                
-                                                            </div>
-                                                            <div className="col-12 col-lg-3 mb-4">
-                                                                
-                                                                    <div onClick={() => openModal(serviceItems[19])} className="hizmet ozon">
-                                                                        <p className='hizmet-isim' >Ozon Abonelik</p>
-                                                                        <p className='hizmet-tür' >Aylık Abonelik</p>
-                                                                        <p className='hizmet-ücret' >11.999/aylık</p>
-                                                                        <img className='hizmet-img' src={ozon} alt="" />
-                                                                    </div>
-                                                                
-                                                            </div>
+                                                            {filterPackagesByFirstWord(servicepkgs, 'TO').map((pkg, index)=>
+                                                                    <>
+                                                                        <div className="col-12 col-lg-3 mb-4">
+                                                                            <div  onClick={() => openModal(pkg)} className="hizmet ozon">
+                                                                                <p className='hizmet-isim' >{pkg.name}</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <img className='hizmet-img' src={ozon} alt="" />
+                                                                            </div>  
+                                                                        </div>  
+                                                                    </>
+                                                                )}
                                                         </div>
                                                     </div>
                                                 </div>
