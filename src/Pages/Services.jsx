@@ -44,6 +44,7 @@ function Services() {
             setSelectedItem(item);
             document.body.classList.add('modal-open');
         }
+
         const closeModal = () => {
             setIsModalOpen(false);    
             document.body.classList.remove('modal-open');
@@ -55,7 +56,6 @@ function Services() {
                 { name: 'Amazon Abonelik', type: 'Aylık Abonelik', firstPrice:"750", month: "aylık ", price: '650', logo: "amazon.png", image: "amazon_abonelik.png", },
                 { name: 'Amazon Handmade', type: 'Handmade', firstPrice:"2.300", month: false, price: '1.800', logo: "amazon.png", image: "amazon_handmade.png", info1:"3 aylık Amazon Handmade süreniz dolduktan sonra talep edersiniz Abonelik paketimizle size amazon departman hizmeti",},
                 { name: 'Amazon Handmade', type: 'Aylık Abonelik', firstPrice:"700", month:"true" , price: '650', logo: "amazon.png", image: "amazon_handmade_abonelik.png", info1:"3 aylık Amazon Handmade süreniz dolduktan sonra talep edersiniz Abonelik paketimizle size amazon departman hizmeti",},
-
                 { name: 'Etsy Enterprise', type: 'Enterprise', firstPrice:"750", month: false, price: '500', logo: "etsy.png", image: "etsy_enterprise.png", },
                 { name: 'Etsy Star-Seller', type: 'Star-Seller', firstPrice:"900", month: false, price: '650', logo: "etsy.png", image: "etsy_star.png", },
 
@@ -137,7 +137,7 @@ function Services() {
           };
 
         useEffect(()=>{
-            console.log(partner)
+            console.log(servicepkgs)
         })
           
 
