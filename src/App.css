@@ -531,7 +531,7 @@ a, a:hover {
 .overlay .closeBtn:focus {
   outline: none !important; }
 .overlay .service-img {
-  width: 400px; }
+  width: 300px; }
 .overlay .modal-logo {
   width: 150px;
   display: flex;
@@ -1623,7 +1623,7 @@ a, a:hover {
   .overlay .closeBtn:focus {
     outline: none !important; }
   .overlay .service-img {
-    width: 400px; }
+    width: 300px; }
   .overlay .modal-logo {
     width: 150px;
     display: flex;
@@ -1955,5 +1955,8 @@ a, a:hover {
 @media only screen and (max-width: 320px) {
   .wrapper {
     width: 250px !important; } }
+@media only screen and (min-width: 1700px) {
+  .overlay .service-img {
+    width: 400px; } }
 
 /*# sourceMappingURL=App.css.map */

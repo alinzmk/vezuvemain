@@ -697,7 +697,7 @@ $white: white;
     }
     
     .service-img{
-      width: 400px;
+      width: 300px;
     }
     .modal-logo{
       width: 150px;
@@ -1494,6 +1494,7 @@ $white: white;
   }
   
   @media only screen and (max-width: 1200px) {
+
     body {
   
     }
@@ -1502,6 +1503,7 @@ $white: white;
     .chart-wrapper{
       padding: auto;
     }
+
   }
 
 
@@ -2136,7 +2138,7 @@ $white: white;
       }
       
       .service-img{
-        width: 400px;
+        width: 300px;
       }
       .modal-logo{
         width: 150px;
@@ -2588,5 +2590,14 @@ $white: white;
   @media only screen and (max-width: 320px) {
     .wrapper{
       width: 250px !important;
+    }
+  }
+
+  @media only screen and (min-width: 1700px) {
+    .overlay{
+      .service-img{
+        width: 400px;
+
+      }
     }
   }

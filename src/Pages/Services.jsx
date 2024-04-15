@@ -421,7 +421,7 @@ function Services() {
                                                         <div className="row mt-4">
                                                             {filterPackagesByFirstWord(servicepkgs, 'TAMZN').map((pkg, index)=>
                                                                 <>
-                                                                    <div className="col-xl-3 col-lg-6 col-12 mb-4">
+                                                                    <div className="col-xl-3 col-lg-6 col-12 mb-4" key={index}>
                                                                         <div  onClick={() => openModal(pkg)} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >{pkg.name}</p>
                                                                             <p className='hizmet-ücret' >{pkg.price}$</p>
@@ -436,7 +436,7 @@ function Services() {
                                                         <div className="row mt-4">
                                                             {filterPackagesByFirstWord(servicepkgs, 'THNM').map((pkg, index)=>
                                                                 <>
-                                                                    <div className="col-12 col-lg-3 mb-4">
+                                                                    <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                         <div  onClick={() => openModal(pkg)} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >{pkg.name}</p>
                                                                             <p className='hizmet-ücret' >{pkg.price}$</p>
@@ -451,7 +451,7 @@ function Services() {
                                                         <div className="row mt-4">
                                                             {filterPackagesByFirstWord(servicepkgs, 'TET').map((pkg, index)=>
                                                                 <>
-                                                                    <div className="col-12 col-lg-3 mb-4">
+                                                                    <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                         <div  onClick={() => openModal(pkg)} className="hizmet allegro">
                                                                             <p className='hizmet-isim' >{pkg.name}</p>
                                                                             <p className='hizmet-ücret' >{pkg.price}$</p>
@@ -466,7 +466,7 @@ function Services() {
                                                         <div className="row mt-4">
                                                         {filterPackagesByFirstWord(servicepkgs, 'TALG').map((pkg, index)=>
                                                                 <>
-                                                                    <div className="col-12 col-lg-3 mb-4">
+                                                                    <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                         <div  onClick={() => openModal(pkg)} className="hizmet allegro">
                                                                             <p className='hizmet-isim' >{pkg.name}</p>
                                                                             <p className='hizmet-ücret' >{pkg.price}$</p>
@@ -481,7 +481,7 @@ function Services() {
                                                         <div className="row mt-4">
                                                             {filterPackagesByFirstWord(servicepkgs, 'TTRDY').map((pkg, index)=>
                                                                 <>
-                                                                    <div className="col-12 col-lg-3 mb-4">
+                                                                    <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                         <div  onClick={() => openModal(pkg)} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >{pkg.name}</p>
                                                                             <p className='hizmet-ücret' >{pkg.price}$</p>
@@ -497,7 +497,7 @@ function Services() {
                                                         <div className="row mt-4">
                                                             {filterPackagesByFirstWord(servicepkgs, 'TWLMT').map((pkg, index)=>
                                                                     <>
-                                                                        <div className="col-12 col-lg-3 mb-4">
+                                                                        <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                             <div  onClick={() => openModal(pkg)} className="hizmet walmart">
                                                                                 <p className='hizmet-isim' >{pkg.name}</p>
                                                                                 <p className='hizmet-ücret' >{pkg.price}$</p>
@@ -512,7 +512,7 @@ function Services() {
                                                         <div className="row mt-4">
                                                             {filterPackagesByFirstWord(servicepkgs, 'TWF').map((pkg, index)=>
                                                                     <>
-                                                                        <div className="col-12 col-lg-3 mb-4">
+                                                                        <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                             <div  onClick={() => openModal(pkg)} className="hizmet wayfair">
                                                                                 <p className='hizmet-isim' >{pkg.name}</p>
                                                                                 <p className='hizmet-ücret' >{pkg.price}$</p>
@@ -527,7 +527,7 @@ function Services() {
                                                         <div className="row mt-4">
                                                             {filterPackagesByFirstWord(servicepkgs, 'TEG').map((pkg, index)=>
                                                                     <>
-                                                                        <div className="col-12 col-lg-3 mb-4">
+                                                                        <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                             <div  onClick={() => openModal(pkg)} className="hizmet walmart">
                                                                                 <p className='hizmet-isim' >{pkg.name}</p>
                                                                                 <p className='hizmet-ücret' >{pkg.price}$</p>
@@ -542,7 +542,7 @@ function Services() {
                                                         <div className="row mt-4">
                                                             {filterPackagesByFirstWord(servicepkgs, 'TO').map((pkg, index)=>
                                                                     <>
-                                                                        <div className="col-12 col-lg-3 mb-4">
+                                                                        <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                             <div  onClick={() => openModal(pkg)} className="hizmet ozon">
                                                                                 <p className='hizmet-isim' >{pkg.name}</p>
                                                                                 <p className='hizmet-ücret' >{pkg.price}$</p>
