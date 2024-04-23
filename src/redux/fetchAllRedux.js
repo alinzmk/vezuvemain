@@ -6,6 +6,7 @@ import { getProductData } from '../redux/features/productdata/productSlice';
 import { getDocData } from '../redux/features/docdata/docSlice';
 import { getPartnerData } from './features/partnerdata/partnerSlice';
 import { getServicepkgsData } from './features/servicepkgsdata/servicepkgsSlice';
+import { getMarketReqData } from './features/marketreqdata/marketreqSlice';
 
 export const fetchAllRedux = () => {
     return dispatch => {
@@ -17,6 +18,7 @@ export const fetchAllRedux = () => {
         dispatch(getDocData())
         dispatch(getPartnerData())
         dispatch(getServicepkgsData())
+        dispatch(getMarketReqData())
     }
 }
 

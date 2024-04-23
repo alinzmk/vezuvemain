@@ -1,5 +1,5 @@
 import '../App.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import logo from "../Assets/logo-renkli.png"
 import LineChart from '../Modals/Linechart';
 import Sidebar2 from '../Modals/Sidebar2';
@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import fetchAllRedux from '../redux/fetchAllRedux';
 import UserPage from '../Modals/UserPage';
+import { current } from '@reduxjs/toolkit';
 
 
 function Dashboard() {
@@ -39,11 +40,11 @@ function Dashboard() {
         const firstThreeTasks = sortedTasks.slice(0, 3);
 
         return firstThreeTasks;
-      };
+    };
       
       const lastTasks = getTasksByDate();
       
-      const totalGrowth = () => {
+    const totalGrowth = () => {
         if(month !== 0){
             var prevMonth = month- 1
         }
@@ -54,17 +55,17 @@ function Dashboard() {
         var previousSale = dash.sales[0][prevMonth].value
         var total = currentSale - previousSale;
         return total
-      } 
+    } 
 
-      const calculateRemainingDays = () => {
+    const calculateRemainingDays = () => {
         const start = new Date(plan.startDate);
         const end = new Date(plan.finishDate);
         const timeDifference = end.getTime() - start.getTime();
         const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
         return(daysDifference);
-      };
+    };
 
-      const statusIcon = (status) => {
+    const statusIcon = (status) => {
         if(status==="Finished"){
             return <i class="fa-solid fa-check-double"></i> 
         }
@@ -75,15 +76,35 @@ function Dashboard() {
             return <i class="fa-regular fa-file"></i>
         }
 
-      };
+    };
 
-      function formatDate(inputDate) {
+    function formatDate(inputDate) {
         const [datePart, timePart] = inputDate.split(' ')
         const [year, month, day] = datePart.split('-')
     
         return `${day}/${month}/${year}`;
     }
 
+    const calculatePercentage = (param1) => {
+        
+        if(month !== 0){
+            var prevMonth = month- 1
+        }
+        else if(month === 0){
+            var prevMonth = 11 
+        }
+
+        var current = parseFloat(param1[month].value)
+        var previous = parseFloat(param1[prevMonth].value)
+
+        if (!isNaN(current) && !isNaN(previous)) {
+            const change = parseInt(((current-previous)/previous)*100)
+  
+            return <p className={change>0?"plus":"minus"}>%{change}</p>
+        } else {
+            return "no data"
+        }
+      };
 
 
   
@@ -100,12 +121,12 @@ function Dashboard() {
                                 {dash.sales ? (
                                     <>
                                         <h2>{dash.sales[0][month].value}$<span className='aylık'>/aylık</span></h2>
-                                        <p className='plus'>+%3</p>
+                                        {calculatePercentage(dash.sales[0])}
                                     </>
                                 ) : (
                                     <>
                                         <h2>0000$<span className='aylık'>/aylık</span></h2>
-                                        <p className='plus'>+%0</p>
+                                        <p className='plus'></p>
                                     </>
                             )}
                             </div>
@@ -116,7 +137,7 @@ function Dashboard() {
                                 {dash.ads ? (
                                     <>
                                         <h2>{dash.ads[0][month].value}$<span className='aylık'>/günlük</span></h2>
-                                        <p className='plus'>+%3</p>
+                                        {calculatePercentage(dash.ads[0])}
                                     </>
                                 ) : (
                                     <>
@@ -132,7 +153,7 @@ function Dashboard() {
                                 {dash.sales_unit ? (
                                         <>
                                             <h2>{dash.sales_unit[0][month].value}<span className='aylık'>/adet</span></h2>
-                                            <p className='minus'>+%0</p>
+                                            {calculatePercentage(dash.sales_unit[0])}
                                             
                                         </>
                                     ) : (
@@ -149,7 +170,7 @@ function Dashboard() {
                                 {dash.sales ? (
                                     <>
                                         <h2>{totalGrowth()}$<span className='aylık'>/aylık</span></h2>
-                                        <p className='plus2'>+%0</p>
+                                        {/* <p className='plus2'>+%0</p> */}
                                     </>
                                 ) : (
                                     <>
@@ -225,10 +246,7 @@ function Dashboard() {
                                 <h3 className='p-3'>Satış Raporu</h3>
                         </div>
                         <div className="col-12 m-0  chart-wrapper">
-                            
                                     <LineChart/>
-                        
-
                         </div>
                     </div>
                 </div>
