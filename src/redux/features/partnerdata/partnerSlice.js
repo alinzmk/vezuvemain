@@ -10,7 +10,7 @@ export const getPartnerData = createAsyncThunk('getPartnerData', async() => {
 
   try {
     const result = await getAllPartnerData(accessToken);
-    return result.data
+    return result
   } catch (error) {
       console.log(error)
   }

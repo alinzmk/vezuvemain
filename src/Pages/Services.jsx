@@ -14,7 +14,7 @@ import trendyol from "../Assets/trendyol.png"
 import Service1 from '../Modals/Plan';
 import UserPage from '../Modals/UserPage';
 import { successNotification } from '../Modals/Notification';
-import {getAllPackages, sendPartnerMail} from "../ApiService"
+import {sendPartnerMail} from "../ApiService"
 import fetchAllRedux from '../redux/fetchAllRedux';
 
 function Services() {
@@ -44,12 +44,12 @@ function Services() {
             setSelectedItem(item);
             document.body.classList.add('modal-open');
         }
-
+    
         const closeModal = () => {
             setIsModalOpen(false);    
             document.body.classList.remove('modal-open');
         }
-
+    
         const serviceItems = [
                 { name: 'Amazon Business', code:"TAMZNBSN", link:"https://buy.stripe.com/test_dR64hnaoxeOG9I4cMN", description:"Description1 Lorem İpsum",  type: 'Business', firstPrice:"1.000",  month: false, price: '700', logo: "amazon.png", image: "amazon_business.png", },
                 { name: 'Amazon Global', type: 'Global', firstPrice:"1.400",  month: false, price: '1.000', logo: "amazon.png", image: "amazon_global.png", },
@@ -100,7 +100,7 @@ function Services() {
             }
             sessionStorage.setItem("tab", JSON.stringify(""));
         }, []);
-
+    
         useEffect(() => {
         const checkWidth = () => {
             setIsMobile(window.innerWidth < 992); // Adjust breakpoint as needed
@@ -113,8 +113,8 @@ function Services() {
             window.removeEventListener('resize', checkWidth);
         };
         }, []);
-
-
+    
+    
         const handleSendPartnerMail = async (serviceID) => {
             try {
             const result = await sendPartnerMail(accessToken, serviceID);
@@ -130,17 +130,22 @@ function Services() {
         };
         
           
-          const filterPackagesByFirstWord = (packages, keyword) => {
-            return packages.filter(pkg => {
-                return pkg.code.toLowerCase().startsWith(keyword.toLowerCase());
-            });
-          };
+        const filterPackagesByFirstWord = (packages, keyword) => {
+        return packages.filter(pkg => {
+            return pkg.code.toLowerCase().startsWith(keyword.toLowerCase());
+        });
+        };
 
+        const tostr = (x) => {
+            return toString(x)
+        }
+    
         useEffect(()=>{
-            console.log(servicepkgs)
+            console.log("SERVICES INSIDE")
+            console.log(partner.data.user)
         })
-          
-
+    
+    
         return (
     <>
     <Service1 isOpen={isModalOpen} onClose={closeModal} selectedItem={selectedItem} serviceItems={serviceItems} />
@@ -562,23 +567,43 @@ function Services() {
                                     <div className="hizmet-wrap-vezu">
                                         <p>Hizmet Açıklamalarını Okumak İçin Hizmetin Üstüne Tıklayınız.</p>
                                         <div className="row mt-3">
-                                            {partner.map((partner, index) => (
+                                            {partner.data.partners.map((ppartner, index) => (
                                                 <div className="col-12 col-lg-4 mb-4" key={index}>
                                                     <div className="">
                                                         <div className="accordion accordion-flush hizmet vezu" id={`accordionPanelsStayOpenExample-${index}`}>  
                                                             <div class="accordion-item">
-                                                                <h2 className="accordion-header" id={`panelsStayOpen-heading-${index}`}> 
+                                                                <h2 className="accordion-header" id={`panelsStayOpen-heading-${index}`}>
                                                                     <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#panelsStayOpen-collapse-${index}`} aria-expanded="false" aria-controls={`panelsStayOpen-collapse-${index}`}>    
-                                                                        <p className='hizmet-isim'>{partner.category}</p>
+                                                                        <p className='hizmet-isim'>{ppartner.category}</p>
                                                                     </button>
                                                                 </h2>
-                                                                <div id={`panelsStayOpen-collapse-${index}`} className="accordion-collapse collapse" aria-labelledby={`panelsStayOpen-heading-${index}`}>      
+                                                                <div id={`panelsStayOpen-collapse-${index}`} className="accordion-collapse collapse" aria-labelledby={`panelsStayOpen-heading-${index}`}>
                                                                     <div class="accordion-body pt-0">
-                                                                        <p className='hizmet-tür'>{partner.detail}</p>
+                                                                        <p className='hizmet-tür'>{ppartner.detail}</p>
                                                                     </div>
                                                                 </div>
-                                                        <button className='hizmet-buton' onClick={()=>handleSendPartnerMail(partner.partner_id)}>Teklif Alın</button>
-                                                        <img className='hizmet-img' src={logo} alt="" />
+                                                                {ppartner.partner_id !== undefined ? (
+                                                                    partner.data.user.includes(ppartner.partner_id.toString()) ? (
+                                                                        // If ppartner.partner_id exists in partner.data.user
+                                                                        <>
+                                                                            <button className='hizmet-buton'>
+                                                                                Teklifiniz Alındı 
+                                                                            </button>
+                                                                        </>
+                                                                    ) : (
+                                                                        // If ppartner.partner_id doesn't exist in partner.data.user
+                                                                        <>
+                                                                            <button className='hizmet-buton' onClick={() => handleSendPartnerMail(ppartner.partner_id)}>
+                                                                                Teklif Alın
+                                                                            </button>
+                                                                        </>
+                                                                    )
+                                                                ) : (
+                                                                    // Handle the case where ppartner.partner_id is undefined
+                                                                    // You can render some fallback UI or handle it as per your requirement
+                                                                    <div>Partner ID is undefined</div>
+                                                                )}
+                                                                <img className='hizmet-img' src={logo} alt="" />
                                                             </div>
                                                         </div>
                                                     </div>
