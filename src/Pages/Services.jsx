@@ -586,8 +586,8 @@ function Services() {
                                                                     partner.data.user.includes(ppartner.partner_id.toString()) ? (
                                                                         // If ppartner.partner_id exists in partner.data.user
                                                                         <>
-                                                                            <button className='hizmet-buton'>
-                                                                                Teklifiniz Alındı 
+                                                                            <button className='hizmet-buton2'>
+                                                                                Talebiniz Alındı
                                                                             </button>
                                                                         </>
                                                                     ) : (
