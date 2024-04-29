@@ -25,14 +25,14 @@ function Tutorials() {
     const [selectedVideoId, setSelectedVideoId] = useState("");
     const {plan} = useSelector((state) => state.plan);
     //------------------------------------------------------------------------------   
-    
-    const videos = [
-        { id: 1, name: "Amazon", url: ['jRg9e428tNo', "jRg9e428tNo", "jRg9e428tNo", 'jRg9e428tNo', "jRg9e428tNo", "jRg9e428tNo"] },
-        { id: 2, name: "Etsy", url: ['sYFyacD_OlE', "sYFyacD_OlE", "sYFyacD_OlE", 'sYFyacD_OlE', "sYFyacD_OlE", "sYFyacD_OlE"] },
-        { id: 3, name: "Emag", url: ['FyQ_5uLyFMo', "FyQ_5uLyFMo", "FyQ_5uLyFMo", 'FyQ_5uLyFMo', "FyQ_5uLyFMo", "FyQ_5uLyFMo"] },
-        { id: 4, name: "Allegro", url: ['jRg9e428tNo', "jRg9e428tNo", "jRg9e428tNo", 'jRg9e428tNo', "jRg9e428tNo", "jRg9e428tNo"] },
-      ];
 
+    const videos = [
+        { id: 1, name: "Amazon", url: ['17tn4nXVc3k', "17tn4nXVc3k", "17tn4nXVc3k", '17tn4nXVc3k', "17tn4nXVc3k", "17tn4nXVc3k"] },
+        { id: 2, name: "Etsy", url: ['6yaY3bdKqVU', "6yaY3bdKqVU", "6yaY3bdKqVU", '6yaY3bdKqVU', "6yaY3bdKqVU", "6yaY3bdKqVU"] },
+        { id: 3, name: "Emag", url: ['fwzoQ27Lsyc', "fwzoQ27Lsyc", "fwzoQ27Lsyc", 'fwzoQ27Lsyc', "fwzoQ27Lsyc", "fwzoQ27Lsyc"] },
+        { id: 4, name: "Allegro", url: ['Vp-sFmZqumI', "Vp-sFmZqumI", "Vp-sFmZqumI", 'Vp-sFmZqumI', "Vp-sFmZqumI", "Vp-sFmZqumI"] },
+        { id: 5, name: "Ozon Global", url: ['NZiD_X_K570', "NZiD_X_K570", "NZiD_X_K570", 'NZiD_X_K570', "NZiD_X_K570", "NZiD_X_K570"] },
+      ];
     const openModal = (videoId) => {
         setSelectedVideoId(videoId);
         setModalIsOpen(true);
