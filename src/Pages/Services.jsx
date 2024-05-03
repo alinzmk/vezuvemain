@@ -34,10 +34,12 @@ function Services() {
         
         const {servicepkgs} = useSelector((state) => state.servicepkgs);
         const {partner} = useSelector((state) => state.partner);
-
-        if(partner.length === 0){
+        
+        //------------------------------------------------------------------------------   
+        if(servicepkgs.length === 0){
             dispatch(fetchAllRedux())
-        }
+        }   
+        
         //------------------------------------------------------------------------------   
         const openModal = (item) => {
             setIsModalOpen(true);
@@ -139,11 +141,7 @@ function Services() {
         const tostr = (x) => {
             return toString(x)
         }
-    
-        useEffect(()=>{
-            console.log("SERVICES INSIDE")
-            console.log(partner.data.user)
-        })
+
     
     
         return (
@@ -567,7 +565,7 @@ function Services() {
                                     <div className="hizmet-wrap-vezu">
                                         <p>Hizmet Açıklamalarını Okumak İçin Hizmetin Üstüne Tıklayınız.</p>
                                         <div className="row mt-3">
-                                            {partner.data.partners.map((ppartner, index) => (
+                                            {partner && partner.data && partner.data.partners && partner.data.partners.map((ppartner, index) => (
                                                 <div className="col-12 col-lg-4 mb-4" key={index}>
                                                     <div className="">
                                                         <div className="accordion accordion-flush hizmet vezu" id={`accordionPanelsStayOpenExample-${index}`}>  

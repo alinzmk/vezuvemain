@@ -46,7 +46,6 @@ function Tutorials() {
     const getThumbnail = (link) =>{
         return "url('https://img.youtube.com/vi/"+link+"/sddefault.jpg')";
     }
-    console.log(plan)
 
 
 

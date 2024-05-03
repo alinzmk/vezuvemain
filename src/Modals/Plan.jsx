@@ -41,7 +41,7 @@ const Plan1 = ({isOpen,onClose,selectedItem, serviceItems }) => {
         sessionStorage.setItem("ckg", selectedItem.code);
         window.location.href =  selectedItem.link;
       }
-
+      
     function getFirstWordInLowerCase(str) {
     // Split the string by whitespace and get the first word
     const firstWord = str.split(' ')[0];
