@@ -459,6 +459,23 @@ $white: white;
   }
 
   .dashboard{
+    
+    /** FORADMIN**/
+    .profile-button{
+      padding: 0.3rem 0.7rem;
+      background-color: transparent;
+      border: 1px solid #270082;
+      color: #270082;
+      border-radius: 10px;
+        &:hover{
+          padding: 0.3rem 0.9rem;
+          background-color: transparent;
+          border: 1px solid #FA58B6;
+          color: #FA58B6;
+          border-radius: 10px;
+        }
+    }
+
     %dashboard1{
       background-color: $white;
       border-radius: 10px;

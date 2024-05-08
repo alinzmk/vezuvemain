@@ -358,86 +358,100 @@ a, a:hover {
   max-height: 100vh;
   overflow-x: hidden; }
 
-.dashboard #total-sales, .dashboard #total-purchases, .dashboard #total-orders {
-  background-color: white;
-  border-radius: 10px;
-  width: 32%;
-  margin: 0 0rem 0 0; }
-.dashboard #total-sales {
-  padding: 1rem 0 1rem  2rem; }
-.dashboard #total-purchases {
-  padding: 1rem 0 1rem 2rem; }
-.dashboard #total-orders {
-  padding: 1rem 0 1rem  2rem; }
-.dashboard #total-growth {
-  background-color: white;
-  border-radius: 10px;
-  width: 100%;
-  margin: 1rem 3rem 1rem 0;
-  padding: 1rem 31% 1rem 31%; }
-.dashboard .aylık {
-  font-size: 0.9rem !important;
-  color: rgba(28, 29, 34, 0.7); }
-.dashboard .plus {
-  border-radius: 500px;
-  background-color: #519c66;
-  width: 50%;
-  padding: 0 0 0 1rem;
-  position: relative;
-  top: 0;
-  margin: 0; }
-.dashboard .minus {
-  border-radius: 500px;
-  background-color: #cc5f5f;
-  width: 50%;
-  padding: 0 0 0 1rem;
-  position: relative;
-  top: 0;
-  margin: 0; }
-.dashboard .plus2 {
-  border-radius: 40px;
-  background-color: #519c66;
-  width: 50%;
-  padding: 0 0 0 1rem;
-  position: absolute;
-  left: -70%;
-  bottom: 15%;
-  margin: 0;
-  font-size: 2rem; }
-.dashboard .minus2 {
-  border-radius: 40px;
-  background-color: #cc5f5f;
-  width: 50%;
-  padding: 0 0 0 1rem;
-  position: absolute;
-  left: -70%;
-  bottom: 15%;
-  margin: 0;
-  font-size: 2rem; }
-.dashboard #graph {
-  background-color: white;
-  border-radius: 10px;
-  height: auto; }
-.dashboard #status {
-  font-size: 1rem;
-  background-color: white;
-  border-radius: 10px;
-  height: 23rem; }
-.dashboard #customer-info {
-  height: auto;
-  font-size: 1rem;
-  background-color: white;
-  border-radius: 10px; }
-.dashboard .main-info {
-  color: rgba(28, 29, 34, 0.6);
-  font-weight: 300;
-  margin: 0.5rem 0 0.5rem 0; }
-.dashboard .main-info2 {
-  color: #1c1d22;
-  font-size: 1.4rem;
-  font-weight: 300; }
-.dashboard .info-hr {
-  margin-right: 40%; }
+.dashboard {
+  /** FORADMIN**/ }
+  .dashboard .profile-button {
+    padding: 0.3rem 0.7rem;
+    background-color: transparent;
+    border: 1px solid #270082;
+    color: #270082;
+    border-radius: 10px; }
+    .dashboard .profile-button:hover {
+      padding: 0.3rem 0.9rem;
+      background-color: transparent;
+      border: 1px solid #FA58B6;
+      color: #FA58B6;
+      border-radius: 10px; }
+  .dashboard #total-sales, .dashboard #total-purchases, .dashboard #total-orders {
+    background-color: white;
+    border-radius: 10px;
+    width: 32%;
+    margin: 0 0rem 0 0; }
+  .dashboard #total-sales {
+    padding: 1rem 0 1rem  2rem; }
+  .dashboard #total-purchases {
+    padding: 1rem 0 1rem 2rem; }
+  .dashboard #total-orders {
+    padding: 1rem 0 1rem  2rem; }
+  .dashboard #total-growth {
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    margin: 1rem 3rem 1rem 0;
+    padding: 1rem 31% 1rem 31%; }
+  .dashboard .aylık {
+    font-size: 0.9rem !important;
+    color: rgba(28, 29, 34, 0.7); }
+  .dashboard .plus {
+    border-radius: 500px;
+    background-color: #519c66;
+    width: 50%;
+    padding: 0 0 0 1rem;
+    position: relative;
+    top: 0;
+    margin: 0; }
+  .dashboard .minus {
+    border-radius: 500px;
+    background-color: #cc5f5f;
+    width: 50%;
+    padding: 0 0 0 1rem;
+    position: relative;
+    top: 0;
+    margin: 0; }
+  .dashboard .plus2 {
+    border-radius: 40px;
+    background-color: #519c66;
+    width: 50%;
+    padding: 0 0 0 1rem;
+    position: absolute;
+    left: -70%;
+    bottom: 15%;
+    margin: 0;
+    font-size: 2rem; }
+  .dashboard .minus2 {
+    border-radius: 40px;
+    background-color: #cc5f5f;
+    width: 50%;
+    padding: 0 0 0 1rem;
+    position: absolute;
+    left: -70%;
+    bottom: 15%;
+    margin: 0;
+    font-size: 2rem; }
+  .dashboard #graph {
+    background-color: white;
+    border-radius: 10px;
+    height: auto; }
+  .dashboard #status {
+    font-size: 1rem;
+    background-color: white;
+    border-radius: 10px;
+    height: 23rem; }
+  .dashboard #customer-info {
+    height: auto;
+    font-size: 1rem;
+    background-color: white;
+    border-radius: 10px; }
+  .dashboard .main-info {
+    color: rgba(28, 29, 34, 0.6);
+    font-weight: 300;
+    margin: 0.5rem 0 0.5rem 0; }
+  .dashboard .main-info2 {
+    color: #1c1d22;
+    font-size: 1.4rem;
+    font-weight: 300; }
+  .dashboard .info-hr {
+    margin-right: 40%; }
 
 /** ana ekran bitiş**/
 /** PROFİL SEKMESİ**/
