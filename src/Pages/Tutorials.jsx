@@ -58,14 +58,55 @@ function Tutorials() {
         />
         
         <UserPage pageName={"Dersler"}>
-        {plan.currentPlan === "" ? (
+        {plan.currentPlan === "" || plan.currentPlan === " " || plan.currentPlan === null  ? (
+            <>
                 <>
-                    <div className='m-auto d-flex justify-content-center mt-5'>
-                        <h4>
-                            <i class="fa-solid fa-triangle-exclamation"></i>  Dersleri görmek için abonelik almanız gerekmektedir. <i class="fa-solid fa-triangle-exclamation"></i>
-                        </h4>
+    <div style={{ position: "relative" }}>
+        <div className="row justify-content-center justify-content-lg-start slideleft" style={{ filter: "blur(10px)" }}>
+            <div style={{ overflow: "hidden" }} className='col-11 pbg videoWrapper'>
+                {videos.map((video, index) => (
+                    <div className="row mt-3" key={index}>
+                        <h5>{video.name} Eğitim Videoları</h5>
+                        <Swiper
+                            breakpoints={{
+                                992: {
+                                    slidesPerView: 4,
+                                },
+                            }}
+                            spaceBetween={0}
+                            pagination={{
+                                clickable: true,
+                                dynamicBullets: true,
+                            }}
+                            modules={[Pagination]}
+                            className=""
+                        >
+                            {video.url.map((url, idx) => (
+                                <SwiperSlide key={idx}>
+                                    <div className="col-12 ">
+                                        <div style={{ backgroundImage: getThumbnail(url) }} className='text-center videoInner mx-5'></div>
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </div>
-                </>
+                ))}
+            </div>
+        </div>
+        {/* Centered div */}
+        <div className='position-fixed top-50 start-50 translate-middle' style={{ zIndex: 1 }}>
+            <div className='m-auto d-flex justify-content-center' style={{ backgroundColor: "white", borderRadius: "10px", border: "2px solid black", padding: "1rem" }}>
+                <i className="fa-solid fa-triangle-exclamation"></i>
+                <span className='mx-2'>Dersleri görmek için abonelik almanız gerekmektedir.</span>
+                <i className="fa-solid fa-triangle-exclamation"></i>
+            </div>
+        </div>
+    </div>
+</>
+
+
+            </>
+            
             ):(
                 <>
                     <div className="row  justify-content-center justify-content-lg-start slideleft">

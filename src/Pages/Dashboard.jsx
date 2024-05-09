@@ -42,7 +42,7 @@ function Dashboard() {
         return firstThreeTasks;
     };
       
-      const lastTasks = getTasksByDate();
+    const lastTasks = getTasksByDate();
       
     const totalGrowth = () => {
         if(month !== 0){
@@ -55,7 +55,23 @@ function Dashboard() {
         var previousSale = dash.sales[0][prevMonth].value
         var total = currentSale - previousSale;
         return total
+    }
+
+    const totalLastMonthGrowth = () => {
+        if(month !== 0){
+            var prevMonth = month - 1
+            var prevprevMotnh = month - 2
+        }
+        else if(month === 0){
+            prevMonth = 11 
+            prevprevMotnh = 10
+        }
+        var currentSale = dash.sales[0][prevMonth].value
+        var previousSale = dash.sales[0][prevprevMotnh].value
+        var total = currentSale - previousSale;
+        return total
     } 
+    
 
     const calculateRemainingDays = () => {
         const start = new Date(plan.startDate);
@@ -100,7 +116,28 @@ function Dashboard() {
         if (!isNaN(current) && !isNaN(previous)) {
             const change = parseInt(((current-previous)/previous)*100)
   
-            return <p className={change>0?"plus":"minus"}>%{change}</p>
+            return <p className={change>=0?"plus":"minus"}>%{change}</p>
+        } else {
+            return "no data"
+        }
+      };
+
+      const calculateGrowthPercentage = () => {
+        
+        if(month !== 0){
+            var prevMonth = month- 1
+        }
+        else if(month === 0){
+            var prevMonth = 11 
+        }
+
+        var current = parseFloat(totalGrowth())
+        var previous = parseFloat(totalLastMonthGrowth())
+
+        if (!isNaN(current) && !isNaN(previous)) {
+            const change = parseInt(((current-previous)/previous)*100)
+  
+            return <p className={change>=0?"plus2":"minus2"}>%{change}</p>
         } else {
             return "no data"
         }
@@ -170,7 +207,7 @@ function Dashboard() {
                                 {dash.sales ? (
                                     <>
                                         <h2>{totalGrowth()}$<span className='aylık'>/aylık</span></h2>
-                                        {/* <p className='plus2'>+%0</p> */}
+                                        {calculateGrowthPercentage()}
                                     </>
                                 ) : (
                                     <>

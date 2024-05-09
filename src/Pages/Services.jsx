@@ -139,7 +139,7 @@ function Services() {
                                                                                 <div className="col-xl-3 col-lg-6 col-12 mb-4">
                                                                                     <div  onClick={() => openModal(pkg)} className="hizmet amazon">
                                                                                         <p className='hizmet-isim' >{pkg.name}</p>
-                                                                                        <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                        <p className='hizmet-ücret' >{pkg.price}{pkg.currency}</p>
                                                                                         <img className='hizmet-img' src={amazon} alt="" />
                                                                                     </div>  
                                                                                 </div>  
@@ -165,7 +165,7 @@ function Services() {
                                                                     <div className="col-12 col-lg-3 mb-4">
                                                                         <div  onClick={() => openModal(pkg)} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >{pkg.name}</p>
-                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                             <img className='hizmet-img' src={amazon} alt="" />
                                                                         </div>  
                                                                     </div>  
@@ -191,7 +191,7 @@ function Services() {
                                                                         <div className="col-12 col-lg-3 mb-4">
                                                                             <div  onClick={() => openModal(pkg)} className="hizmet allegro">
                                                                                 <p className='hizmet-isim' >{pkg.name}</p>
-                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                                 <img className='hizmet-img' src={etsy} alt="" />
                                                                             </div>  
                                                                         </div>  
@@ -218,7 +218,7 @@ function Services() {
                                                                     <div className="col-12 col-lg-3 mb-4">
                                                                         <div  onClick={() => openModal(pkg)} className="hizmet allegro">
                                                                             <p className='hizmet-isim' >{pkg.name}</p>
-                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                             <img className='hizmet-img' src={allegro} alt="" />
                                                                         </div>  
                                                                     </div>  
@@ -245,7 +245,7 @@ function Services() {
                                                                     <div className="col-12 col-lg-3 mb-4">
                                                                         <div  onClick={() => openModal(pkg)} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >{pkg.name}</p>
-                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                             <img className='hizmet-img' src={trendyol} alt="" />
                                                                         </div>  
                                                                     </div>  
@@ -271,7 +271,7 @@ function Services() {
                                                                         <div className="col-12 col-lg-3 mb-4">
                                                                             <div  onClick={() => openModal(pkg)} className="hizmet walmart">
                                                                                 <p className='hizmet-isim' >{pkg.name}</p>
-                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                                 <img className='hizmet-img' src={walmart} alt="" />
                                                                             </div>  
                                                                         </div>  
@@ -297,7 +297,7 @@ function Services() {
                                                                         <div className="col-12 col-lg-3 mb-4">
                                                                             <div  onClick={() => openModal(pkg)} className="hizmet wayfair">
                                                                                 <p className='hizmet-isim' >{pkg.name}</p>
-                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                                 <img className='hizmet-img' src={wayfair} alt="" />
                                                                             </div>  
                                                                         </div>  
@@ -324,7 +324,7 @@ function Services() {
                                                                         <div className="col-12 col-lg-3 mb-4">
                                                                             <div  onClick={() => openModal(pkg)} className="hizmet walmart">
                                                                                 <p className='hizmet-isim' >{pkg.name}</p>
-                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                                 <img className='hizmet-img' src={emag} alt="" />
                                                                             </div>  
                                                                         </div>  
@@ -350,7 +350,7 @@ function Services() {
                                                                         <div className="col-12 col-lg-3 mb-4">
                                                                             <div  onClick={() => openModal(pkg)} className="hizmet ozon">
                                                                                 <p className='hizmet-isim' >{pkg.name}</p>
-                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                                 <img className='hizmet-img' src={ozon} alt="" />
                                                                             </div>  
                                                                         </div>  
@@ -385,7 +385,7 @@ function Services() {
                                                                     <div className="col-xl-3 col-lg-6 col-12 mb-4" key={index}>
                                                                         <div  onClick={() => openModal(pkg)} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >{pkg.name}</p>
-                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                             <img className='hizmet-img' src={amazon} alt="" />
                                                                         </div>  
                                                                     </div>  
@@ -400,7 +400,7 @@ function Services() {
                                                                     <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                         <div  onClick={() => openModal(pkg)} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >{pkg.name}</p>
-                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                             <img className='hizmet-img' src={amazon} alt="" />
                                                                         </div>  
                                                                     </div>  
@@ -415,7 +415,7 @@ function Services() {
                                                                     <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                         <div  onClick={() => openModal(pkg)} className="hizmet allegro">
                                                                             <p className='hizmet-isim' >{pkg.name}</p>
-                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                             <img className='hizmet-img' src={etsy} alt="" />
                                                                         </div>  
                                                                     </div>  
@@ -430,7 +430,7 @@ function Services() {
                                                                     <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                         <div  onClick={() => openModal(pkg)} className="hizmet allegro">
                                                                             <p className='hizmet-isim' >{pkg.name}</p>
-                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                             <img className='hizmet-img' src={allegro} alt="" />
                                                                         </div>  
                                                                     </div>  
@@ -445,7 +445,7 @@ function Services() {
                                                                     <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                         <div  onClick={() => openModal(pkg)} className="hizmet amazon">
                                                                             <p className='hizmet-isim' >{pkg.name}</p>
-                                                                            <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                            <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                             <img className='hizmet-img' src={trendyol} alt="" />
                                                                         </div>  
                                                                     </div>  
@@ -461,7 +461,7 @@ function Services() {
                                                                         <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                             <div  onClick={() => openModal(pkg)} className="hizmet walmart">
                                                                                 <p className='hizmet-isim' >{pkg.name}</p>
-                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                                 <img className='hizmet-img' src={walmart} alt="" />
                                                                             </div>  
                                                                         </div>  
@@ -476,7 +476,7 @@ function Services() {
                                                                         <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                             <div  onClick={() => openModal(pkg)} className="hizmet wayfair">
                                                                                 <p className='hizmet-isim' >{pkg.name}</p>
-                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                                 <img className='hizmet-img' src={wayfair} alt="" />
                                                                             </div>  
                                                                         </div>  
@@ -491,7 +491,7 @@ function Services() {
                                                                         <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                             <div  onClick={() => openModal(pkg)} className="hizmet walmart">
                                                                                 <p className='hizmet-isim' >{pkg.name}</p>
-                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                                 <img className='hizmet-img' src={emag} alt="" />
                                                                             </div>  
                                                                         </div>  
@@ -506,7 +506,7 @@ function Services() {
                                                                         <div className="col-12 col-lg-3 mb-4" key={index}>
                                                                             <div  onClick={() => openModal(pkg)} className="hizmet ozon">
                                                                                 <p className='hizmet-isim' >{pkg.name}</p>
-                                                                                <p className='hizmet-ücret' >{pkg.price}$</p>
+                                                                                <p className='hizmet-ücret' >{pkg.price} {pkg.currency}</p>
                                                                                 <img className='hizmet-img' src={ozon} alt="" />
                                                                             </div>  
                                                                         </div>  

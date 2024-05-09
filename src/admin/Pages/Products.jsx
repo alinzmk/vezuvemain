@@ -126,23 +126,29 @@ function Products() {
             <button onClick={handleDownloadUserProductsAsExcel} class="product-btn mx-1">
                 <i class="fa-solid fa-cloud-arrow-down"></i>
             </button>
-            <button class="product-btn mx-1" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa-solid fa-plus"></i>
-            </button>
-            <div class="dropdown-menu upload" aria-labelledby="dropdownMenuButton">
-                <div class="dropdown-item">
-                    <form>
-                        <label for="file-upload" class="add-product">
-                            <i class="fa-solid fa-plus"></i> Dosya Yüklemek İçin Tıklayınız
-                        </label>
-                        <input id="file-upload" class="d-none" type="file" onchange={handleFileUpload}/>
-                    </form>
-                </div>
-                <hr class='dropdown-divider'/>
-                <div class="dropdown-item">
-                    <Modal/>
-                </div>
-            </div>
+            <div class="dropdown d-inline">
+                                <button class="product-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-plus "></i>
+                                </button>
+                                <div class="dropdown-menu upload" aria-labelledby="dropdownMenuButton">
+                                    <div className="row product-dropdown">
+                                        <div className="col-12 dropdown-item m-0">
+                                            <form>
+                                                <label htmlFor="file-upload" className="add-product">
+                                                    <i className="fa-solid fa-plus"></i> Dosya Yüklemek İçin Tıklayınız
+                                                </label>
+                                                <input id="file-upload" className="d-none" type="file" onChange={handleFileUpload} />
+                                            </form>
+                                        </div>
+
+                                        <hr className='dropdown-divider' />
+                                        
+                                        <div className="col-12 dropdown-item m-0">
+                                            <Modal/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
         </div>
     </div>
 

@@ -242,7 +242,6 @@ function Dashboard() {
                                 ) : (
                                     <>
                                         <h2>0000$<span className='aylık'>/aylık</span></h2>
-                                        <p className='plus2'>+%0</p>
                                     </>
                             )}
                             </div>
