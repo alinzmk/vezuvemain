@@ -35,7 +35,7 @@
 html {
   height: 100%;
   scrollbar-width: thin;
-  scrollbar-color: #2e2e2e #0a1119;
+  scrollbar-color: rgba(85, 112, 241, 0.1) white;
   scroll-behavior: smooth;
   scroll-padding: 100px; }
 

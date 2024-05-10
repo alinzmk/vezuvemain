@@ -10,8 +10,6 @@ export const getMarketReqAdmin = createAsyncThunk('getMarketReqAdmin', async() =
   const userID = parseInt(sessionStorage.getItem("selectedCustomer"))
   try {
     const result = await getMarketRequirements(accessToken, userID);
-    console.log("MARKET REQ RESULT")
-    console.log(result)
     return result.requirements
   } catch (error) {
       console.log(error)

@@ -116,7 +116,6 @@ function Documents() {
       
     const handleSetMarketRequirement = async (checkedReq, boolean) => {
     try {
-        console.log(checkedReq);
         await setMarketRequirements(accessToken , checkedReq , boolean, customerId); // Example: set a requirement as added
         dispatch(fetchAdminRedux())
     } catch (error) {

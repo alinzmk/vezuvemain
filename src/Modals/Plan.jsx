@@ -75,7 +75,7 @@ const Plan1 = ({isOpen,onClose,selectedItem, serviceItems }) => {
                                         <h6 style={{fontSize:"0.7rem"}} className='m-0'>%20 İNDİRİM</h6>
                                     </div>
                                 </div> */}
-                                <h4 className='modal-info-4'>{selectedItem.price}${selectedItem.code && selectedItem.code.slice(-3).toUpperCase() === 'ABN' && (<span className='month'>/aylık</span>)}</h4>
+                                <h4 className='modal-info-4'>{selectedItem.price} {selectedItem.currency}{selectedItem.code && selectedItem.code.slice(-3).toUpperCase() === 'ABN' && (<span className='month'>/aylık</span>)}</h4>
                                 <h6>Kredi kartına Ayda 12 Taksit!</h6>
                             </div>
                             <ul className='mt-4 ps-3'>
@@ -148,7 +148,7 @@ const Plan1 = ({isOpen,onClose,selectedItem, serviceItems }) => {
                                         <h6 style={{fontSize:"0.7rem"}} className='m-0'>%20 İNDİRİM</h6>
                                     </div>
                                 </div> */}
-                                <h4 className='modal-info-4'>{selectedItem.price}${/* {selectedItem.month && (<span className='month'>/aylık</span>)} */}</h4>
+                                <h4 className='modal-info-4'>{selectedItem.price} {selectedItem.currency}{/* {selectedItem.month && (<span className='month'>/aylık</span>)} */}</h4>
                                 <h6>Kredi kartına Ayda 12 Taksit!</h6>
                             </div>
                             {/* <ul style={{listStyle:"none"}} className='mt-1 ps-3'>

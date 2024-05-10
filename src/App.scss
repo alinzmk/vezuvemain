@@ -62,7 +62,7 @@ $white: white;
   html{
     height: 100%;
     scrollbar-width: thin;
-    scrollbar-color: #2e2e2e #0a1119;
+    scrollbar-color: $primary01 $white;
     scroll-behavior: smooth;
     scroll-padding: 100px;
   }

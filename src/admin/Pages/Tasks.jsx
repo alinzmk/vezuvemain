@@ -34,7 +34,6 @@ function Tasks() {
     const handleCreateUserTask = async () => {
         try {
             const response = await createUserTask( user_id, taskName, accessToken);
-            console.log('User task created successfully:', response);
             dispatch(getTaskAdmin())
         } catch (error) {
           console.error('Error creating user task:', error);

@@ -428,7 +428,8 @@ export const setMarketRequirements = async (accessToken, requirement, isAdded, c
         'Content-Type': 'application/json',
       },
     });
-
+    console.log("SET REQ")
+    console.log(response)
     // Check if the request was successful
     if (response.status === 200) {
       return true;

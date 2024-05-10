@@ -84,18 +84,6 @@ export default function App(props) {
 
   const handleSubmit = (e) => {
       e.preventDefault();
-
-      console.log(
-        "employeeCount: ",employeeCount,
-        "productCategory: ",productCategory,
-        "TurkeySalesVolume: ",TurkeySalesVolume,
-        "hasWebsite: ",hasWebsite,
-        "hasTurkeySales: ",hasTurkeySales,
-        "hasInternationalSales: ",hasInternationalSales,
-        "hasStore: ",hasStore,
-        "desiInfo: ",desiInfo,)
-
-
       handleGetMarketFinder()
       
 

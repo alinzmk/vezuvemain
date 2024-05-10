@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import fetchAllRedux from '../redux/fetchAllRedux';
 import { useNavigate } from 'react-router-dom';
 import UserPage from '../Modals/UserPage';
+import { successNotification } from '../Modals/Notification';
 
 function Documents() {
 
@@ -29,7 +30,8 @@ function Documents() {
     const handleUploadDocument = async (fileName, selectedFile) => {
       try {
         const result = await uploadDocument(accessToken, fileName, selectedFile);
-        if (result.status === 200) {    
+        if (result.status === 200) {
+            successNotification("Dosyanız Başarıyla Yüklendi")  
             dispatch(getDocData());
         } else {
             console.error('Failed to upload document.');
