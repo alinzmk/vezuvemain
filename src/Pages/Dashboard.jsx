@@ -116,7 +116,7 @@ function Dashboard() {
         if (!isNaN(current) && !isNaN(previous)) {
             const change = parseInt(((current-previous)/previous)*100)
   
-            return <p className={change>=0?"plus":"minus"}>%{change}</p>
+            return <p className={change<0?"minus":"plus"}>%{change}</p>
         } else {
             return "no data"
         }
@@ -137,7 +137,7 @@ function Dashboard() {
         if (!isNaN(current) && !isNaN(previous)) {
             const change = parseInt(((current-previous)/previous)*100)
   
-            return <p className={change>=0?"plus2":"minus2"}>%{change}</p>
+            return <p className={change<0?"minus2":"plus2"}>%{change}</p>
         } else {
             return "no data"
         }

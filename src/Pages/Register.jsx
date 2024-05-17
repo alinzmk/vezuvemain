@@ -1,20 +1,37 @@
 import React, { useState } from 'react';
 import '../App.css';
 import logo from "../Assets/logo-renkli.png";
-import { registerEarlyUser } from '../ApiService';
+import { registerEarlyUser, registerUser } from '../ApiService';
 import { warningNotification } from '../Modals/Notification';
 import Lottie from 'lottie-react';
 import check from '../Assets/animations/check.json';
+import sha256 from 'crypto-js/sha256';
 
 function Register() {
 
+  /* mail (str)
+  şifre (str hashli sha256)
+  telefon (str)
+  İsim-soyisim (str)
+  Şirket adı (str)
+ */
+
   const [username, setUsername] = useState('');
+  const [companyname, setCompanyname] = useState('');
   const [mail, setMail] = useState('');
   const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [hashedPassword, setHashedPassword] = useState('');
   const [isRegister, setIsRegister] = useState(false); 
 
   const handleUsername = (event) => {
     setUsername(event.target.value);
+  }
+  const handleCompanyname = (event) => {
+    setCompanyname(event.target.value);
+  }
+  const handlePassword = (event) => {
+    setPassword(event.target.value);
   }
   const handleMail = (event) => {
     let temp = event.target.value.trim()
@@ -28,24 +45,25 @@ function Register() {
     }
   }
 
-const handleRegisterEarlyUser = async () => {
-  try {
-    // Call the registerEarlyUser function with the user's data
-    const response = await registerEarlyUser(mail, username, phone);
-    if(response.status===200){
-      setIsRegister(true)
+  const handleRegisterUser = async () => {
+    
+    
+    try {
+      // Call the registerEarlyUser function with the user's data
+      const response = await registerUser(mail, password, phone, username, companyname);
+      if(response.status===200){
+        setIsRegister(true)
+      }
+      else if(response.status===403){
+        warningNotification("Bu mail adresi sistemimize kayıtlıdır")
+      }
+      console.log('QQQQerror user registered successfully:');
+      // Handle success
+    } catch (error) {
+      console.error('QQQQerror registering early user:', error);
+      // Handle error
     }
-    else if(response.status===403){
-      warningNotification("Bu mail adresi sistemimize kayıtlıdır")
-    }
-    console.log('Early user registered successfully:');
-    // Handle success
-  } catch (error) {
-    console.error('Error registering early user:', error);
-    // Handle error
-  }
-};
-  
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -57,8 +75,7 @@ const handleRegisterEarlyUser = async () => {
       warningNotification("Lütfen geçerli bir e-posta adresi giriniz.");
       return;
     }
-    
-    handleRegisterEarlyUser();
+    handleRegisterUser();
   };
 
   
@@ -72,7 +89,7 @@ const handleRegisterEarlyUser = async () => {
             <div className='info-container d-flex d-lg-block justify-content-center'>
               <div className="info-modal text-center">
                 <Lottie style={{height:"100px"}} loop={false} animationData={check}/>
-                <p className='m-0'>Vezuporta kayıt oluşturduğunuz için teşekkür ederiz. Uygulamamız yayınlandığında sizi bilgilendireceğiz.</p>
+                <p className='m-0'>Vezuporta kayıt olduğunuz için teşekkür ederiz. Bilgileriniz kontrol edildiğinde sizi bilgilendireceğiz.</p>
               </div>
             </div>
           </>
@@ -105,12 +122,33 @@ const handleRegisterEarlyUser = async () => {
                       required />
                 </div>
                 <div className="row">
+                  <i class="fa-solid fa-at"></i>
+                  <input 
+                      value={companyname} 
+                      onChange={handleCompanyname} 
+                      type="text" 
+                      placeholder="Şirket İsmi" 
+                      title="Şirket İsmi"
+                      maxLength={30}
+                      required />
+                </div>
+                <div className="row">
                   <i class="fa-solid fa-phone"></i>
                   <input value={phone} 
                           onChange={handlePhone} 
                           type="text" 
                           placeholder="Telefonunuz"
                           title="Telefonunuz"
+                          maxLength={15}
+                          required />
+                </div>
+                <div className="row">
+                  <i class="fa-solid fa-phone"></i>
+                  <input value={password} 
+                          onChange={handlePassword} 
+                          type="text" 
+                          placeholder="Şifreniz"
+                          title="Şifreniz"
                           maxLength={15}
                           required />
                 </div>

@@ -21,6 +21,8 @@ function Documents() {
     const {doc} = useSelector((state) => state.doc);
     const {marketreq} = useSelector((state) => state.marketreq);
     const dispatch = useDispatch();
+    console.log(doc)
+    console.log(marketreq)
    //------------------------------------------------------------------------------   
     if(doc.length === 0){
         dispatch(fetchAllRedux())
