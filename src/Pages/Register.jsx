@@ -122,7 +122,7 @@ function Register() {
                       required />
                 </div>
                 <div className="row">
-                  <i class="fa-solid fa-at"></i>
+                  <i class="fa-solid fa-building"></i>
                   <input 
                       value={companyname} 
                       onChange={handleCompanyname} 
@@ -143,7 +143,7 @@ function Register() {
                           required />
                 </div>
                 <div className="row">
-                  <i class="fa-solid fa-phone"></i>
+                  <i class="fa-solid fa-key"></i>
                   <input value={password} 
                           onChange={handlePassword} 
                           type="text" 
