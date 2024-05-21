@@ -422,3 +422,25 @@ export const setMarketRequirements = async (accessToken, requirement, isAdded) =
     console.error('Error setting market requirement:', error);
   }
 };
+
+
+export const getAnnouncements = async (accessToken) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/get_announcements`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`, // Replace accessToken with your actual access token
+      },
+    });
+
+    // Check if the request was successful
+    if (response.status === 200) {
+      return response.data.data;
+    } else {
+      console.error('Failed to fetch announcements:', response.statusText);
+      return null; // Or handle error accordingly
+    }
+  } catch (error) {
+    console.error('Error fetching announcements:', error);
+    return null; // Or handle error accordingly
+  }
+};
