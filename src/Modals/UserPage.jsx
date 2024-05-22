@@ -50,8 +50,8 @@ const UserPage = ({ pageName, children }) => {
             </div>
             <div className="container mt-4 slideleft right">
               <div className="row justify-content-center justify-content-lg-start">
-                <div className="col-12 mb-0">
-                  <div>
+                <div className="col-12 mb-0 p-0">
+                  <div id="announcement">
                   <Swiper
                     loop={true}
                     speed={8000}
@@ -71,7 +71,7 @@ const UserPage = ({ pageName, children }) => {
                   </Swiper>
                   </div>
                   <div className="row mb-3 me-0 me-lg-5 align-items-center">
-                    <div className="col-auto p-0 d-flex">
+                    <div className="col-auto d-flex">
                       <button
                         id="sideOpen"
                         className="d-block d-lg-none me-2"
@@ -80,6 +80,28 @@ const UserPage = ({ pageName, children }) => {
                         <i class="fa-solid fa-bars"></i>
                       </button>
                       <h4 className="purple w-auto m-auto">{pageName}</h4>
+                      {pageName==="Proje Alanı"?(<>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-primary dropdown-toggle ms-3" data-bs-toggle="dropdown" aria-expanded="false">
+                            Amazon
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Amazon</a></li>
+                            <li><a class="dropdown-item" href="#">Amazon Handmade</a></li>
+                            <li><a class="dropdown-item" href="#">Etsy</a></li>
+                            <li><a class="dropdown-item" href="#">Allegro</a></li>
+                            <li><a class="dropdown-item" href="#">Trendyol</a></li>
+                            <li><a class="dropdown-item" href="#">Walmart</a></li>
+                            <li><a class="dropdown-item" href="#">Wayfair</a></li>
+                            <li><a class="dropdown-item" href="#">Emag</a></li>
+                            <li><a class="dropdown-item" href="#">Ozon</a></li>
+                          </ul>
+                        </div>
+                      </>):(<>
+                      
+                      </>)
+  
+                      }
                     </div>
                     <div className="col text-end p-0">
                       {isMobile ? (
