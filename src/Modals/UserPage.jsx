@@ -61,11 +61,11 @@ const UserPage = ({ pageName, children }) => {
                     }}
                     navigation={false}
                     modules={[Autoplay]}
-                    className="mySwiper"
+                    className="mySwiper1"
                   >
                       {announcement && announcement.map((announ, index)=>
                         <SwiperSlide>
-                            <h5 className="d-flex justify-content-center">{announcement[index].announcement}</h5>
+                            <h5 className="d-flex justify-content-center ps-3 p-1">{announcement[index].announcement}</h5>
                         </SwiperSlide>
                       )}
                   </Swiper>

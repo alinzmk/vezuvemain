@@ -1655,7 +1655,14 @@ a:hover {
     rgba(85, 112, 241, 0.9) 75%,
     rgba(250, 88, 182, 0.9) 100%
   );
+  .mySwiper1{
+    .swiper-slide{
+      margin: auto;
+    }
+  }
 }
+
+
 
 @media only screen and (max-width: 1200px) {
   body {

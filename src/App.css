@@ -1179,6 +1179,8 @@ a:hover {
   background: -moz-linear-gradient(122deg, rgba(62, 79, 162, 0.9) 12%, rgba(85, 112, 241, 0.9) 75%, rgba(250, 88, 182, 0.9) 100%);
   background: -webkit-linear-gradient(122deg, rgba(61, 77, 157, 0.9) 12%, rgba(85, 112, 241, 0.9) 75%, rgba(250, 88, 182, 0.9) 100%);
   background: linear-gradient(122deg, rgba(64, 80, 163, 0.9) 12%, rgba(85, 112, 241, 0.9) 75%, rgba(250, 88, 182, 0.9) 100%); }
+  #announcement .mySwiper1 .swiper-slide {
+    margin: auto; }
 
 @media only screen and (max-width: 1200px) {
   .chart-wrapper {
