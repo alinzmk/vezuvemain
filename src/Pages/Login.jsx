@@ -83,7 +83,7 @@ function Login() {
             <form action="#">
               <div className="row">
                 <i className="fas fa-user"></i>
-                <input value={username} onChange={handleUsername} type="email" placeholder="E-posta veya Telefon*" required />
+                <input value={username} onChange={handleUsername} type="email" placeholder="E-posta*" required />
               </div>
               <div className="row">
                 <i className="fas fa-lock"></i>
