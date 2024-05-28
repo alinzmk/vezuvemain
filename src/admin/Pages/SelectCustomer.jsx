@@ -17,6 +17,7 @@ function SelectCustomer() {
     const [selectedCustomer, setSelectedCustomer] = useState(null); // Define selectedCustomer state
 
     const selectCustomer = (id) =>{
+
         const selectedUser = useradmin.find(user => user.user_id === id);
 
         if (selectedUser) {
@@ -28,7 +29,7 @@ function SelectCustomer() {
             // Handle the case where no matching user is found (optional)
             console.error('User not found');
         }
-    };  
+    };
     
     useEffect(() => {
         if(useradmin.length === 0){
