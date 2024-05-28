@@ -100,11 +100,11 @@ function Login() {
                   onClick={handleTogglePassword}
                 ></i>
               </div>
-              <div className="pass"><a href="#">Şifremi Unuttum</a></div>
+              {/* <div className="pass"><a href="#">Şifremi Unuttum</a></div> */}
               <div className="row button">
                 <input onClick={handleSubmit} type="submit" value="Giriş Yap" />
               </div>
-              <div className="pass" onClick={()=>navigate("/kayit")}><a href="">Hala VezüPort ile tanışmadın mı? Buraya tıklayarak erken kayıt olabilirsin.</a></div>
+              <div className="pass" onClick={()=>navigate("/kayit")}><a href="">Yeni kayıt oluşturmak için tıklayınız</a></div>
             </form>
           </div>
         </div>
