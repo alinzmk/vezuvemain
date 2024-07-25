@@ -121,7 +121,11 @@ const UserPage = ({ pageName, children }) => {
                     <div className="col text-end p-0">
                       {isMobile ? (
                         <>
-                          <i onClick={() => openModal()} class="fa-solid fa-graduation-cap" style={{margin:"10px 10px auto auto", fontSize:"24px", color:"#1c1d22", cursor:"pointer"}}></i>
+                          <span className="nasilKullanilir" style={{marginRight:"20px"}}>
+                            <i onClick={() => openModal()} class="fa-solid fa-graduation-cap" style={{margin:"10px auto auto auto", fontSize:"24px", color:"#1c1d22", cursor:"pointer"}}>
+                              <span style={{fontFamily:"Poppins"}}>?</span> </i>
+                          </span>
+
                           <img
                             src={mobilelogo}
                             style={{ maxWidth: "4rem" }}
@@ -131,7 +135,11 @@ const UserPage = ({ pageName, children }) => {
                         </>
                       ) : (
                         <>
-                          <i onClick={() => openModal()} class="fa-solid fa-graduation-cap" style={{margin:"3px 10px auto auto ", fontSize:"24px", color:"#1c1d22", cursor:"pointer"}}></i>
+                          <span className="nasilKullanilir" style={{marginRight:"20px"}}>
+                            <i onClick={() => openModal()} class="fa-solid fa-graduation-cap" style={{margin:"3px auto auto auto ", fontSize:"24px", color:"#1c1d22", cursor:"pointer"}}>
+                              <span style={{fontFamily:"Poppins"}}>?</span> </i>
+                          </span>
+
                           <img src={logo} className="sidebar-logo" alt="" />
                         </>
                       )}
