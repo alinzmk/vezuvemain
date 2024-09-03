@@ -5,12 +5,13 @@ import {  Link, useNavigate  } from 'react-router-dom';
 
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { getLocalPaymentLink } from '../ApiService';
 
 const Plan1 = ({isOpen,onClose,selectedItem, serviceItems }) => {
 
-    const [accessToken, setAccessToken] = useState('your-access-token'); // Replace with actual access token
     const [productId, setProductId] = useState('your-product-id'); // Replace with actual product ID
     const [isMobile, setIsMobile] = useState(false);
+    const accessToken = sessionStorage.getItem("token");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -37,7 +38,26 @@ const Plan1 = ({isOpen,onClose,selectedItem, serviceItems }) => {
 
 
 
+    const handleGetLocalPaymentLink = async (productID) => {
+        try {
+          const data = await getLocalPaymentLink(accessToken, productID);
+          if (data && data.status !== 403) {
+            window.open(data.data, "_blank")
+            console.log('Local payment link retrieved successfully');
+          } else {
+            console.log('Failed to retrieve local payment link');
+          }
+        } catch (error) {
+          console.error('Error retrieving local payment link:', error);
+        }
+      };
+
     const purchaseService = () => {
+        console.log(selectedItem.package_id)
+        handleGetLocalPaymentLink(selectedItem.package_id)
+      }
+
+      const purchaseServiceStripe = () => {
         sessionStorage.setItem("ckg", selectedItem.code);
         window.location.href =  selectedItem.link;
       }
@@ -101,7 +121,8 @@ const Plan1 = ({isOpen,onClose,selectedItem, serviceItems }) => {
                                 )} */}
                             </ul>
 
-                            <button onClick={purchaseService} className='satin-al mt-4 d-flex' type="">Satın Al</button>
+                            <button onClick={purchaseService} className='satin-al mt-4 d-flex' type="">Satın Al (Yurtiçi)</button>
+                            <button onClick={purchaseServiceStripe} className='satin-al mt-2 d-flex' type="">Satın Al (Yurtdışı)</button>
 
                             
                             

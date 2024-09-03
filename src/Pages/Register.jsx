@@ -31,9 +31,6 @@ function Register() {
   const handleUsername = (event) => {
     setUsername(event.target.value);
   };
-  const handleCompanyname = (event) => {
-    setCompanyname(event.target.value);
-  };
   const handlePassword = (event) => {
     setPassword(event.target.value);
   };
@@ -60,6 +57,7 @@ function Register() {
         username,
         companyname
       );
+      console.log(response)
       if (response.status === 200) {
         navigate("/");
         successNotification("Kaydınız başarıyla oluşturuldu!");
@@ -140,18 +138,6 @@ function Register() {
                       placeholder="E-postanız"
                       title="E-postanız"
                       maxLength={60}
-                      required
-                    />
-                  </div>
-                  <div className="row">
-                    <i class="fa-solid fa-building"></i>
-                    <input
-                      value={companyname}
-                      onChange={handleCompanyname}
-                      type="text"
-                      placeholder="Şirket İsmi"
-                      title="Şirket İsmi"
-                      maxLength={30}
                       required
                     />
                   </div>

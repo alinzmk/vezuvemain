@@ -15,7 +15,7 @@ import trendyol from "../Assets/trendyol.png";
 import Service1 from "../Modals/Plan";
 import UserPage from "../Modals/UserPage";
 import { successNotification } from "../Modals/Notification";
-import { sendPartnerMail } from "../ApiService";
+import { getLocalPaymentLink, sendPartnerMail } from "../ApiService";
 import fetchAllRedux from "../redux/fetchAllRedux";
 
 function Services() {
@@ -94,10 +94,18 @@ function Services() {
     });
   };
 
-  const tostr = (x) => {
-    return toString(x);
+  const handleGetLocalPaymentLink = async (productID) => {
+    try {
+      const data = await getLocalPaymentLink(productID);
+      if (data && data.status !== 403) {
+        console.log('Local payment link retrieved successfully');
+      } else {
+        console.log('Failed to retrieve local payment link');
+      }
+    } catch (error) {
+      console.error('Error retrieving local payment link:', error);
+    }
   };
-
   return (
     <>
       <Service1

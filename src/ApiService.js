@@ -27,8 +27,7 @@ export const loginUser = async (username, password) => {
 };
 
 export const registerUser = async (mail, password, phone, name, companyname) => {
-  
-    let hash = SHA256(password).toString();
+  let hash = SHA256(password).toString();
   try {
     const response = await axios.post(
       `${BASE_URL}/register_new_user`,
@@ -45,6 +44,7 @@ export const registerUser = async (mail, password, phone, name, companyname) => 
         },
       }
     );
+    console.log(response)
     return response.data;
   } catch (error) {
     console.error('Error registering early user:', error);
@@ -481,5 +481,56 @@ export const resetPassword = async (token, newPassword) => {
   } catch (error) {
     console.error('Error resetting password:', error);
     return null;
+  }
+};
+
+
+export const getProductDetailLink = async (accessToken) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/get_product_detail_link`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to get product detail link:', response.statusText);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error getting product detail link:', error);
+    return null;
+  }
+};
+
+
+
+export const getLocalPaymentLink = async (accessToken, productID) => {
+  console.log(accessToken, productID);
+
+  try {
+    const response = await axios.get(`${BASE_URL}/get_local_payment_link`, {
+      params: { productID },
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      },
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error('Failed to get local payment link:', response.statusText);
+      return null;
+    }
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      console.error('Forbidden:', error.response.data);
+      return { status: 403, message: "Forbidden" };
+    } else {
+      console.error('Error getting local payment link:', error);
+      return null;
+    }
   }
 };

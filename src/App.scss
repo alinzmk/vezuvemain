@@ -123,7 +123,7 @@ a:hover {
   display: flex;
   max-width: 10rem !important;
   height: auto;
-  margin: 5px 0 auto auto;
+  margin: auto 0 auto auto;
   float: right;
 }
 
@@ -1582,23 +1582,12 @@ a:hover {
   }
 }
 
-.nasilKullanilir{
-  
-  .fa-graduation-cap{
-    border-radius: 10px;
-    padding: 5px;
-    margin: 0;
-    background-color: $primary10;
-    border: 1px solid $white;
-    color: $white !important;
-    transition: .5s ease-in-out ;
-  
-    &:hover{
-      transform: scale(0.9);
-    }
+.howto{
+  transition: .5s ease-in-out ;
+  &:hover{
+    transform: scale(0.9);
   }
 }
-
 
 /* video modal BİTİŞ" */
 
