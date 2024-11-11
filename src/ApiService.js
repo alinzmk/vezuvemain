@@ -504,33 +504,3 @@ export const getProductDetailLink = async (accessToken) => {
     return null;
   }
 };
-
-
-
-export const getLocalPaymentLink = async (accessToken, productID) => {
-  console.log(accessToken, productID);
-
-  try {
-    const response = await axios.get(`${BASE_URL}/get_local_payment_link`, {
-      params: { productID },
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-      },
-    });
-
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      console.error('Failed to get local payment link:', response.statusText);
-      return null;
-    }
-  } catch (error) {
-    if (error.response && error.response.status === 403) {
-      console.error('Forbidden:', error.response.data);
-      return { status: 403, message: "Forbidden" };
-    } else {
-      console.error('Error getting local payment link:', error);
-      return null;
-    }
-  }
-};
