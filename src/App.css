@@ -1846,7 +1846,7 @@ a:hover {
       margin-bottom: 5px;
       color: rgba(28, 29, 34, 0.8); }
     .hizmetler .hizmet-wrap .hizmet-ücret {
-      color: rgba(28, 29, 34, 0.5); }
+      color: rgba(28, 29, 34, 0.7); }
     .hizmetler .hizmet-wrap .hizmet-img {
       position: absolute;
       bottom: 0px;
@@ -1964,7 +1964,7 @@ a:hover {
   .overlay .modalContainer {
     justify-content: center;
     z-index: 50;
-    width: 90vw;
+    width: 65vw;
     height: auto;
     position: fixed;
     top: 50%;

@@ -2609,7 +2609,7 @@ a:hover {
         color: rgba(28, 29, 34, 0.8);
       }
       .hizmet-ücret {
-        color: rgba(28, 29, 34, 0.5);
+        color: rgba(28, 29, 34, .7);
       }
       .hizmet-img {
         position: absolute;
@@ -2777,7 +2777,7 @@ a:hover {
     .modalContainer {
       justify-content: center;
       z-index: 50;
-      width: 90vw;
+      width: 65vw;
       height: auto;
       position: fixed;
       top: 50%;

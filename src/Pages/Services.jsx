@@ -32,6 +32,7 @@ function Services() {
   //------------------------------------------------------------------------------
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedList, setSelectedList] = useState(null);
   const [activeTab, setActiveTab] = useState("amazon"); // Initialize with the default active tab
   const [isMobile, setIsMobile] = useState(false);
 
@@ -48,9 +49,10 @@ function Services() {
   }
 
   //------------------------------------------------------------------------------
-  const openModal = (item) => {
+  const openModal = (item, list) => {
     setIsModalOpen(true);
     setSelectedItem(item);
+    setSelectedList(list);
     document.body.classList.add("modal-open");
   };
 
@@ -307,6 +309,7 @@ function Services() {
             </ul>
           </>
         );
+        
       case 'TWFBSN':
         return(
           <>
@@ -597,37 +600,6 @@ function Services() {
   }
 
 
-/*   23
-: 
-{package_id: 24, code: 'TMRCLABN', name: 'Mercado Libre Abonelik', description: 'desc', price: 799, …}
-24
-: 
-{package_id: 25, code: 'TMRCLBSN', name: 'Mercado Libre Business', description: 'desc', price: 2099, …}
-25
-: 
-{package_id: 26, code: 'TONBYABN', name: 'OnBuy Abonelik', description: 'desc', price: 699, …}
-26
-: 
-{package_id: 27, code: 'TONBYBSN', name: 'OnBuy Business', description: 'desc', price: 1899, …}
-27
-: 
-{package_id: 28, code: 'TCDSCABN', name: 'CDiscount Abonelik', description: 'desc', price: 799, …}
-28
-: 
-{package_id: 29, code: 'TCDSCBSN', name: 'CDiscount Business', description: 'desc', price: 2099, …}
-29
-: 
-{package_id: 30, code: 'TJMABN', name: 'Jumia Abonelik', description: 'desc', price: 699, …}
-30
-: 
-{package_id: 31, code: 'TJMBSN', name: 'Jumia Business', description: 'desc', price: 1799, …}
-31
-: 
-{package_id: 32, code: 'TEBAYABN', name: 'Ebay Abonelik', description: 'desc', price: 499, …}
-32
-: 
-{package_id: 33, code: 'TEBAYBSN', name: 'Ebay Business', description: 'desc', price: 799, …}
- */
 
 
   return (
@@ -636,6 +608,7 @@ function Services() {
         isOpen={isModalOpen}
         onClose={closeModal}
         selectedItem={selectedItem}
+        selectedList={selectedList}
       />
       <UserPage pageName={"Hizmetler"}>
         <section className="hizmetler">
@@ -685,11 +658,14 @@ function Services() {
                                           <>
                                             <div className="col-xl-3 col-lg-6 col-12 mb-4">
                                               <div
-                                                onClick={() => openModal(pkg)}
+                                                onClick={() => openModal(pkg, content(pkg.code))}
                                                 className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 amazon"
                                               >
                                                 <p className="hizmet-isim">
                                                   {pkg.name}
+                                                </p>
+                                                <p className="hizmet-ücret-indirim mb-0" style={{textDecoration:"line-through"}}>
+                                                  {pkg.old_price} {pkg.currency}
                                                 </p>
                                                 <p className="hizmet-ücret">
                                                   {pkg.price}
@@ -708,6 +684,7 @@ function Services() {
                                     </div>
                                   </div>
                                 </div>
+                              
                               </div>
                               <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingThree">
@@ -725,11 +702,14 @@ function Services() {
                                         <>
                                           <div className="col-12 col-lg-3 mb-4">
                                             <div
-                                              onClick={() => openModal(pkg)}
+                                              onClick={() => openModal(pkg, content(pkg.code))}
                                               className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 allegro"
                                             >
                                               <p className="hizmet-isim">
                                                 {pkg.name}
+                                              </p>
+                                              <p className="hizmet-ücret-indirim mb-0" style={{textDecoration:"line-through"}}>
+                                                {pkg.old_price} {pkg.currency}
                                               </p>
                                               <p className="hizmet-ücret">
                                                 {pkg.price} {pkg.currency}
@@ -746,6 +726,7 @@ function Services() {
                                     </div>
                                   </div>
                                 </div>
+                              
                               </div>
 
                               <div class="accordion-item">
@@ -764,11 +745,14 @@ function Services() {
                                         <>
                                           <div className="col-12 col-lg-3 mb-4">
                                             <div
-                                              onClick={() => openModal(pkg)}
+                                              onClick={() => openModal(pkg, content(pkg.code))}
                                               className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 allegro"
                                             >
                                               <p className="hizmet-isim">
                                                 {pkg.name}
+                                              </p>
+                                              <p className="hizmet-ücret-indirim mb-0" style={{textDecoration:"line-through"}}>
+                                                {pkg.old_price} {pkg.currency}
                                               </p>
                                               <p className="hizmet-ücret">
                                                 {pkg.price} {pkg.currency}
@@ -785,6 +769,7 @@ function Services() {
                                     </div>
                                   </div>
                                 </div>
+                              
                               </div>
 
                               <div class="accordion-item">
@@ -803,11 +788,14 @@ function Services() {
                                         <>
                                           <div className="col-12 col-lg-3 mb-4">
                                             <div
-                                              onClick={() => openModal(pkg)}
+                                              onClick={() => openModal(pkg, content(pkg.code))}
                                               className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 amazon"
                                             >
                                               <p className="hizmet-isim">
                                                 {pkg.name}
+                                              </p>
+                                              <p className="hizmet-ücret-indirim mb-0" style={{textDecoration:"line-through"}}>
+                                                {pkg.old_price} {pkg.currency}
                                               </p>
                                               <p className="hizmet-ücret">
                                                 {pkg.price} {pkg.currency}
@@ -824,6 +812,7 @@ function Services() {
                                     </div>
                                   </div>{" "}
                                 </div>
+                              
                               </div>
 
                               <div class="accordion-item">
@@ -842,11 +831,14 @@ function Services() {
                                         <>
                                           <div className="col-12 col-lg-3 mb-4">
                                             <div
-                                              onClick={() => openModal(pkg)}
+                                              onClick={() => openModal(pkg, content(pkg.code))}
                                               className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 walmart"
                                             >
                                               <p className="hizmet-isim">
                                                 {pkg.name}
+                                              </p>
+                                              <p className="hizmet-ücret-indirim mb-0" style={{textDecoration:"line-through"}}>
+                                                {pkg.old_price} {pkg.currency}
                                               </p>
                                               <p className="hizmet-ücret">
                                                 {pkg.price} {pkg.currency}
@@ -863,6 +855,7 @@ function Services() {
                                     </div>
                                   </div>
                                 </div>
+                              
                               </div>
 
                               <div class="accordion-item">
@@ -881,11 +874,14 @@ function Services() {
                                         <>
                                           <div className="col-12 col-lg-3 mb-4">
                                             <div
-                                              onClick={() => openModal(pkg)}
+                                              onClick={() => openModal(pkg, content(pkg.code))}
                                               className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 wayfair"
                                             >
                                               <p className="hizmet-isim">
                                                 {pkg.name}
+                                              </p>
+                                              <p className="hizmet-ücret-indirim mb-0" style={{textDecoration:"line-through"}}>
+                                                {pkg.old_price} {pkg.currency}
                                               </p>
                                               <p className="hizmet-ücret">
                                                 {pkg.price} {pkg.currency}
@@ -902,6 +898,7 @@ function Services() {
                                     </div>
                                   </div>
                                 </div>
+                              
                               </div>
 
                               <div class="accordion-item">
@@ -921,11 +918,14 @@ function Services() {
                                           <>
                                             <div className="col-12 col-lg-3 mb-4">
                                               <div
-                                                onClick={() => openModal(pkg)}
+                                                onClick={() => openModal(pkg, content(pkg.code))}
                                                 className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 walmart"
                                               >
                                                 <p className="hizmet-isim">
                                                   {pkg.name}
+                                                </p>
+                                                <p className="hizmet-ücret-indirim mb-0" style={{textDecoration:"line-through"}}>
+                                                  {pkg.old_price} {pkg.currency}
                                                 </p>
                                                 <p className="hizmet-ücret">
                                                   {pkg.price} {pkg.currency}
@@ -943,6 +943,7 @@ function Services() {
                                     </div>
                                   </div>{" "}
                                 </div>
+                              
                               </div>
 
                               <div class="accordion-item">
@@ -962,11 +963,14 @@ function Services() {
                                         <>
                                           <div className="col-12 col-lg-3 mb-4">
                                             <div
-                                              onClick={() => openModal(pkg)}
+                                              onClick={() => openModal(pkg, content(pkg.code))}
                                               className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 ozon"
                                             >
                                               <p className="hizmet-isim">
                                                 {pkg.name}
+                                              </p>
+                                              <p className="hizmet-ücret-indirim mb-0" style={{textDecoration:"line-through"}}>
+                                                {pkg.old_price} {pkg.currency}
                                               </p>
                                               <p className="hizmet-ücret">
                                                 {pkg.price} {pkg.currency}
@@ -983,6 +987,7 @@ function Services() {
                                     </div>
                                   </div>
                                 </div>
+                              
                               </div>
 
                               <div class="accordion-item">
@@ -1002,11 +1007,14 @@ function Services() {
                                         <>
                                           <div className="col-12 col-lg-3 mb-4">
                                             <div
-                                              onClick={() => openModal(pkg)}
+                                              onClick={() => openModal(pkg, content(pkg.code))}
                                               className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 ozon"
                                             >
                                               <p className="hizmet-isim">
                                                 {pkg.name}
+                                              </p>
+                                              <p className="hizmet-ücret-indirim mb-0" style={{textDecoration:"line-through"}}>
+                                                {pkg.old_price} {pkg.currency}
                                               </p>
                                               <p className="hizmet-ücret">
                                                 {pkg.price} {pkg.currency}
@@ -1023,6 +1031,7 @@ function Services() {
                                     </div>
                                   </div>
                                 </div>
+                              
                               </div>
 
                               <div class="accordion-item">
@@ -1037,23 +1046,26 @@ function Services() {
                                     <div className="row mt-4">
                                       {filterPackagesByFirstWord(
                                         servicepkgs,
-                                        "TFRG"
+                                        "TMRCL"
                                       ).map((pkg, index) => (
                                         <>
                                           <div className="col-12 col-lg-3 mb-4">
                                             <div
-                                              onClick={() => openModal(pkg)}
+                                              onClick={() => openModal(pkg, content(pkg.code))}
                                               className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 ozon"
                                             >
                                               <p className="hizmet-isim">
                                                 {pkg.name}
+                                              </p>
+                                              <p className="hizmet-ücret-indirim mb-0" style={{textDecoration:"line-through"}}>
+                                                {pkg.old_price} {pkg.currency}
                                               </p>
                                               <p className="hizmet-ücret">
                                                 {pkg.price} {pkg.currency}
                                               </p>
                                               <img
                                                 className="hizmet-img"
-                                                src={fruugo}
+                                                src={mercado}
                                                 alt=""
                                               />
                                             </div>
@@ -1063,6 +1075,7 @@ function Services() {
                                     </div>
                                   </div>
                                 </div>
+                              
                               </div>
 
                               <div class="accordion-item">
@@ -1077,23 +1090,26 @@ function Services() {
                                     <div className="row mt-4">
                                       {filterPackagesByFirstWord(
                                         servicepkgs,
-                                        "TFRG"
+                                        "TONBY"
                                       ).map((pkg, index) => (
                                         <>
                                           <div className="col-12 col-lg-3 mb-4">
                                             <div
-                                              onClick={() => openModal(pkg)}
+                                              onClick={() => openModal(pkg, content(pkg.code))}
                                               className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 ozon"
                                             >
                                               <p className="hizmet-isim">
                                                 {pkg.name}
+                                              </p>
+                                              <p className="hizmet-ücret-indirim mb-0" style={{textDecoration:"line-through"}}>
+                                                {pkg.old_price} {pkg.currency}
                                               </p>
                                               <p className="hizmet-ücret">
                                                 {pkg.price} {pkg.currency}
                                               </p>
                                               <img
                                                 className="hizmet-img"
-                                                src={fruugo}
+                                                src={onbuy}
                                                 alt=""
                                               />
                                             </div>
@@ -1103,6 +1119,7 @@ function Services() {
                                     </div>
                                   </div>
                                 </div>
+                              
                               </div>
                               <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingFourteen">
@@ -1116,23 +1133,26 @@ function Services() {
                                     <div className="row mt-4">
                                       {filterPackagesByFirstWord(
                                         servicepkgs,
-                                        "TFRG"
+                                        "TCDSC"
                                       ).map((pkg, index) => (
                                         <>
                                           <div className="col-12 col-lg-3 mb-4">
                                             <div
-                                              onClick={() => openModal(pkg)}
+                                              onClick={() => openModal(pkg, content(pkg.code))}
                                               className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 ozon"
                                             >
                                               <p className="hizmet-isim">
                                                 {pkg.name}
+                                              </p>
+                                              <p className="hizmet-ücret-indirim mb-0" style={{textDecoration:"line-through"}}>
+                                                {pkg.old_price} {pkg.currency}
                                               </p>
                                               <p className="hizmet-ücret">
                                                 {pkg.price} {pkg.currency}
                                               </p>
                                               <img
                                                 className="hizmet-img"
-                                                src={fruugo}
+                                                src={cdiscount}
                                                 alt=""
                                               />
                                             </div>
@@ -1142,6 +1162,7 @@ function Services() {
                                     </div>
                                   </div>
                                 </div>
+                              
                               </div>
 
                               <div class="accordion-item">
@@ -1156,23 +1177,26 @@ function Services() {
                                     <div className="row mt-4">
                                       {filterPackagesByFirstWord(
                                         servicepkgs,
-                                        "TFRG"
+                                        "TJM"
                                       ).map((pkg, index) => (
                                         <>
                                           <div className="col-12 col-lg-3 mb-4">
                                             <div
-                                              onClick={() => openModal(pkg)}
+                                              onClick={() => openModal(pkg, content(pkg.code))}
                                               className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 ozon"
                                             >
                                               <p className="hizmet-isim">
                                                 {pkg.name}
+                                              </p>
+                                              <p className="hizmet-ücret-indirim mb-0" style={{textDecoration:"line-through"}}>
+                                                {pkg.old_price} {pkg.currency}
                                               </p>
                                               <p className="hizmet-ücret">
                                                 {pkg.price} {pkg.currency}
                                               </p>
                                               <img
                                                 className="hizmet-img"
-                                                src={fruugo}
+                                                src={jumia}
                                                 alt=""
                                               />
                                             </div>
@@ -1182,6 +1206,7 @@ function Services() {
                                     </div>
                                   </div>
                                 </div>
+                              
                               </div>
 
                               <div class="accordion-item">
@@ -1196,23 +1221,26 @@ function Services() {
                                     <div className="row mt-4">
                                       {filterPackagesByFirstWord(
                                         servicepkgs,
-                                        "TFRG"
+                                        "TEBAY"
                                       ).map((pkg, index) => (
                                         <>
                                           <div className="col-12 col-lg-3 mb-4">
                                             <div
-                                              onClick={() => openModal(pkg)}
+                                              onClick={() => openModal(pkg, content(pkg.code))}
                                               className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 ozon"
                                             >
                                               <p className="hizmet-isim">
                                                 {pkg.name}
+                                              </p>
+                                              <p className="hizmet-ücret-indirim mb-0" style={{textDecoration:"line-through"}}>
+                                                {pkg.old_price} {pkg.currency}
                                               </p>
                                               <p className="hizmet-ücret">
                                                 {pkg.price} {pkg.currency}
                                               </p>
                                               <img
                                                 className="hizmet-img"
-                                                src={fruugo}
+                                                src={ebay}
                                                 alt=""
                                               />
                                             </div>
@@ -1222,6 +1250,7 @@ function Services() {
                                     </div>
                                   </div>
                                 </div>
+                              
                               </div>
 
                               <div class="accordion-item">
@@ -1241,7 +1270,7 @@ function Services() {
                                         <>
                                           <div className="col-12 col-lg-3 mb-4">
                                             <div
-                                              onClick={() => openModal(pkg)}
+                                              onClick={() => openModal(pkg, content(pkg.code))}
                                               className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 ozon"
                                             >
                                               <p className="hizmet-isim">
@@ -1262,6 +1291,7 @@ function Services() {
                                     </div>
                                   </div>
                                 </div>
+                              
                               </div>
                             </div>
                           </>
@@ -1329,7 +1359,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 amazon "
                                         >
                                           <p className="hizmet-isim">
@@ -1374,7 +1404,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 allegro"
                                         >
                                           <p className="hizmet-isim">
@@ -1418,7 +1448,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 allegro"
                                         >
                                           <p className="hizmet-isim">
@@ -1462,7 +1492,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 amazon"
                                         >
                                           <p className="hizmet-isim">
@@ -1506,7 +1536,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 walmart"
                                         >
                                           <p className="hizmet-isim">
@@ -1550,7 +1580,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 wayfair"
                                         >
                                           <p className="hizmet-isim">
@@ -1594,7 +1624,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 walmart"
                                         >
                                           <p className="hizmet-isim">
@@ -1638,7 +1668,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 ozon"
                                         >
                                           <p className="hizmet-isim">
@@ -1682,7 +1712,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 ozon"
                                         >
                                           <p className="hizmet-isim">
@@ -1726,7 +1756,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 mercado"
                                         >
                                           <p className="hizmet-isim">
@@ -1770,7 +1800,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 ozon"
                                         >
                                           <p className="hizmet-isim">
@@ -1814,7 +1844,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 cdiscount"
                                         >
                                           <p className="hizmet-isim">
@@ -1858,7 +1888,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 allegro"
                                         >
                                           <p className="hizmet-isim">
@@ -1902,7 +1932,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 mercado"
                                         >
                                           <p className="hizmet-isim">
@@ -1946,7 +1976,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg)}
+                                          onClick={() => openModal(pkg, content(pkg.code))}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 wayfair"
                                         >
                                           <p className="hizmet-isim">
