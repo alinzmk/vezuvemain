@@ -199,7 +199,7 @@ function Services() {
           </>
         );
         
-      case 'TOZNBSN':
+      case 'TOZONBSN':
         return(
           <>
             <ul className="packageList">
@@ -214,7 +214,7 @@ function Services() {
             </ul>
           </>
         );
-        case 'TOZNGLB':
+        case 'TOZONGLB':
           return(
           <>
             <p className="mb-2">Business paketindeki tüm özelliklere ek</p>
@@ -230,7 +230,7 @@ function Services() {
       case 'TALGABN':
         return(
           <>
-            <p className="mb-2">Mağazası Olan Satıcılar</p>
+            <p className="mb-2"></p>
             <ul className="packageList">
               <li>Allegro Mağaza açılışı</li>
               <li>Polonya VAT kaydı Desteği</li>
@@ -260,7 +260,7 @@ function Services() {
       case 'TEGABN':
         return(
           <>
-            <p className="mb-2">Mağazası Olan Satıcılar</p>
+            <p className="mb-2"></p>
             <ul className="packageList">
               <li>EMAG Mağaza açılışı</li>
               <li>Romanya VAT Kaydı Destek</li>
@@ -291,7 +291,7 @@ function Services() {
       case 'TWFABN':
         return(
           <>
-            <p className="mb-2">Mağazası Olan Satıcılar</p>
+            <p className="mb-2"></p>
             <ul className="packageList">
               <li>Pazar Araştırması</li>
               <li>Wayfair Mağaza açılışı</li>
@@ -322,7 +322,7 @@ function Services() {
       case 'TFRGABN':
         return(
           <>
-            <p className="mb-2">Mağazası Olan Satıcılar</p>
+            <p className="mb-2"></p>
             <ul className="packageList">
               <li>Fruugo Mağaza açılışı</li>
               <li>Reklam Yönetimi</li>
@@ -365,7 +365,7 @@ function Services() {
       case 'TWLMTABN':
         return(
           <>
-            <p className="mb-2">Mağazası Olan Satıcılar</p>
+            <p className="mb-2"></p>
             <ul className="packageList">
               <li>Walmart Mağaza açılışı</li>
               <li>SEO Ürün Listeleme (20 Ürün)</li>
@@ -395,7 +395,7 @@ function Services() {
         case 'TTRDYABN':
         return(
           <>
-            <p className="mb-2">Mağazası Olan Satıcılar</p>
+            <p className="mb-2"></p>
             <ul className="packageList">
               <li>Ürün Seçimi</li>
               <li>Mağaza Açılışı</li>
@@ -1485,7 +1485,7 @@ function Services() {
                                   {filterPackagesByFirstWord(
                                     servicepkgs,
                                     "TTRDY"
-                                  ).map((pkg, index) => (
+                                  ).reverse().map((pkg, index) => (
                                     <>
                                       <div
                                         className="col-12 col-lg-3 mb-4"
@@ -1529,7 +1529,7 @@ function Services() {
                                   {filterPackagesByFirstWord(
                                     servicepkgs,
                                     "TWLMT"
-                                  ).map((pkg, index) => (
+                                  ).reverse().map((pkg, index) => (
                                     <>
                                       <div
                                         className="col-12 col-lg-3 mb-4"
@@ -1660,7 +1660,7 @@ function Services() {
                                 <div className="row mt-4">
                                   {filterPackagesByFirstWord(
                                     servicepkgs,
-                                    "TO"
+                                    "TOZON"
                                   ).map((pkg, index) => (
                                     <>
                                       <div

@@ -58,8 +58,8 @@ const Plan1 = ({isOpen,onClose,selectedItem, selectedList }) => {
 
             <div onClick={(e)=>{e.stopPropagation()}} class="modalContainer fadeIn">
                     <button onClick={onClose} class="closeBtn"><i class="fa-solid fa-x"></i></button>
-                {!isMobile ? (<>
-
+                {!isMobile ? (
+                    <>
                     <div class="row px-5 py-3 w-100">
                         <div className="col-12 col-lg-6 mt-5 ps-1">
                                 <img className='modal-logo ' src={require(`../Assets/${getFirstWordInLowerCase(selectedItem.name)}.png`)} alt="" />
