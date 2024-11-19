@@ -958,7 +958,7 @@ function Services() {
                                     <div className="row mt-4">
                                       {filterPackagesByFirstWord(
                                         servicepkgs,
-                                        "TO"
+                                        "TOZON"
                                       ).map((pkg, index) => (
                                         <>
                                           <div className="col-12 col-lg-3 mb-4">
