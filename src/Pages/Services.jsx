@@ -41,14 +41,16 @@ function Services() {
   const { servicepkgs } = useSelector((state) => state.servicepkgs);
   const { partner } = useSelector((state) => state.partner);
 
-  console.log(servicepkgs)
-
   //------------------------------------------------------------------------------
   if (servicepkgs.length === 0) {
     dispatch(fetchAllRedux());
   }
 
   //------------------------------------------------------------------------------
+  const forwardToLink = (link) => {
+    window.open(link, '_blank', 'noopener,noreferrer');
+  };
+
   const openModal = (item, list) => {
     setIsModalOpen(true);
     setSelectedItem(item);
@@ -62,7 +64,6 @@ function Services() {
   };
 
   useEffect(() => {
-    console.log(servicepkgs);
     const storedTab = JSON.parse(sessionStorage.getItem("tab"));
     if (storedTab) {
       setActiveTab(storedTab);
@@ -1359,7 +1360,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 amazon "
                                         >
                                           <p className="hizmet-isim">
@@ -1404,7 +1405,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 allegro"
                                         >
                                           <p className="hizmet-isim">
@@ -1448,7 +1449,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 allegro"
                                         >
                                           <p className="hizmet-isim">
@@ -1492,7 +1493,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 amazon"
                                         >
                                           <p className="hizmet-isim">
@@ -1536,7 +1537,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 walmart"
                                         >
                                           <p className="hizmet-isim">
@@ -1580,7 +1581,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 wayfair"
                                         >
                                           <p className="hizmet-isim">
@@ -1624,7 +1625,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 walmart"
                                         >
                                           <p className="hizmet-isim">
@@ -1668,7 +1669,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 ozon"
                                         >
                                           <p className="hizmet-isim">
@@ -1712,7 +1713,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 ozon"
                                         >
                                           <p className="hizmet-isim">
@@ -1756,7 +1757,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 mercado"
                                         >
                                           <p className="hizmet-isim">
@@ -1800,7 +1801,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 ozon"
                                         >
                                           <p className="hizmet-isim">
@@ -1844,7 +1845,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 cdiscount"
                                         >
                                           <p className="hizmet-isim">
@@ -1888,7 +1889,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 allegro"
                                         >
                                           <p className="hizmet-isim">
@@ -1932,7 +1933,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 mercado"
                                         >
                                           <p className="hizmet-isim">
@@ -1976,7 +1977,7 @@ function Services() {
                                         key={index}
                                       >
                                         <div
-                                          onClick={() => openModal(pkg, content(pkg.code))}
+                                          onClick={() => forwardToLink(pkg.link)}
                                           className="hizmet d-flex flex-column h-100 d-flex flex-column h-100 wayfair"
                                         >
                                           <p className="hizmet-isim">
